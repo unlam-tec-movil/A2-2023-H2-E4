@@ -39,5 +39,16 @@ fun BottomBar(controller: NavHostController) {
                 )
             },
         )
+        NavigationBarItem(
+            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == "tercero" } == true,
+            onClick = { controller.navigate("tercero") },
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.AccountBox,
+                    contentDescription = "Borrar Tarea",
+                    tint = MaterialTheme.colorScheme.primary,
+                )
+            },
+        )
     }
 }
