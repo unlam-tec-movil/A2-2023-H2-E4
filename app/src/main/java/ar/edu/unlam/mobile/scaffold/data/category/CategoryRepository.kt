@@ -17,7 +17,7 @@ object CategoryRepository {
 
     fun listOfNames(): List<String> {
         val names = mutableListOf<String>()
-        categories.any { category: Category -> names.add(category.name) }
+        categories.forEach { category: Category -> names.add(category.name) }
         return names
     }
 }

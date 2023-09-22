@@ -24,3 +24,4 @@ fun Body(column1: String, column2: String, list: MutableList<Category>) {
         Statistics(column1 = column1, column2 = column2, list = list)
     }
 }
+
