@@ -2,9 +2,13 @@ package ar.edu.unlam.mobile.scaffold.data.category
 
 object CategoryRepository {
     private val categories = mutableListOf(
-        Category("Ropa"),
-        Category("Comida"),
-        Category("Limpieza")
+        Category("Ropa", 5000.0),
+        Category("Comida", 20000.0),
+        Category("Limpieza", 1000.0),
+        Category("Servicios", 50000.0),
+        Category("Impuestos", 30000.0),
+        Category("Tecnología", 100000.0),
+        Category("Mascotas", 40000.0)
     )
 
     fun order(): List<Category> {
