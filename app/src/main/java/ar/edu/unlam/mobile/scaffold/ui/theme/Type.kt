@@ -30,8 +30,4 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     )
 )
-    /* Other default text styles to override
-
-
-     */
 
