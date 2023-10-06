@@ -1,9 +1,7 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -34,8 +32,8 @@ fun BottomBar(controller: NavHostController) {
             label = { Text(text = "Nuevo Movimiento") },
         )
         NavigationBarItem(
-            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screens.Secondary.route} == true,
-            onClick = { controller.navigate(Screens.Secondary.withId(667867895) ) },
+            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screens.Secondary.route } == true,
+            onClick = { controller.navigate(Screens.Secondary.withId(667867895)) },
             icon = {
                 Icon(
                     imageVector = Icons.Default.Star,

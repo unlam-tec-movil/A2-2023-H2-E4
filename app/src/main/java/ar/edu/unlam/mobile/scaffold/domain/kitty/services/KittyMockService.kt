@@ -7,30 +7,32 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class KittyMockService @Inject constructor() : KittyGetter {
-    override suspend fun getKitty(): Flow<Kitty> {
-        return flow {
-            emit(
-                Kitty(
-                    id = "VEINTE MILLONES 四百",
-                    url = "https://img.freepik.com/foto-gratis/cerrar-lindo-gato-interior_23-2148882585.jpg",
-                    width = 100,
-                    height = 100,
-                ),
-            )
+class KittyMockService
+    @Inject
+    constructor() : KittyGetter {
+        override suspend fun getKitty(): Flow<Kitty> {
+            return flow {
+                emit(
+                    Kitty(
+                        id = "VEINTE MILLONES 四百",
+                        url = "https://img.freepik.com/foto-gratis/cerrar-lindo-gato-interior_23-2148882585.jpg",
+                        width = 100,
+                        height = 100,
+                    ),
+                )
+            }
         }
-    }
 
-    override suspend fun getKittyById(id: Int): Flow<Kitty> {
-        return flow {
-            emit(
-                Kitty(
-                    id = "$id",
-                    url = "https://img.freepik.com/foto-gratis/cerrar-lindo-gato-interior_23-2148882585.jpg",
-                    width = 100,
-                    height = 100,
-                ),
-            )
+        override suspend fun getKittyById(id: Int): Flow<Kitty> {
+            return flow {
+                emit(
+                    Kitty(
+                        id = "$id",
+                        url = "https://img.freepik.com/foto-gratis/cerrar-lindo-gato-interior_23-2148882585.jpg",
+                        width = 100,
+                        height = 100,
+                    ),
+                )
+            }
         }
     }
-}

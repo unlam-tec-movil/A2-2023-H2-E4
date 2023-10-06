@@ -5,5 +5,4 @@ sealed class Screens(val route: String) {
     object Secondary : Screens("secondary") {
         fun withId(id: Int) = "secondary/$id"
     }
-
 }
