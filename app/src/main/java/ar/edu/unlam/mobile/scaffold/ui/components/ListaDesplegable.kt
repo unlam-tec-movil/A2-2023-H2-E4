@@ -37,8 +37,7 @@ fun ListaDesplegable (list: List<String>) {
         ExposedDropdownMenu(
             expanded = isExpanded,
             onDismissRequest = { isExpanded = false }
-        )
-        {
+        ) {
             list.forEach { label ->
                 DropdownMenuItem(text = { Text(label) }, onClick = {
                     item = label

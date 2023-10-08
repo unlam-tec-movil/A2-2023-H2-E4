@@ -40,8 +40,8 @@ fun BottomBar(controller: NavHostController) {
             },
         )
         NavigationBarItem(
-            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == "tercero" } == true,
-            onClick = { controller.navigate("tercero") },
+            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == "chartScreen" } == true,
+            onClick = { controller.navigate("chartScreen") },
             icon = {
                 Icon(
                     imageVector = Icons.Default.AccountBox,

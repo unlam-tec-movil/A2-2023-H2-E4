@@ -21,16 +21,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffold.data.category.Category
+import ar.edu.unlam.mobile.scaffold.data.category.CategoryRepository
 
 @Composable
 fun Statistics(
     column1: String,
     column2: String,
+    column3: String,
     list: MutableList<Category>,
     color1: Color,
     color2: Color
 ) {
-    Row (
+    Row(
         modifier = Modifier
             .fillMaxWidth()
             .background(color1)
@@ -38,17 +40,18 @@ fun Statistics(
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = column1, fontSize = 30.sp, color = Color.White)
-        Text(text = column2, fontSize = 30.sp, color = Color.White)
+        Text(text = column1, fontSize = 23.sp, color = Color.White)
+        Text(text = column2, fontSize = 23.sp, color = Color.White)
+        Text(text = column3, fontSize = 23.sp, color = Color.White)
     }
     ShowCategories(list, color2)
 }
 
 @Composable
 fun ShowCategories(data: MutableList<Category>, color: Color) {
-    LazyColumn (
+    LazyColumn(
         modifier = Modifier.fillMaxWidth()
-            .height(190.dp)
+            .height(200.dp)
             .background(color = color)
     ) {
         items(data) { item -> ListItemRow(item) }
@@ -57,25 +60,34 @@ fun ShowCategories(data: MutableList<Category>, color: Color) {
 
 @Composable
 private fun ListItemRow(item: Category) {
-    Row (
+    Row(
         modifier = Modifier.fillMaxWidth()
-    ){
+            .background(color = item.color)
+    ) {
         Spacer(modifier = Modifier.width(20.dp))
-        Column (
+        Column(
             Modifier
                 .padding(5.dp)
-                .width(165.dp)
-                .fillMaxHeight()
-        ){
-            Text(item.name, textAlign = TextAlign.Left, fontSize = 20.sp)
-        }
-        Column (
-            Modifier
-                .padding(5.dp)
-                .width(165.dp)
+                .width(130.dp)
                 .fillMaxHeight()
         ) {
-            Text("$${item.totalAmount}", textAlign = TextAlign.Right, fontSize = 20.sp)
+            Text(item.name, textAlign = TextAlign.Left, fontSize = 15.sp)
+        }
+        Column(
+            Modifier
+                .padding(5.dp)
+                .width(100.dp)
+                .fillMaxHeight()
+        ) {
+            Text("${CategoryRepository.porcentaje(item)}%", textAlign = TextAlign.Center, fontSize = 15.sp)
+        }
+        Column(
+            Modifier
+                .padding(5.dp)
+                .width(100.dp)
+                .fillMaxHeight()
+        ) {
+            Text("$${item.totalAmount}", textAlign = TextAlign.Right, fontSize = 15.sp)
         }
     }
 }

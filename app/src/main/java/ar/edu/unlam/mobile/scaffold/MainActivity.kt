@@ -16,8 +16,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import ar.edu.unlam.mobile.scaffold.ui.components.BottomBar
+import ar.edu.unlam.mobile.scaffold.ui.screens.ChartScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.HomeScreen
-import ar.edu.unlam.mobile.scaffold.ui.screens.ScreenThree
 import ar.edu.unlam.mobile.scaffold.ui.screens.SecondaryScreen
 import ar.edu.unlam.mobile.scaffold.ui.theme.MyApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,8 +62,8 @@ fun MainScreen() {
                 val id = navBackStackEntry.arguments?.getInt("id") ?: 1
                 SecondaryScreen(controller = controller, id = id)
             }
-            composable("tercero") {
-                ScreenThree()
+            composable("chartScreen") {
+                ChartScreen()
             }
         }
     }
