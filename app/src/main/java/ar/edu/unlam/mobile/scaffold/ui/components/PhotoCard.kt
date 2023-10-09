@@ -24,9 +24,15 @@ import coil.compose.AsyncImage
 
 // https://www.develou.com/cards-en-jetpack-compose/
 @Composable
-fun PhotoCard(text: String, title: String, imageUrl: String, action: () -> Unit, modifier: Modifier = Modifier) {
+fun PhotoCard(
+    text: String,
+    title: String,
+    imageUrl: String,
+    action: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Card(modifier = modifier) {
-        Column() {
+        Column {
             Row(
                 Modifier.fillMaxWidth().height(250.dp),
                 verticalAlignment = Alignment.CenterVertically,

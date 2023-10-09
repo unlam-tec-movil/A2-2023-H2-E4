@@ -21,9 +21,13 @@ import ar.edu.unlam.mobile.scaffold.domain.kitty.models.Kitty
 import coil.compose.AsyncImage
 
 @Composable
-fun PhotoItem(text: String, imageUrl: String, modifier: Modifier = Modifier) {
+fun PhotoItem(
+    text: String,
+    imageUrl: String,
+    modifier: Modifier = Modifier,
+) {
     Card(modifier = modifier) {
-        Column() {
+        Column {
             Row(
                 Modifier.fillMaxWidth().height(50.dp),
                 verticalAlignment = Alignment.CenterVertically,
@@ -50,9 +54,12 @@ fun PhotoItem(text: String, imageUrl: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun KittyCard(kitty: Kitty, modifier: Modifier = Modifier) {
+fun KittyCard(
+    kitty: Kitty,
+    modifier: Modifier = Modifier,
+) {
     Card(modifier = modifier) {
-        Column() {
+        Column {
             Row(
                 Modifier.fillMaxWidth().height(50.dp),
                 verticalAlignment = Alignment.CenterVertically,

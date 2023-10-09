@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.ui.screens
+package ar.edu.unlam.mobile.scaffold.ui.screens.SecondaryScreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
@@ -9,7 +9,10 @@ import ar.edu.unlam.mobile.scaffold.domain.kitty.models.Kitty
 import ar.edu.unlam.mobile.scaffold.ui.components.KittyCard
 
 @Composable
-fun SecondaryScreen(controller: NavHostController, id: Int = 10) {
+fun SecondaryScreen(
+    controller: NavHostController,
+    id: Int = 10,
+) {
     Column {
         Text(text = "Hola soy la pantalla secundaria $id")
         KittyCard(
