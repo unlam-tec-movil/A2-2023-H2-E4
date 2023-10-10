@@ -54,7 +54,9 @@ fun ShowCategories(data: MutableList<Category>, color: Color) {
             .height(200.dp)
             .background(color = color)
     ) {
-        items(data) { item -> ListItemRow(item) }
+        items(data) {
+            item -> ListItemRow(item)
+        }
     }
 }
 

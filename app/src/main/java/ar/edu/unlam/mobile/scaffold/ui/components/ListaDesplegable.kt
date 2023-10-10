@@ -23,8 +23,10 @@ fun ListaDesplegable (list: List<String>) {
         mutableStateOf("")
     }
 
-    ExposedDropdownMenuBox(expanded = isExpanded, onExpandedChange = { isExpanded = it })
-    {
+    ExposedDropdownMenuBox(
+        expanded = isExpanded,
+        onExpandedChange = { isExpanded = it }
+    ) {
         TextField(
             value = item,
             onValueChange = {},
@@ -33,16 +35,26 @@ fun ListaDesplegable (list: List<String>) {
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
             },
             modifier = Modifier.menuAnchor(),
-            label = { Text(text = "") })
+            label = {
+                Text(text = "")
+            }
+        )
         ExposedDropdownMenu(
             expanded = isExpanded,
-            onDismissRequest = { isExpanded = false }
+            onDismissRequest = {
+                isExpanded = false
+            }
         ) {
             list.forEach { label ->
-                DropdownMenuItem(text = { Text(label) }, onClick = {
-                    item = label
-                    isExpanded = false
-                })
+                DropdownMenuItem(
+                    text = {
+                        Text(label)
+                    },
+                    onClick = {
+                        item = label
+                        isExpanded = false
+                    }
+                )
             }
         }
     }

@@ -7,8 +7,8 @@ import kotlin.math.roundToInt
 object CategoryRepository {
     private val categories = mutableListOf(
         Category(1, TransactionType.Expense,"Ropa", 5000.0, Color.Magenta),
-        Category(2, TransactionType.Expense,"Comida", 20000.0, Color.Cyan),
-        Category(3, TransactionType.Expense,"Limpieza", 1000.0, Color.Green)
+        Category(2, TransactionType.Expense,"Comida",20000.0, Color.Cyan),
+        Category(3, TransactionType.Expense,"Limpieza",1000.0, Color.Green)
     )
 
     fun order(): List<Category> {
@@ -21,7 +21,9 @@ object CategoryRepository {
 
     fun listOfNames(): List<String> {
         val names = mutableListOf<String>()
-        categories.forEach { category: Category -> names.add(category.name) }
+        categories.forEach {
+            category: Category -> names.add(category.name)
+        }
         return names
     }
 
