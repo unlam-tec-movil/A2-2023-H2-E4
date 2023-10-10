@@ -1,7 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
 
-
-
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -100,7 +98,7 @@ fun pieChart(
 
 
             }
-            TextCenter(centerText = "$$totalSum", innerRadious = innerRadious)
+            TextCenter(centerText = "$$totalSum", innerRadius = innerRadious)
 
         }
     }
@@ -108,10 +106,10 @@ fun pieChart(
 }
 
 @Composable
-fun TextCenter(centerText:String,innerRadious: Float){
+fun TextCenter(centerText:String,innerRadius: Float){
     Column(
         modifier = Modifier
-            .width(Dp(innerRadious / 1.5f)),
+            .width(Dp(innerRadius / 1.5f)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
