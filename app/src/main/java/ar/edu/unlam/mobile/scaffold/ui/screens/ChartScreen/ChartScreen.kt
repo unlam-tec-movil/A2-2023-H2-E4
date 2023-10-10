@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.ui.screens
+package ar.edu.unlam.mobile.scaffold.ui.screens.ChartScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

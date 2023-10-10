@@ -7,7 +7,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class KittyMockService @Inject constructor() : KittyGetter {
+class KittyMockService
+@Inject
+constructor() : KittyGetter {
     override suspend fun getKitty(): Flow<Kitty> {
         return flow {
             emit(
