@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListaDesplegable (list: List<String>) {
+fun ListaDesplegable(list: List<String>) {
     var isExpanded by remember {
         mutableStateOf(false)
     }
@@ -25,7 +25,9 @@ fun ListaDesplegable (list: List<String>) {
 
     ExposedDropdownMenuBox(
         expanded = isExpanded,
-        onExpandedChange = { isExpanded = it }
+        onExpandedChange = {
+            isExpanded = it
+        }
     ) {
         TextField(
             value = item,
