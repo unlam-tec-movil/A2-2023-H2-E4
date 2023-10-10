@@ -1,4 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffold.domain.models.PieChartInput
 import androidx.compose.material3.Text as Text
+
 @Composable
 fun pieChart(
     data: List<PieChartInput>,
@@ -40,10 +42,11 @@ fun pieChart(
         Box(
             contentAlignment = Alignment.Center,
         ) {
-            Canvas(modifier = Modifier
-                        .fillMaxSize()
-                        .pointerInput(true) {
-                        }
+            Canvas(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .pointerInput(true) {
+                    },
             ) {
                 val width = size.width
                 val height = size.height
@@ -60,15 +63,15 @@ fun pieChart(
                             sweepAngle = angleToDraw.toFloat(),
                             useCenter = true,
                             size =
-                                Size(
-                                    width = radiousOuter * 2f,
-                                    height = radiousOuter * 2f,
-                                ),
+                            Size(
+                                width = radiousOuter * 2f,
+                                height = radiousOuter * 2f,
+                            ),
                             topLeft =
-                                Offset(
-                                    x = (width.minus(radiousOuter * 2f)).div(2f),
-                                    y = (height.minus(radiousOuter * 2f)).div(2f),
-                                ),
+                            Offset(
+                                x = (width.minus(radiousOuter * 2f)).div(2f),
+                                y = (height.minus(radiousOuter * 2f)).div(2f),
+                            ),
                         )
                         currentStarAngle += angleToDraw
                     }
@@ -99,11 +102,11 @@ fun pieChart(
 fun TextCenter(
     centerText: String,
     innerRadius: Float,
-)  {
+) {
     Column(
         modifier =
-            Modifier
-                .width(Dp(innerRadius / 1.5f)),
+        Modifier
+            .width(Dp(innerRadius / 1.5f)),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
@@ -121,21 +124,21 @@ fun TextCenter(
 
 @Preview(showBackground = true)
 @Composable
-fun pieChartPreview()  {
+fun pieChartPreview() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
     ) {
         pieChart(
             data =
-                listOf(
-                    PieChartInput(Color.Black, 20.0, "Ropa"),
-                    PieChartInput(Color.White, 50.0, "electrodomesticos"),
-                    PieChartInput(Color.Blue, 100.0, "gastosUniversitarios"),
-                    PieChartInput(Color.Green, 100.4, "comida"),
-                    PieChartInput(Color.Magenta, 70.8, "bebidas"),
-                    PieChartInput(Color.Red, 30.8, "otros"),
-                ),
+            listOf(
+                PieChartInput(Color.Black, 20.0, "Ropa"),
+                PieChartInput(Color.White, 50.0, "electrodomesticos"),
+                PieChartInput(Color.Blue, 100.0, "gastosUniversitarios"),
+                PieChartInput(Color.Green, 100.4, "comida"),
+                PieChartInput(Color.Magenta, 70.8, "bebidas"),
+                PieChartInput(Color.Red, 30.8, "otros"),
+            ),
         )
     }
 }
