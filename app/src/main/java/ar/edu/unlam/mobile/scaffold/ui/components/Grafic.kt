@@ -1,5 +1,4 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
-
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,7 +22,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffold.domain.models.PieChartInput
 import androidx.compose.material3.Text as Text
-
 @Composable
 fun pieChart(
     data: List<PieChartInput>,
@@ -31,12 +29,10 @@ fun pieChart(
     innerRadious: Float = 250f,
     transparentwidth: Float = 70f,
 ) {
-    // /obtenemos el total de lo gastado
     val totalSum =
         data.sumOf {
             it.value
         }
-    // //vamos a crear
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -44,24 +40,19 @@ fun pieChart(
         Box(
             contentAlignment = Alignment.Center,
         ) {
-            Canvas(
-                modifier =
-                    Modifier
+            Canvas(modifier = Modifier
                         .fillMaxSize()
                         .pointerInput(true) {
-                        },
+                        }
             ) {
                 val width = size.width
                 val height = size.height
                 val circleCenter = Offset(x = width / 2f, y = height / 2f)
                 val anglePerValue = 360f / totalSum
-
                 var currentStarAngle = 0.0
-
                 data.forEach { pieChartInput ->
                     val scale = if (pieChartInput.isTapped) 1.1f else 1.0f
                     val angleToDraw = pieChartInput.value * anglePerValue
-
                     scale(scale) {
                         drawArc(
                             color = pieChartInput.color,
