@@ -21,7 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
-import ar.edu.unlam.mobile.scaffold.domain.kitty.models.PieChartInput
+import ar.edu.unlam.mobile.scaffold.domain.models.PieChartInput
 import androidx.compose.material3.Text as Text
 
 
