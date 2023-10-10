@@ -53,8 +53,7 @@ fun ShowCategories(data: MutableList<Category>, color: Color) {
         modifier = Modifier.fillMaxWidth()
             .height(200.dp)
             .background(color = color)
-    ) {
-        items(data) {item ->
+    ) {items(data) {item ->
             ListItemRow(item)
         }
     }
