@@ -27,7 +27,7 @@ fun pieChart(
     data: List<PieChartInput>,
     radiousOuter: Float = 500f,
     innerRadious: Float = 250f,
-    transparentwidth: Float = 70f,
+    transparentwidth: Float = 70f
 ) {
     val totalSum =
         data.sumOf {
@@ -35,10 +35,10 @@ fun pieChart(
         }
     Column(
         modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
-            contentAlignment = Alignment.Center,
+            contentAlignment = Alignment.Center
         ) {
             Canvas(modifier = Modifier
                         .fillMaxSize()
@@ -59,15 +59,13 @@ fun pieChart(
                             startAngle = currentStarAngle.toFloat(),
                             sweepAngle = angleToDraw.toFloat(),
                             useCenter = true,
-                            size =
-                                Size(
+                            size = Size(
                                     width = radiousOuter * 2f,
-                                    height = radiousOuter * 2f,
+                                    height = radiousOuter * 2f
                                 ),
-                            topLeft =
-                                Offset(
+                            topLeft = Offset(
                                     x = (width.minus(radiousOuter * 2f)).div(2f),
-                                    y = (height.minus(radiousOuter * 2f)).div(2f),
+                                    y = (height.minus(radiousOuter * 2f)).div(2f)
                                 ),
                         )
                         currentStarAngle += angleToDraw
@@ -87,7 +85,7 @@ fun pieChart(
 
                 drawCircle(
                     color = Color.White.copy(0.2f),
-                    radius = innerRadious * transparentwidth / 2f,
+                    radius = innerRadious * transparentwidth / 2f
                 )
             }
             TextCenter(centerText = "$$totalSum", innerRadius = innerRadious)
