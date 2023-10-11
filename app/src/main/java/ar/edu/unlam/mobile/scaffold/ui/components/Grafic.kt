@@ -27,20 +27,20 @@ fun pieChart(
     data: List<PieChartInput>,
     radiousOuter: Float = 500f,
     innerRadious: Float = 250f,
-    transparentwidth: Float = 70f,
+    transparentwidth: Float = 70f
 ) {
-    val totalSum =
-        data.sumOf {
+    val totalSum = data.sumOf {
             it.value
         }
     Column(
         modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
-            contentAlignment = Alignment.Center,
+            contentAlignment = Alignment.Center
         ) {
-            Canvas(modifier = Modifier
+            Canvas(
+                modifier = Modifier
                         .fillMaxSize()
                         .pointerInput(true) {
                         }
@@ -59,16 +59,14 @@ fun pieChart(
                             startAngle = currentStarAngle.toFloat(),
                             sweepAngle = angleToDraw.toFloat(),
                             useCenter = true,
-                            size =
-                                Size(
+                            size = Size(
                                     width = radiousOuter * 2f,
-                                    height = radiousOuter * 2f,
-                                ),
-                            topLeft =
-                                Offset(
+                                    height = radiousOuter * 2f
+                            ),
+                            topLeft = Offset(
                                     x = (width.minus(radiousOuter * 2f)).div(2f),
-                                    y = (height.minus(radiousOuter * 2f)).div(2f),
-                                ),
+                                    y = (height.minus(radiousOuter * 2f)).div(2f)
+                            )
                         )
                         currentStarAngle += angleToDraw
                     }
@@ -81,13 +79,13 @@ fun pieChart(
                         android.graphics.Paint().apply {
                             color = Color.White.copy(alpha = 0.6f).toArgb()
                             setShadowLayer(10f, 0f, 0f, Color.Gray.toArgb())
-                        },
+                        }
                     )
                 }
 
                 drawCircle(
                     color = Color.White.copy(0.2f),
-                    radius = innerRadious * transparentwidth / 2f,
+                    radius = innerRadious * transparentwidth / 2f
                 )
             }
             TextCenter(centerText = "$$totalSum", innerRadius = innerRadious)
@@ -98,44 +96,42 @@ fun pieChart(
 @Composable
 fun TextCenter(
     centerText: String,
-    innerRadius: Float,
+    innerRadius: Float
 )  {
     Column(
-        modifier =
-            Modifier
+        modifier = Modifier
                 .width(Dp(innerRadius / 1.5f)),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "Total",
             fontWeight = FontWeight.SemiBold,
-            fontSize = 45.sp,
+            fontSize = 45.sp
         )
         Text(
             text = centerText,
             fontWeight = FontWeight.SemiBold,
-            fontSize = 25.sp,
+            fontSize = 25.sp
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun pieChartPreview()  {
+fun pieChartPreview(){
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Center
     ) {
         pieChart(
-            data =
-                listOf(
+            data = listOf(
                     PieChartInput(Color.Black, 20.0, "Ropa"),
                     PieChartInput(Color.White, 50.0, "electrodomesticos"),
                     PieChartInput(Color.Blue, 100.0, "gastosUniversitarios"),
                     PieChartInput(Color.Green, 100.4, "comida"),
                     PieChartInput(Color.Magenta, 70.8, "bebidas"),
-                    PieChartInput(Color.Red, 30.8, "otros"),
-                ),
+                    PieChartInput(Color.Red, 30.8, "otros")
+                )
         )
     }
 }
