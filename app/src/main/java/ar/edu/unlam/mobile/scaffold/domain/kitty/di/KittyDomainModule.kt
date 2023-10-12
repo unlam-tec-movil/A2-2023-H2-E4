@@ -10,7 +10,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class KittyDomainModule {
-
     @Binds
     abstract fun bindKittyUseCase(kittyUseCaseImpl: KittyService): KittyGetter
 }
