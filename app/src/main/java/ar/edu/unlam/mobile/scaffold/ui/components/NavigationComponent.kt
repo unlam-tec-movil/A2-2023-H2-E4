@@ -1,6 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
 
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -11,6 +10,7 @@ import ar.edu.unlam.mobile.scaffold.domain.models.Screens
 import ar.edu.unlam.mobile.scaffold.ui.screens.chartScreen.ChartScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.HomeScreen.HomeScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.SecondaryScreen.SecondaryScreen
+import androidx.compose.runtime.Composable
 
 @Composable
 fun NavigationComponent(
