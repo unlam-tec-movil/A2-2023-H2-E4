@@ -50,7 +50,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0'
     def nav_version = "2.7.1"
     def hilt_version = "2.47"
     def retrofit_version = "2.9.0"
@@ -93,4 +92,8 @@ dependencies {
     // LyfeCycle Scopes
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+
+    //
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0'
+
 }
