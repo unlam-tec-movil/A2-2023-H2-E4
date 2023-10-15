@@ -89,11 +89,12 @@ fun KittyCard(
 @Composable
 fun KittyPreview() {
     KittyCard(
-        kitty = Kitty(
-            id = "Esto es un texto largo",
-            url = "https://img.freepik.com/foto-gratis/cerrar-lindo-gato-interior_23-2148882585.jpg",
-            width = 200,
-            height = 300,
-        ),
+        kitty =
+            Kitty(
+                id = "Esto es un texto largo",
+                url = "https://img.freepik.com/foto-gratis/cerrar-lindo-gato-interior_23-2148882585.jpg",
+                width = 200,
+                height = 300,
+            ),
     )
 }
