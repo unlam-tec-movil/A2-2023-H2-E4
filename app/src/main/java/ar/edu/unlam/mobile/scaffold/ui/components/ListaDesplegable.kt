@@ -19,7 +19,7 @@ fun ListaDesplegable(list: List<String>) {
     var isExpanded by remember {
         mutableStateOf(false)
     }
-    var item by remember {
+    var selectedItem by remember {
         mutableStateOf("")
     }
 
@@ -30,7 +30,7 @@ fun ListaDesplegable(list: List<String>) {
         }
     ) {
         TextField(
-            value = item,
+            value = selectedItem,
             onValueChange = {},
             readOnly = true,
             trailingIcon = {
@@ -53,7 +53,7 @@ fun ListaDesplegable(list: List<String>) {
                         Text(label)
                     },
                     onClick = {
-                        item = label
+                        selectedItem = label
                         isExpanded = false
                     }
                 )

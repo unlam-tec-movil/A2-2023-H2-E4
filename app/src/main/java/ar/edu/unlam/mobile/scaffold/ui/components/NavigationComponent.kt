@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import ar.edu.unlam.mobile.scaffold.domain.models.Screens
-import ar.edu.unlam.mobile.scaffold.ui.screens.ChartScreen.ChartScreen
+import ar.edu.unlam.mobile.scaffold.ui.screens.chartScreen.ChartScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.HomeScreen.HomeScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.SecondaryScreen.SecondaryScreen
 

@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.ui.screens.ChartScreen
+package ar.edu.unlam.mobile.scaffold.ui.screens.chartScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -18,14 +18,14 @@ fun ChartScreen() {
     Column(
         modifier = Modifier.background(color = Color.Black).fillMaxSize()
     ) {
-        Body(column1 = "Categoría", column2 = "Porcentaje", column3 = "Total", list = CategoryRepository.order() as MutableList<Category>, Color.Blue, Color.LightGray)
+        Body(categoria = "Categoría", porcentaje = "Porcentaje", total = "Total", list = CategoryRepository.order() as MutableList<Category>, Color.Blue, Color.LightGray)
     }
 }
 
 @Composable
-fun Body(column1: String, column2: String, column3: String, list: MutableList<Category>, color1: Color, color2: Color) {
+fun Body(categoria: String, porcentaje: String, total: String, list: MutableList<Category>, color1: Color, color2: Color) {
     Column {
         Spacer(modifier = Modifier.height(250.dp))
-        Statistics(column1 = column1, column2 = column2, column3 = column3, list = list, color1, color2)
+        Statistics(categoria = categoria, porcentaje = porcentaje, total = total, list = list, color1, color2)
     }
 }
