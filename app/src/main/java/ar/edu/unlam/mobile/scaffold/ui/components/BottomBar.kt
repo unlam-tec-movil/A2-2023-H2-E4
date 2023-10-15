@@ -43,5 +43,17 @@ fun BottomBar(controller: NavHostController) {
             },
             label = { Text(text = "Mis Gastos") },
         )
+        NavigationBarItem(
+            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == "chart" } == true,
+            onClick = { controller.navigate("chart") },
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.Star,
+                    contentDescription = "ChartScreen",
+                    tint = MaterialTheme.colorScheme.primary,
+                )
+            },
+            label = { Text(text = "Mis Gastos") }
+        )
     }
 }
