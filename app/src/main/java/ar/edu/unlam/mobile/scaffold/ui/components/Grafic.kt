@@ -25,7 +25,7 @@ import androidx.compose.material3.Text as Text
 @Composable
 fun pieChart(
     data: List<PieChartInput>,
-    radiousOuter: Float = 500f,
+    outerRadious: Float = 500f,
     innerRadious: Float = 250f,
     transparentwidth: Float = 70f,
 ) {
