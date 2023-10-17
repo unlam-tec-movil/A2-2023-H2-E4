@@ -25,8 +25,8 @@ import androidx.compose.material3.Text as Text
 @Composable
 fun pieChart(
     data: List<PieChartInput>,
-    outerRadious: Float = 500f,
-    innerRadious: Float = 250f,
+    outerRadius: Float = 500f,
+    innerRadius: Float = 250f,
     transparentwidth: Float = 70f,
 ) {
     val totalSum =
@@ -61,12 +61,12 @@ fun pieChart(
                             sweepAngle = angleToDraw.toFloat(),
                             useCenter = true,
                             size = Size(
-                                width = radiousOuter * 2f,
-                                height = radiousOuter * 2f,
+                                width = outerRadius * 2f,
+                                height = outerRadius * 2f,
                             ),
                             topLeft = Offset(
-                                x = (width.minus(radiousOuter * 2f)).div(2f),
-                                y = (height.minus(radiousOuter * 2f)).div(2f),
+                                x = (width.minus(outerRadius * 2f)).div(2f),
+                                y = (height.minus(outerRadius * 2f)).div(2f),
                             ),
                         )
                         currentStarAngle += angleToDraw
@@ -76,7 +76,7 @@ fun pieChart(
                     drawCircle(
                         circleCenter.x,
                         circleCenter.y,
-                        innerRadious,
+                        innerRadius,
                         android.graphics.Paint().apply {
                             color = Color.White.copy(alpha = 0.6f).toArgb()
                             setShadowLayer(10f, 0f, 0f, Color.Gray.toArgb())
@@ -86,10 +86,10 @@ fun pieChart(
 
                 drawCircle(
                     color = Color.White.copy(0.2f),
-                    radius = innerRadious * transparentwidth / 2f,
+                    radius = innerRadius * transparentwidth / 2f,
                 )
             }
-            TextCenter(centerText = "$$totalSum", innerRadius = innerRadious)
+            TextCenter(centerText = "$$totalSum", innerRadius = innerRadius)
         }
     }
 }
