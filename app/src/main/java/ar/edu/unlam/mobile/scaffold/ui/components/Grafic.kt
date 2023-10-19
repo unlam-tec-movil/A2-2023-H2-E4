@@ -23,16 +23,13 @@ import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffold.domain.models.PieChartInput
 import androidx.compose.material3.Text as Text
 @Composable
-fun pieChart(
+fun PieChart(
     data: List<PieChartInput>,
     radiousOuter: Float = 500f,
     innerRadious: Float = 250f,
     transparentwidth: Float = 70f,
 ) {
-    val totalSum =
-        data.sumOf {
-            it.value
-        }
+    val totalSum = data.sumOf { it.value }
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -48,12 +45,12 @@ fun pieChart(
             ) {
                 val width = size.width
                 val height = size.height
-                val circleCenter = Offset(x = width / 2f, y = height / 2f)
-                val anglePerValue = 360f / totalSum
+                val circleCenter = Offset(x = width.div(2f), y = height.div(2f))
+                val anglePerValue = 360f.div(totalSum)
                 var currentStarAngle = 0.0
                 data.forEach { pieChartInput ->
                     val scale = if (pieChartInput.isTapped) 1.1f else 1.0f
-                    val angleToDraw = pieChartInput.value * anglePerValue
+                    val angleToDraw = pieChartInput.value.div(anglePerValue)
                     scale(scale) {
                         drawArc(
                             color = pieChartInput.color,
@@ -61,42 +58,43 @@ fun pieChart(
                             sweepAngle = angleToDraw.toFloat(),
                             useCenter = true,
                             size = Size(
-                                width = radiousOuter * 2f,
-                                height = radiousOuter * 2f,
+                                width = radiousOuter.times(2f),
+                                height = radiousOuter.times(2f),
                             ),
                             topLeft = Offset(
-                                x = (width.minus(radiousOuter * 2f)).div(2f),
-                                y = (height.minus(radiousOuter * 2f)).div(2f),
+                                x = (width.minus(radiousOuter.times(2f))).div(2f),
+                                y = (height.minus(radiousOuter.times(2f))).div(2f),
                             ),
                         )
                         currentStarAngle += angleToDraw
                     }
                 }
-                val apply = drawContext.canvas.nativeCanvas.apply {
+                val paint = android.graphics.Paint().also {
+                    it.color = Color.White.copy(alpha = 0.6f).toArgb()
+                    it.setShadowLayer(10f, 0f, 0f, Color.Gray.toArgb())
+                }
+                drawContext.canvas.nativeCanvas.apply {
                     drawCircle(
                         circleCenter.x,
                         circleCenter.y,
                         innerRadious,
-                        android.graphics.Paint().apply {
-                            color = Color.White.copy(alpha = 0.6f).toArgb()
-                            setShadowLayer(10f, 0f, 0f, Color.Gray.toArgb())
-                        },
+                        paint,
                     )
                 }
 
                 drawCircle(
                     color = Color.White.copy(0.2f),
-                    radius = innerRadious * transparentwidth / 2f,
+                    radius = innerRadious.times(transparentwidth).div(2f),
                 )
             }
-            TextCenter(centerText = "$$totalSum", innerRadius = innerRadious)
+            TextCenter(text = "$$totalSum", innerRadius = innerRadious)
         }
     }
 }
 
 @Composable
 fun TextCenter(
-    centerText: String,
+    text: String,
     innerRadius: Float,
 ) {
     Column(
@@ -111,7 +109,7 @@ fun TextCenter(
             fontSize = 45.sp,
         )
         Text(
-            text = centerText,
+            text = text,
             fontWeight = FontWeight.SemiBold,
             fontSize = 25.sp,
         )
@@ -120,12 +118,12 @@ fun TextCenter(
 
 @Preview(showBackground = true)
 @Composable
-fun pieChartPreview() {
+fun PieChartPreview() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
     ) {
-        pieChart(
+        PieChart(
             data =
             listOf(
                 PieChartInput(Color.Black, 20.0, "Ropa"),
