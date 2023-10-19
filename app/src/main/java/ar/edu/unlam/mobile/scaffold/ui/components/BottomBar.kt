@@ -1,6 +1,7 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
@@ -42,6 +43,18 @@ fun BottomBar(controller: NavHostController) {
                 )
             },
             label = { Text(text = "Mis Gastos") },
+        )
+        NavigationBarItem(
+            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screens.Category.route } == true,
+            onClick = { controller.navigate(Screens.Category.route) },
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.AddCircle,
+                    contentDescription = "CategoryScreen",
+                    tint = MaterialTheme.colorScheme.primary,
+                )
+            },
+            label = { Text(text = "categories") },
         )
     }
 }
