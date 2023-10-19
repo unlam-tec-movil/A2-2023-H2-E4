@@ -1,6 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.ui.components.Category
 
-import ar.edu.unlam.mobile.scaffold.domain.models.ColorsCategory
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -33,11 +32,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewModelScope
 import ar.edu.unlam.mobile.scaffold.data.Category.repository.CategoryEntity
+import ar.edu.unlam.mobile.scaffold.domain.models.ColorsCategory
 import ar.edu.unlam.mobile.scaffold.domain.models.TransactionType
 import ar.edu.unlam.mobile.scaffold.ui.screens.CategoryScreen.CategoryViewModel
 import kotlinx.coroutines.Dispatchers
@@ -59,7 +58,7 @@ fun CategoryCard(viewModel: CategoryViewModel) {
             CategoryEntity(0, TransactionType.income, "Ventas", ColorsCategory.AZUL),
             CategoryEntity(0, TransactionType.expense, "Alquiler", ColorsCategory.MORADO),
             CategoryEntity(0, TransactionType.expense, "Comestibles", ColorsCategory.ROJO),
-            CategoryEntity(0, TransactionType.expense, "Transporte", ColorsCategory.AMARILLO)
+            CategoryEntity(0, TransactionType.expense, "Transporte", ColorsCategory.AMARILLO),
         )
 
         defaultCategories.forEach { category ->
@@ -176,7 +175,7 @@ fun CategoryCard(viewModel: CategoryViewModel) {
                                         TransactionType.expense
                                     },
                                     name = category,
-                                    color = getColorCategoryFromHex(selectedColor?.colorHex ?: ColorsCategory.ROJO.colorHex)
+                                    color = getColorCategoryFromHex(selectedColor?.colorHex ?: ColorsCategory.ROJO.colorHex),
                                 )
 
                                 bd.categoryDao().insertCategory(newCategory)

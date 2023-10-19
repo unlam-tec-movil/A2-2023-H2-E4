@@ -10,10 +10,13 @@ import androidx.room.Update
 interface DaoCategory {
     @Query("SELECT * FROM Category")
     fun getAllCategories(): List<CategoryEntity>
+
     @Insert
     fun insertCategory(category: CategoryEntity): Long
+
     @Update
     fun updateCategory(category: CategoryEntity)
+
     @Delete
     fun deleteCategory(category: CategoryEntity)
 }

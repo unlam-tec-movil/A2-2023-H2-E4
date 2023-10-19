@@ -7,4 +7,3 @@ import androidx.room.RoomDatabase
 abstract class AppDatabase : RoomDatabase() {
     abstract fun categoryDao(): DaoCategory
 }
-

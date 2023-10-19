@@ -7,5 +7,4 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CategoryViewModel
-    @Inject constructor(val appDatabase: AppDatabase) : ViewModel() {
-}
+@Inject constructor(val appDatabase: AppDatabase) : ViewModel()
