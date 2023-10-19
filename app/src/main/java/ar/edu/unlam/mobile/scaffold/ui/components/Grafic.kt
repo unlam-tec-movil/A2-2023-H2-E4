@@ -25,8 +25,8 @@ import androidx.compose.material3.Text as Text
 @Composable
 fun PieChart(
     data: List<PieChartInput>,
-    radiousOuter: Float = 500f,
-    innerRadious: Float = 250f,
+    outerRadius: Float = 500f,
+    innerRadius: Float = 250f,
     transparentwidth: Float = 70f,
 ) {
     val totalSum = data.sumOf { it.value }
@@ -58,12 +58,12 @@ fun PieChart(
                             sweepAngle = angleToDraw.toFloat(),
                             useCenter = true,
                             size = Size(
-                                width = radiousOuter.times(2f),
-                                height = radiousOuter.times(2f),
+                                width = outerRadius.times(2f),
+                                height = outerRadius.times(2f),
                             ),
                             topLeft = Offset(
-                                x = (width.minus(radiousOuter.times(2f))).div(2f),
-                                y = (height.minus(radiousOuter.times(2f))).div(2f),
+                                x = (width.minus(outerRadius.times(2f))).div(2f),
+                                y = (height.minus(outerRadius.times(2f))).div(2f),
                             ),
                         )
                         currentStarAngle += angleToDraw
@@ -77,17 +77,17 @@ fun PieChart(
                     drawCircle(
                         circleCenter.x,
                         circleCenter.y,
-                        innerRadious,
+                        innerRadius,
                         paint,
                     )
                 }
 
                 drawCircle(
                     color = Color.White.copy(0.2f),
-                    radius = innerRadious.times(transparentwidth).div(2f),
+                    radius = innerRadius.times(transparentwidth).div(2f),
                 )
             }
-            TextCenter(text = "$$totalSum", innerRadius = innerRadious)
+            TextCenter(text = "$$totalSum", innerRadius = innerRadius)
         }
     }
 }
