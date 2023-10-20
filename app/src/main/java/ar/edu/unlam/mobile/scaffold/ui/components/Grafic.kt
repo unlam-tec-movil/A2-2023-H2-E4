@@ -1,5 +1,4 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
-
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,20 +22,14 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffold.domain.models.PieChartInput
 import androidx.compose.material3.Text as Text
-
 @Composable
-fun pieChart(
+fun PieChart(
     data: List<PieChartInput>,
-    radiousOuter: Float = 500f,
-    innerRadious: Float = 250f,
+    outerRadius: Float = 500f,
+    innerRadius: Float = 250f,
     transparentwidth: Float = 70f,
 ) {
-    // /obtenemos el total de lo gastado
-    val totalSum =
-        data.sumOf {
-            it.value
-        }
-    // //vamos a crear
+    val totalSum = data.sumOf { it.value }
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -45,74 +38,69 @@ fun pieChart(
             contentAlignment = Alignment.Center,
         ) {
             Canvas(
-                modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .pointerInput(true) {
-                        },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .pointerInput(true) {
+                    },
             ) {
                 val width = size.width
                 val height = size.height
-                val circleCenter = Offset(x = width / 2f, y = height / 2f)
-                val anglePerValue = 360f / totalSum
-
+                val circleCenter = Offset(x = width.div(2f), y = height.div(2f))
+                val anglePerValue = 360f.div(totalSum)
                 var currentStarAngle = 0.0
-
                 data.forEach { pieChartInput ->
                     val scale = if (pieChartInput.isTapped) 1.1f else 1.0f
-                    val angleToDraw = pieChartInput.value * anglePerValue
-
+                    val angleToDraw = pieChartInput.value.div(anglePerValue)
                     scale(scale) {
                         drawArc(
                             color = pieChartInput.color,
                             startAngle = currentStarAngle.toFloat(),
                             sweepAngle = angleToDraw.toFloat(),
                             useCenter = true,
-                            size =
-                                Size(
-                                    width = radiousOuter * 2f,
-                                    height = radiousOuter * 2f,
-                                ),
-                            topLeft =
-                                Offset(
-                                    x = (width.minus(radiousOuter * 2f)).div(2f),
-                                    y = (height.minus(radiousOuter * 2f)).div(2f),
-                                ),
+                            size = Size(
+                                width = outerRadius.times(2f),
+                                height = outerRadius.times(2f),
+                            ),
+                            topLeft = Offset(
+                                x = (width.minus(outerRadius.times(2f))).div(2f),
+                                y = (height.minus(outerRadius.times(2f))).div(2f),
+                            ),
                         )
                         currentStarAngle += angleToDraw
                     }
+                }
+                val paint = android.graphics.Paint().also {
+                    it.color = Color.White.copy(alpha = 0.6f).toArgb()
+                    it.setShadowLayer(10f, 0f, 0f, Color.Gray.toArgb())
                 }
                 drawContext.canvas.nativeCanvas.apply {
                     drawCircle(
                         circleCenter.x,
                         circleCenter.y,
-                        innerRadious,
-                        android.graphics.Paint().apply {
-                            color = Color.White.copy(alpha = 0.6f).toArgb()
-                            setShadowLayer(10f, 0f, 0f, Color.Gray.toArgb())
-                        },
+                        innerRadius,
+                        paint,
                     )
                 }
 
                 drawCircle(
                     color = Color.White.copy(0.2f),
-                    radius = innerRadious * transparentwidth / 2f,
+                    radius = innerRadius.times(transparentwidth).div(2f),
                 )
             }
-            TextCenter(centerText = "$$totalSum", innerRadius = innerRadious)
+            TextCenter(text = "$$totalSum", innerRadius = innerRadius)
         }
     }
 }
 
 @Composable
 fun TextCenter(
-    centerText: String,
+    text: String,
     innerRadius: Float,
-)  {
+) {
     Column(
         modifier =
-            Modifier
-                .width(Dp(innerRadius / 1.5f)),
+        Modifier
+            .width(Dp(innerRadius / 1.5f)),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
@@ -121,7 +109,7 @@ fun TextCenter(
             fontSize = 45.sp,
         )
         Text(
-            text = centerText,
+            text = text,
             fontWeight = FontWeight.SemiBold,
             fontSize = 25.sp,
         )
@@ -130,21 +118,21 @@ fun TextCenter(
 
 @Preview(showBackground = true)
 @Composable
-fun pieChartPreview()  {
+fun PieChartPreview() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
     ) {
-        pieChart(
+        PieChart(
             data =
-                listOf(
-                    PieChartInput(Color.Black, 20.0, "Ropa"),
-                    PieChartInput(Color.White, 50.0, "electrodomesticos"),
-                    PieChartInput(Color.Blue, 100.0, "gastosUniversitarios"),
-                    PieChartInput(Color.Green, 100.4, "comida"),
-                    PieChartInput(Color.Magenta, 70.8, "bebidas"),
-                    PieChartInput(Color.Red, 30.8, "otros"),
-                ),
+            listOf(
+                PieChartInput(Color.Black, 20.0, "Ropa"),
+                PieChartInput(Color.White, 50.0, "electrodomesticos"),
+                PieChartInput(Color.Blue, 100.0, "gastosUniversitarios"),
+                PieChartInput(Color.Green, 100.4, "comida"),
+                PieChartInput(Color.Magenta, 70.8, "bebidas"),
+                PieChartInput(Color.Red, 30.8, "otros"),
+            ),
         )
     }
 }
