@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.data
+package ar.edu.unlam.mobile.scaffold.domain.models
 
 enum class TransactionType {
     Expense,
