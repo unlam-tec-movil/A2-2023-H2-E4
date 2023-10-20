@@ -14,11 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ar.edu.unlam.mobile.scaffold.data.category.Category
-import ar.edu.unlam.mobile.scaffold.data.category.CategoryRepository
+import ar.edu.unlam.mobile.scaffold.domain.models.PieChartInput
+import ar.edu.unlam.mobile.scaffold.ui.screens.chartScreen.listOfPieChartInput
+import kotlin.math.roundToInt
 
 @Composable
-fun ListItemRow(item: Category) {
+fun ListItemRow(item: PieChartInput) {
     Row(
         modifier = Modifier.fillMaxWidth()
             .background(color = item.color)
@@ -30,7 +31,7 @@ fun ListItemRow(item: Category) {
                 .width(130.dp)
                 .fillMaxHeight()
         ) {
-            Text(item.name, textAlign = TextAlign.Left, fontSize = 15.sp)
+            Text(item.description, textAlign = TextAlign.Left, fontSize = 15.sp)
         }
         Column(
             Modifier
@@ -46,11 +47,15 @@ fun ListItemRow(item: Category) {
                 .width(100.dp)
                 .fillMaxHeight()
         ) {
-            Text("$${item.totalAmount}", textAlign = TextAlign.Right, fontSize = 15.sp)
+            Text("$${item.value}", textAlign = TextAlign.Right, fontSize = 15.sp)
         }
     }
 }
 
-fun porcentaje(item: Category): Int {
-    return CategoryRepository.porcentaje(item)
+fun porcentaje(item: PieChartInput): Int {
+    var total = 0.0
+    listOfPieChartInput().forEach {
+        total += it.value
+    }
+    return ((item.value).div(total).times(100)).roundToInt()
 }
