@@ -44,8 +44,8 @@ fun BottomBar(controller: NavHostController) {
             label = { Text(text = "Mis Gastos") },
         )
         NavigationBarItem(
-            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screens.Chart.route } == true,
-            onClick = { controller.navigate(Screens.Chart.route) },
+            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screens.ChartScreen.route } == true,
+            onClick = { controller.navigate(Screens.ChartScreen.route) },
             icon = {
                 Icon(
                     imageVector = Icons.Default.Star,

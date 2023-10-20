@@ -32,7 +32,7 @@ fun NavigationComponent(
             val id = navBackStackEntry.arguments?.getInt("id") ?: 1
             SecondaryScreen(controller = navigationCotroller, id = id)
         }
-        composable(Screens.Chart.route) {
+        composable(Screens.ChartScreen.route) {
             ChartScreen()
         }
     }
