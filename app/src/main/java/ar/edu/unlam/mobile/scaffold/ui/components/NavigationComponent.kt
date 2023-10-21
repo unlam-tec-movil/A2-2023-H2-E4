@@ -10,7 +10,7 @@ import androidx.navigation.navArgument
 import ar.edu.unlam.mobile.scaffold.domain.models.Screens
 import ar.edu.unlam.mobile.scaffold.ui.screens.HomeScreen.HomeScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.SecondaryScreen.SecondaryScreen
-import ar.edu.unlam.mobile.scaffold.ui.screens.CategoryScreen.CategoryScreen
+import ar.edu.unlam.mobile.scaffold.ui.screens.categoryScreen.CategoryScreen
 
 @Composable
 fun NavigationComponent(

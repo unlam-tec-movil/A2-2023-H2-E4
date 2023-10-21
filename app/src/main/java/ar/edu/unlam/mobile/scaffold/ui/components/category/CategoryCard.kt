@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.ui.components.Category
+package ar.edu.unlam.mobile.scaffold.ui.components.category
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -35,10 +35,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewModelScope
-import ar.edu.unlam.mobile.scaffold.data.Category.repository.CategoryEntity
+import ar.edu.unlam.mobile.scaffold.data.category.repository.CategoryEntity
 import ar.edu.unlam.mobile.scaffold.domain.models.ColorsCategory
 import ar.edu.unlam.mobile.scaffold.domain.models.TransactionType
-import ar.edu.unlam.mobile.scaffold.ui.screens.CategoryScreen.CategoryViewModel
+import ar.edu.unlam.mobile.scaffold.ui.screens.categoryScreen.CategoryViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -54,11 +54,11 @@ fun CategoryCard(viewModel: CategoryViewModel) {
     // Insertar categorias por defecto usando corutina
     viewModel.viewModelScope.launch(Dispatchers.IO) {
         val defaultCategories = listOf(
-            CategoryEntity(0, TransactionType.income, "Salario", ColorsCategory.AMARILLO),
-            CategoryEntity(0, TransactionType.income, "Ventas", ColorsCategory.AZUL),
-            CategoryEntity(0, TransactionType.expense, "Alquiler", ColorsCategory.MORADO),
-            CategoryEntity(0, TransactionType.expense, "Comestibles", ColorsCategory.ROJO),
-            CategoryEntity(0, TransactionType.expense, "Transporte", ColorsCategory.AMARILLO),
+            CategoryEntity(0, TransactionType.INCOME, "Salario", ColorsCategory.AMARILLO),
+            CategoryEntity(0, TransactionType.INCOME, "Ventas", ColorsCategory.AZUL),
+            CategoryEntity(0, TransactionType.EXPENSE, "Alquiler", ColorsCategory.MORADO),
+            CategoryEntity(0, TransactionType.EXPENSE, "Comestibles", ColorsCategory.ROJO),
+            CategoryEntity(0, TransactionType.EXPENSE, "Transporte", ColorsCategory.AMARILLO),
         )
 
         defaultCategories.forEach { category ->
@@ -170,9 +170,9 @@ fun CategoryCard(viewModel: CategoryViewModel) {
                                 val newCategory = CategoryEntity(
                                     id = 0, // Room generará automáticamente un ID único
                                     type = if (selectedOption == "income") {
-                                        TransactionType.income
+                                        TransactionType.INCOME
                                     } else {
-                                        TransactionType.expense
+                                        TransactionType.EXPENSE
                                     },
                                     name = category,
                                     color = getColorCategoryFromHex(selectedColor?.colorHex ?: ColorsCategory.ROJO.colorHex),

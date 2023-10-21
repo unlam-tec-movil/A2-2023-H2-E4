@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.data.Category.repository
+package ar.edu.unlam.mobile.scaffold.data.category.repository
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
