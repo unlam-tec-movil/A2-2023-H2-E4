@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CategoryViewModel
 @Inject
-constructor(private val appDatabase: AppDatabase) : ViewModel() {
+constructor(val appDatabase: AppDatabase) : ViewModel() {
 
     // Agregar una categoría a la base de datos
     fun addCategoryToDatabase(name: String, type: String, colorHex: String) {
