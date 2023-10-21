@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import ar.edu.unlam.mobile.scaffold.ui.screens.MainScreen.MainScreen
+import ar.edu.unlam.mobile.scaffold.ui.screens.mainScreen.MainScreen
 import ar.edu.unlam.mobile.scaffold.ui.theme.MyApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
 
