@@ -11,6 +11,7 @@ import ar.edu.unlam.mobile.scaffold.domain.models.Screens
 import ar.edu.unlam.mobile.scaffold.ui.screens.HomeScreen.HomeScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.SecondaryScreen.SecondaryScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.chartScreen.ChartScreen
+import ar.edu.unlam.mobile.scaffold.ui.screens.transactionScreen.TransactionScreen
 
 @Composable
 fun NavigationComponent(
@@ -19,7 +20,7 @@ fun NavigationComponent(
 ) {
     NavHost(
         navController = navigationCotroller,
-        startDestination = Screens.Home.route,
+        startDestination = Screens.TransactionScreen.route,
         modifier = modifier,
     ) {
         composable(Screens.Home.route) {
@@ -34,6 +35,9 @@ fun NavigationComponent(
         }
         composable(Screens.ChartScreen.route) {
             ChartScreen()
+        }
+        composable(Screens.TransactionScreen.route) {
+            TransactionScreen()
         }
     }
 }

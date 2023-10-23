@@ -20,8 +20,8 @@ fun BottomBar(controller: NavHostController) {
     val navBackStackEntry by controller.currentBackStackEntryAsState()
     NavigationBar {
         NavigationBarItem(
-            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screens.Home.route } == true,
-            onClick = { controller.navigate(Screens.Home.route) },
+            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screens.TransactionScreen.route } == true,
+            onClick = { controller.navigate(Screens.TransactionScreen.route) },
             icon = {
                 Icon(
                     imageVector = Icons.Default.Home,
@@ -31,18 +31,7 @@ fun BottomBar(controller: NavHostController) {
             },
             label = { Text(text = "Nuevo Movimiento") },
         )
-        NavigationBarItem(
-            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screens.Secondary.route } == true,
-            onClick = { controller.navigate(Screens.Secondary.withId(667867895)) },
-            icon = {
-                Icon(
-                    imageVector = Icons.Default.Star,
-                    contentDescription = "SecondaryScreen",
-                    tint = MaterialTheme.colorScheme.primary,
-                )
-            },
-            label = { Text(text = "Mis Gastos") },
-        )
+
         NavigationBarItem(
             selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screens.ChartScreen.route } == true,
             onClick = { controller.navigate(Screens.ChartScreen.route) },
@@ -53,7 +42,7 @@ fun BottomBar(controller: NavHostController) {
                     tint = MaterialTheme.colorScheme.primary,
                 )
             },
-            label = { Text(text = "Mis Gastos") }
+            label = { Text(text = "Mis Gastos") },
         )
     }
 }
