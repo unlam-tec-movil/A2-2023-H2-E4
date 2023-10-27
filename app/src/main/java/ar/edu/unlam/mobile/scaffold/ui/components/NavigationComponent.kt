@@ -13,7 +13,6 @@ import ar.edu.unlam.mobile.scaffold.ui.screens.SecondaryScreen.SecondaryScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.categoryScreen.CategoryScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.chartScreen.ChartScreen
 
-
 @Composable
 fun NavigationComponent(
     navigationCotroller: NavHostController,
