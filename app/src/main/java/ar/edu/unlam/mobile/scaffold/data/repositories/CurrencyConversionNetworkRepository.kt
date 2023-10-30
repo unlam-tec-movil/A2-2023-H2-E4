@@ -1,0 +1,14 @@
+package ar.edu.unlam.mobile.scaffold.data.repositories
+
+import ar.edu.unlam.mobile.scaffold.domain.models.CurrencyConversionResponse
+import kotlinx.coroutines.flow.Flow
+
+interface CurrencyConversionNetworkRepository {
+    suspend fun getCurrencyConversion(
+        source: String,
+        target: String,
+        format: String,
+        quantity: Double,
+        apiKey: String,
+    ): Flow<CurrencyConversionResponse>
+}

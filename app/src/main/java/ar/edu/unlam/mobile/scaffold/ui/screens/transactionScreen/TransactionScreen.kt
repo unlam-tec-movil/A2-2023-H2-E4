@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -43,6 +44,7 @@ fun TransactionScreen(
     var selectedTab by remember { mutableStateOf(0) }
     val tabs = listOf("Expense", "Income")
     val selectedTabState by viewModel.selectedTab.collectAsState()
+    val convertedValue by viewModel.convertedValue.collectAsState()
     var amount by remember { mutableStateOf("") }
     val currencies = arrayOf("ARS", "USD", "EUR")
     var expanded by remember { mutableStateOf(false) }
@@ -119,9 +121,19 @@ fun TransactionScreen(
                 }
             }
         }
-        Text(text = "Categorias")
+
+        Text(text = convertedValue)
 
         Text(text = "Estoy en la pantalla $selectedTabState")
+        Button(onClick = {
+            viewModel.getCurrencyConversion(
+                source = "USD",
+                target = "ARS",
+                quantity = amount.toDouble(),
+            )
+        }) {
+            Text(text = "Convertir")
+        }
     }
 }
 
