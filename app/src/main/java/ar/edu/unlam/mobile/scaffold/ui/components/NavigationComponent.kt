@@ -16,12 +16,12 @@ import ar.edu.unlam.mobile.scaffold.ui.screens.transactionScreen.TransactionScre
 
 @Composable
 fun NavigationComponent(
-    navigationCotroller: NavHostController,
+    navigationController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
     NavHost(
-        navController = navigationCotroller,
-        startDestination = Screens.TransactionScreen.route,
+        navController = navigationController,
+        startDestination = Screens.ChartScreen.route,
         modifier = modifier,
     ) {
         composable(Screens.Home.route) {
@@ -32,16 +32,16 @@ fun NavigationComponent(
             arguments = listOf(navArgument("id") { type = NavType.IntType }),
         ) { navBackStackEntry ->
             val id = navBackStackEntry.arguments?.getInt("id") ?: 1
-            SecondaryScreen(controller = navigationCotroller, id = id)
+            SecondaryScreen(controller = navigationController, id = id)
         }
         composable(Screens.Category.route) {
-            CategoryScreen(controller = navigationCotroller)
+            CategoryScreen(controller = navigationController)
         }
         composable(Screens.ChartScreen.route) {
-            ChartScreen()
+            ChartScreen(controller = navigationController)
         }
         composable(Screens.TransactionScreen.route) {
-            TransactionScreen()
+            TransactionScreen(controller = navigationController)
         }
     }
 }

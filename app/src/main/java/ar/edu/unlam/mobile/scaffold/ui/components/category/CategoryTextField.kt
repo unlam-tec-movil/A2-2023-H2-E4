@@ -26,7 +26,7 @@ fun CategoryTextField(colorClick: Boolean, category: String, onCategoryChanged: 
             },
             placeholder = {
                 Text(
-                    text = "Ingresa una categoría",
+                    text = "Nombre de la categoria",
                     fontSize = 15.sp,
                     color = if (!colorClick) Color.Gray else Color.Red,
                 )

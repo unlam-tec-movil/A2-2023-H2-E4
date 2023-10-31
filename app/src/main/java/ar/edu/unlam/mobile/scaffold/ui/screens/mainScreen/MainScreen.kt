@@ -18,7 +18,7 @@ fun MainScreen() {
         bottomBar = { BottomBar(controller = controller) },
     ) { paddingValue ->
         NavigationComponent(
-            navigationCotroller = controller,
+            navigationController = controller,
             modifier = Modifier.padding(paddingValue),
         )
     }

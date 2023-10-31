@@ -2,7 +2,6 @@ package ar.edu.unlam.mobile.scaffold.ui.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -20,17 +19,29 @@ import ar.edu.unlam.mobile.scaffold.domain.models.Screens
 fun BottomBar(controller: NavHostController) {
     val navBackStackEntry by controller.currentBackStackEntryAsState()
     NavigationBar {
+//        NavigationBarItem(
+//            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screens.TransactionScreen.route } == true,
+//            onClick = { controller.navigate(Screens.TransactionScreen.route) },
+//            icon = {
+//                Icon(
+//                    imageVector = Icons.Default.Home,
+//                    contentDescription = "Home",
+//                    tint = MaterialTheme.colorScheme.primary,
+//                )
+//            },
+//            label = { Text(text = "Nuevo Movimiento") },
+//        )
         NavigationBarItem(
-            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screens.TransactionScreen.route } == true,
-            onClick = { controller.navigate(Screens.TransactionScreen.route) },
+            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screens.ChartScreen.route } == true,
+            onClick = { controller.navigate(Screens.ChartScreen.route) },
             icon = {
                 Icon(
-                    imageVector = Icons.Default.Home,
-                    contentDescription = "Home",
+                    imageVector = Icons.Default.Star,
+                    contentDescription = "ChartScreen",
                     tint = MaterialTheme.colorScheme.primary,
                 )
             },
-            label = { Text(text = "Nuevo Movimiento") },
+            label = { Text(text = "Mis Gastos") },
         )
 
         NavigationBarItem(
@@ -45,18 +56,6 @@ fun BottomBar(controller: NavHostController) {
                 )
             },
             label = { Text(text = "categories") },
-        )
-        NavigationBarItem(
-            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screens.ChartScreen.route } == true,
-            onClick = { controller.navigate(Screens.ChartScreen.route) },
-            icon = {
-                Icon(
-                    imageVector = Icons.Default.Star,
-                    contentDescription = "ChartScreen",
-                    tint = MaterialTheme.colorScheme.primary,
-                )
-            },
-            label = { Text(text = "Mis Gastos") },
         )
     }
 }

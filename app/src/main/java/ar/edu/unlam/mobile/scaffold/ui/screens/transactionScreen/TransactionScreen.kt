@@ -11,15 +11,20 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -33,11 +38,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffold.domain.models.TransactionType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TransactionScreen(
+    controller: NavHostController,
     viewModel: TransactionScreenViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
@@ -55,6 +63,17 @@ fun TransactionScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background),
     ) {
+        TopAppBar(
+            title = { Text(text = "Agregar Transaccion") },
+            navigationIcon = {
+                IconButton(onClick = { controller.navigateUp() }) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Back",
+                    )
+                }
+            },
+        )
         TabRow(
             selectedTabIndex = selectedTab,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -140,5 +159,5 @@ fun TransactionScreen(
 @Composable
 @Preview
 fun TransactionScreenPreview() {
-    TransactionScreen()
+    TransactionScreen(controller = rememberNavController())
 }
