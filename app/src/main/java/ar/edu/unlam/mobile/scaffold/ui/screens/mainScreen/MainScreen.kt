@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.ui.screens.MainScreen
+package ar.edu.unlam.mobile.scaffold.ui.screens.mainScreen
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold

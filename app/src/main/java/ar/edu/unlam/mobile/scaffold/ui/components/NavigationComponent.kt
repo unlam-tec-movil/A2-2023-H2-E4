@@ -10,6 +10,7 @@ import androidx.navigation.navArgument
 import ar.edu.unlam.mobile.scaffold.domain.models.Screens
 import ar.edu.unlam.mobile.scaffold.ui.screens.HomeScreen.HomeScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.SecondaryScreen.SecondaryScreen
+import ar.edu.unlam.mobile.scaffold.ui.screens.categoryScreen.CategoryScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.chartScreen.ChartScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.transactionScreen.TransactionScreen
 
@@ -32,6 +33,9 @@ fun NavigationComponent(
         ) { navBackStackEntry ->
             val id = navBackStackEntry.arguments?.getInt("id") ?: 1
             SecondaryScreen(controller = navigationCotroller, id = id)
+        }
+        composable(Screens.Category.route) {
+            CategoryScreen(controller = navigationCotroller)
         }
         composable(Screens.ChartScreen.route) {
             ChartScreen()
