@@ -19,7 +19,7 @@ constructor(
         apiKey: String,
     ): Flow<CurrencyConversionResponse> {
         return flow {
-            CurrencyConversionResponse(dto = api.getCurrencyConversion(source, target, format, quantity, apiKey))
+            emit(CurrencyConversionResponse(dto = api.getCurrencyConversion(source, target, format, quantity, apiKey)))
         }
     }
 }

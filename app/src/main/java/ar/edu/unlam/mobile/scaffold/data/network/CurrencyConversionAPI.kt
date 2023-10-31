@@ -6,7 +6,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface CurrencyConversionAPI {
-    @GET("quotes/{target}/{format}")
+    @GET("quotes/{source}/{target}/{format}")
     suspend fun getCurrencyConversion(
         @Path("source") source: String,
         @Path("target") target: String,

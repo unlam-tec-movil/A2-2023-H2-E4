@@ -24,7 +24,7 @@ class TransactionScreenViewModel @Inject constructor(
     fun changeTab(tabType: TransactionType) {
         _selectedTab.value = tabType
     }
-    fun getCurrencyConversion(source: String, target: String, format: String = "JSON", quantity: Double, apiKey: String = "") {
+    fun getCurrencyConversion(source: String, target: String, format: String = "json", quantity: Double, apiKey: String = "45717|jb3r*ko06befntG2Ed~oJdD3chm7CfRB") {
         viewModelScope.launch {
             repository.getCurrencyConversion(source, target, format, quantity, apiKey).collect {
                 if (it.status == "OK") {
