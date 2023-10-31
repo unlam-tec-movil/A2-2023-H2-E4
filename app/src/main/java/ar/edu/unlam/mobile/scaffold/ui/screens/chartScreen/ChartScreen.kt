@@ -2,24 +2,59 @@ package ar.edu.unlam.mobile.scaffold.ui.screens.chartScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffold.domain.models.PieChartInput
+import ar.edu.unlam.mobile.scaffold.domain.models.Screens
 import ar.edu.unlam.mobile.scaffold.ui.components.PieChart
 import ar.edu.unlam.mobile.scaffold.ui.components.Statistics
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChartScreen() {
+fun ChartScreen(
+    controller: NavHostController,
+) {
     Column(
-        modifier = Modifier.background(color = Color.Black).fillMaxSize()
+        modifier = Modifier
+            .background(MaterialTheme.colorScheme.background)
+            .fillMaxSize(),
     ) {
+        CenterAlignedTopAppBar(
+            title = { Text(text = "Tus gastos") },
+        )
         Body(categoria = "Categoría", porcentaje = "Porcentaje", total = "Total", list = listOfPieChartInputOrder() as MutableList<PieChartInput>, Color.Blue, Color.LightGray)
+        Spacer(modifier = Modifier.height(20.dp))
+        Box(modifier = Modifier.fillMaxSize()) {
+            FloatingActionButton(
+                modifier = Modifier
+                    .padding(all = 16.dp)
+                    .align(alignment = Alignment.BottomEnd),
+                shape = MaterialTheme.shapes.medium,
+                onClick = {
+                    controller.navigate(Screens.TransactionScreen.route)
+                },
+            ) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
+            }
+        }
     }
 }
 
@@ -31,7 +66,7 @@ fun Body(categoria: String, porcentaje: String, total: String, list: MutableList
             verticalArrangement = Arrangement.Center,
         ) {
             PieChart(
-                data = listOfPieChartInput()
+                data = listOfPieChartInput(),
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
