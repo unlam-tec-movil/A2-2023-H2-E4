@@ -1,6 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.ui.screens.categoryScreen
 
-import CategoryTextField
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
