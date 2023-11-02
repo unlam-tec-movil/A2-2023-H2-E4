@@ -11,7 +11,7 @@ interface CurrencyConversionAPI {
         @Path("source") source: String,
         @Path("target") target: String,
         @Path("format") format: String,
-        @Query("quantity") quantity: Double,
+        @Query("quantity") quantity: String,
         @Query("key") apiKey: String,
     ): CurrencyConversionResponseDTO
 }
