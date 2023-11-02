@@ -1,8 +1,8 @@
-package ar.edu.unlam.mobile.scaffold.data.category.di
+package ar.edu.unlam.mobile.scaffold.data.app.local.core.di
 
 import android.content.Context
 import androidx.room.Room
-import ar.edu.unlam.mobile.scaffold.data.category.repository.AppDatabase
+import ar.edu.unlam.mobile.scaffold.data.app.local.core.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

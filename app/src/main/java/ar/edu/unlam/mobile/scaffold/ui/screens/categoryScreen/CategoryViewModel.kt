@@ -2,8 +2,8 @@ package ar.edu.unlam.mobile.scaffold.ui.screens.categoryScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ar.edu.unlam.mobile.scaffold.data.category.repository.AppDatabase
-import ar.edu.unlam.mobile.scaffold.data.category.repository.CategoryEntity
+import ar.edu.unlam.mobile.scaffold.data.app.local.core.AppDatabase
+import ar.edu.unlam.mobile.scaffold.data.app.local.core.category.CategoryEntity
 import ar.edu.unlam.mobile.scaffold.domain.models.TransactionType
 import ar.edu.unlam.mobile.scaffold.ui.components.category.getColorCategoryFromHex
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,13 +24,9 @@ constructor(val appDatabase: AppDatabase) : ViewModel() {
             withContext(Dispatchers.IO) {
                 val newCategory = CategoryEntity(
                     id = 0, // Room generará automáticamente un ID único
-                    type = if (type == "income") {
-                        TransactionType.INCOME
-                    } else {
-                        TransactionType.EXPENSE
-                    },
+                    transaction_type_id = 1,
                     name = name,
-                    color = getColorCategoryFromHex(colorHex),
+                    color_id = 1,
                 )
                 appDatabase.categoryDao().insertCategory(newCategory)
                 var myCategories = appDatabase.categoryDao().getAllCategories()

@@ -1,6 +1,6 @@
-package ar.edu.unlam.mobile.scaffold.data.transaction.network.di
+package ar.edu.unlam.mobile.scaffold.data.app.network.di
 
-import ar.edu.unlam.mobile.scaffold.data.transaction.network.CurrencyConversionAPI
+import ar.edu.unlam.mobile.scaffold.data.app.network.CurrencyConversionAPI
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides

@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.data.category
+package ar.edu.unlam.mobile.scaffold.data.app.local.core.category.repository
 
 import androidx.compose.ui.graphics.Color
 import ar.edu.unlam.mobile.scaffold.domain.models.TransactionType

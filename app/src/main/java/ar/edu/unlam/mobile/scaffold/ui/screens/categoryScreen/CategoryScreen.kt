@@ -55,9 +55,6 @@ fun CategoryScreen(
         TextField(
             value = categoryName,
             onValueChange = { categoryName = it },
-            keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Number,
-            ),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 10.dp, end = 10.dp),

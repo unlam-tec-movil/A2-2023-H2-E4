@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import ar.edu.unlam.mobile.scaffold.data.category.PreferenceUtils
-import ar.edu.unlam.mobile.scaffold.data.category.repository.AppDatabase
-import ar.edu.unlam.mobile.scaffold.data.category.repository.CategoryEntity
+import ar.edu.unlam.mobile.scaffold.data.app.local.PreferenceUtils
+import ar.edu.unlam.mobile.scaffold.data.app.local.core.AppDatabase
+import ar.edu.unlam.mobile.scaffold.data.app.local.core.category.CategoryEntity
+import ar.edu.unlam.mobile.scaffold.data.app.local.core.color.ColorEntity
+import ar.edu.unlam.mobile.scaffold.data.app.local.core.transactionType.TransactionTypeEntity
 import ar.edu.unlam.mobile.scaffold.domain.models.ColorsCategory
 import ar.edu.unlam.mobile.scaffold.domain.models.TransactionType
 import ar.edu.unlam.mobile.scaffold.ui.screens.mainScreen.MainScreen
@@ -35,12 +37,30 @@ class MainActivity : ComponentActivity() {
             val viewModelScope = CoroutineScope(Dispatchers.IO)
 
             viewModelScope.launch {
+                val defaultColor = listOf(
+                    ColorEntity(0, "ROJO","#ff6961"),
+                    ColorEntity(0, "VERDE","#37bc3d"),
+                    ColorEntity(0, "AZUL","#3777bc"),
+                    ColorEntity(0, "AMARILLO","#FFD700"),
+                    ColorEntity(0, "NARANJA","#ff9d00"),
+                    ColorEntity(0, "MORADO","#a13ed6"),
+                    )
+                defaultColor.forEach { color ->
+                    appDatabase.colorDao().insertColor(color)
+                }
+                val defaultTransactionType = listOf(
+                    TransactionTypeEntity(0, "Income"),
+                    TransactionTypeEntity(0, "Expense"),
+                    )
+                defaultTransactionType.forEach { transactionType ->
+                    appDatabase.transactionTypeDao().insertTransactionType(transactionType)
+                }
                 val defaultCategories = listOf(
-                    CategoryEntity(0, TransactionType.INCOME, "Salario", ColorsCategory.AMARILLO),
-                    CategoryEntity(0, TransactionType.INCOME, "Ventas", ColorsCategory.AZUL),
-                    CategoryEntity(0, TransactionType.EXPENSE, "Alquiler", ColorsCategory.MORADO),
-                    CategoryEntity(0, TransactionType.EXPENSE, "Comestibles", ColorsCategory.ROJO),
-                    CategoryEntity(0, TransactionType.EXPENSE, "Transporte", ColorsCategory.AMARILLO),
+                    CategoryEntity(0, 0, "Salario", 0),
+                    CategoryEntity(0, 0, "Ventas", 1),
+                    CategoryEntity(0, 1, "Alquiler", 2),
+                    CategoryEntity(0, 1, "Comestibles", 3),
+                    CategoryEntity(0, 1, "Transporte", 4),
                 )
                 defaultCategories.forEach { category ->
                     appDatabase.categoryDao().insertCategory(category)
