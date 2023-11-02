@@ -33,6 +33,8 @@ constructor(val appDatabase: AppDatabase) : ViewModel() {
                     color = getColorCategoryFromHex(colorHex),
                 )
                 appDatabase.categoryDao().insertCategory(newCategory)
+                var myCategories = appDatabase.categoryDao().getAllCategories()
+                print(myCategories)
             }
         }
     }
