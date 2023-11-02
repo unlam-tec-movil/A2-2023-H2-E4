@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.ui.screens.HomeScreen
+package ar.edu.unlam.mobile.scaffold.ui.screens.homeScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

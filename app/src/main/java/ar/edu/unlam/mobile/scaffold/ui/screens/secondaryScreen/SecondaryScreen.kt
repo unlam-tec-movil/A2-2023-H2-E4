@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.ui.screens.SecondaryScreen
+package ar.edu.unlam.mobile.scaffold.ui.screens.secondaryScreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
