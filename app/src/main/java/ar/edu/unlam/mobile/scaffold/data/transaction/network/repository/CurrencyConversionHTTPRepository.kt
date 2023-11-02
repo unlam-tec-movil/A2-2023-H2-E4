@@ -1,6 +1,6 @@
-package ar.edu.unlam.mobile.scaffold.data.repositories
+package ar.edu.unlam.mobile.scaffold.data.transaction.network.repository
 
-import ar.edu.unlam.mobile.scaffold.data.network.CurrencyConversionAPI
+import ar.edu.unlam.mobile.scaffold.data.transaction.network.CurrencyConversionAPI
 import ar.edu.unlam.mobile.scaffold.domain.models.CurrencyConversionResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.ui.screens.HomeScreen
+package ar.edu.unlam.mobile.scaffold.ui.screens.homeScreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.CircularProgressIndicator

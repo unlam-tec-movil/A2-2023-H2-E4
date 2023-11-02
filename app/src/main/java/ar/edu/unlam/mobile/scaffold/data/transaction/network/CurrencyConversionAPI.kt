@@ -1,6 +1,6 @@
-package ar.edu.unlam.mobile.scaffold.data.network
+package ar.edu.unlam.mobile.scaffold.data.transaction.network
 
-import ar.edu.unlam.mobile.scaffold.data.dto.CurrencyConversionResponseDTO
+import ar.edu.unlam.mobile.scaffold.data.transaction.network.dto.CurrencyConversionResponseDTO
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
