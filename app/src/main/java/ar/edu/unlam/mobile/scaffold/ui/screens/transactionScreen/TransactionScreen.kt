@@ -148,7 +148,7 @@ fun TransactionScreen(
             viewModel.getCurrencyConversion(
                 source = "USD",
                 target = "ARS",
-                quantity = amount.toDouble(),
+                quantity = amount,
             )
         }) {
             Text(text = "Convertir")

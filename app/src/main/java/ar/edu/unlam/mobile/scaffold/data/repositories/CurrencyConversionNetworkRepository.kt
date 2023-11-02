@@ -8,7 +8,7 @@ interface CurrencyConversionNetworkRepository {
         source: String,
         target: String,
         format: String,
-        quantity: Double,
+        quantity: String,
         apiKey: String,
     ): Flow<CurrencyConversionResponse>
 }
