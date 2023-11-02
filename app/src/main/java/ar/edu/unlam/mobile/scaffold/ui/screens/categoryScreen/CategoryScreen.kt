@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -96,7 +95,6 @@ fun CategoryScreen(
                 // Llama funcion de viewModel que hace el insert a la BD
                 viewModel.addCategoryToDatabase(categoryName, selectedOption, selectedColor?.colorHex ?: ColorsCategory.ROJO.colorHex)
                 categoryName = ""
-
             },
         ) {
             Text(text = "Agregar")
