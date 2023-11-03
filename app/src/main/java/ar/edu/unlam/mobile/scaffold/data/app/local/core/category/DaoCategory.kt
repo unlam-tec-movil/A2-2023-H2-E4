@@ -5,8 +5,6 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.relationships.CategoryWithDetails
-import ar.edu.unlam.mobile.scaffold.domain.models.TransactionType
 
 @Dao
 interface DaoCategory {

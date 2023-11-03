@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.edu.unlam.mobile.scaffold.data.app.local.core.AppDatabase
 import ar.edu.unlam.mobile.scaffold.data.app.local.core.category.CategoryEntity
-import ar.edu.unlam.mobile.scaffold.domain.models.TransactionType
-import ar.edu.unlam.mobile.scaffold.ui.components.category.getColorCategoryFromHex
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

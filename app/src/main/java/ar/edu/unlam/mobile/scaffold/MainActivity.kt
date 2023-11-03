@@ -12,8 +12,6 @@ import ar.edu.unlam.mobile.scaffold.data.app.local.core.AppDatabase
 import ar.edu.unlam.mobile.scaffold.data.app.local.core.category.CategoryEntity
 import ar.edu.unlam.mobile.scaffold.data.app.local.core.color.ColorEntity
 import ar.edu.unlam.mobile.scaffold.data.app.local.core.transactionType.TransactionTypeEntity
-import ar.edu.unlam.mobile.scaffold.domain.models.ColorsCategory
-import ar.edu.unlam.mobile.scaffold.domain.models.TransactionType
 import ar.edu.unlam.mobile.scaffold.ui.screens.mainScreen.MainScreen
 import ar.edu.unlam.mobile.scaffold.ui.theme.MyApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,20 +36,20 @@ class MainActivity : ComponentActivity() {
 
             viewModelScope.launch {
                 val defaultColor = listOf(
-                    ColorEntity(0, "ROJO","#ff6961"),
-                    ColorEntity(0, "VERDE","#37bc3d"),
-                    ColorEntity(0, "AZUL","#3777bc"),
-                    ColorEntity(0, "AMARILLO","#FFD700"),
-                    ColorEntity(0, "NARANJA","#ff9d00"),
-                    ColorEntity(0, "MORADO","#a13ed6"),
-                    )
+                    ColorEntity(0, "ROJO", "#ff6961"),
+                    ColorEntity(0, "VERDE", "#37bc3d"),
+                    ColorEntity(0, "AZUL", "#3777bc"),
+                    ColorEntity(0, "AMARILLO", "#FFD700"),
+                    ColorEntity(0, "NARANJA", "#ff9d00"),
+                    ColorEntity(0, "MORADO", "#a13ed6"),
+                )
                 defaultColor.forEach { color ->
                     appDatabase.colorDao().insertColor(color)
                 }
                 val defaultTransactionType = listOf(
                     TransactionTypeEntity(0, "Income"),
                     TransactionTypeEntity(0, "Expense"),
-                    )
+                )
                 defaultTransactionType.forEach { transactionType ->
                     appDatabase.transactionTypeDao().insertTransactionType(transactionType)
                 }
