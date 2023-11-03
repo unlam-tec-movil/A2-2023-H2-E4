@@ -13,17 +13,17 @@ data class TransactionWithDetails(
     val transaction: TransactionEntity,
     @Relation(
         parentColumn = "transaction_type_id",
-        entityColumn = "id"
+        entityColumn = "id",
     )
     val transactionType: TransactionTypeEntity,
     @Relation(
         parentColumn = "category_id",
-        entityColumn = "id"
+        entityColumn = "id",
     )
     val category: CategoryEntity,
     @Relation(
         parentColumn = "currency_id",
-        entityColumn = "id"
+        entityColumn = "id",
     )
-    val currency: CurrencyEntity
+    val currency: CurrencyEntity,
 )
