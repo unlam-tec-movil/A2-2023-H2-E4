@@ -15,14 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ar.edu.unlam.mobile.scaffold.domain.models.PieChartInput
+import ar.edu.unlam.mobile.scaffold.data.category.repository.CategoryEntity
 
 @Composable
 fun Statistics(
     categoria: String,
     porcentaje: String,
     total: String,
-    list: MutableList<PieChartInput>,
+    list: List<CategoryEntity>,
     color1: Color,
     color2: Color
 ) {
@@ -42,7 +42,7 @@ fun Statistics(
 }
 
 @Composable
-fun ShowCategories(data: MutableList<PieChartInput>, color: Color) {
+fun ShowCategories(data: List<CategoryEntity>, color: Color) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
             .height(200.dp)

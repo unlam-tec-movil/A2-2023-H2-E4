@@ -21,7 +21,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import ar.edu.unlam.mobile.scaffold.data.category.repository.CategoryEntity
 import ar.edu.unlam.mobile.scaffold.domain.models.PieChartInput
 import ar.edu.unlam.mobile.scaffold.domain.models.Screens
 import ar.edu.unlam.mobile.scaffold.ui.components.PieChart
@@ -31,6 +33,7 @@ import ar.edu.unlam.mobile.scaffold.ui.components.Statistics
 @Composable
 fun ChartScreen(
     controller: NavHostController,
+    viewModel: ChartViewModel = hiltViewModel(),
 ) {
     Column(
         modifier = Modifier
@@ -40,7 +43,7 @@ fun ChartScreen(
         CenterAlignedTopAppBar(
             title = { Text(text = "Tus gastos") },
         )
-        Body(categoria = "Categoría", porcentaje = "Porcentaje", total = "Total", list = listOfPieChartInputOrder() as MutableList<PieChartInput>, Color.Blue, Color.LightGray)
+        Body(categoria = "Categoría", porcentaje = "Porcentaje", total = "Total", list = viewModel.categoryList, Color.Blue, Color.LightGray)
         Spacer(modifier = Modifier.height(20.dp))
         Box(modifier = Modifier.fillMaxSize()) {
             FloatingActionButton(
@@ -59,7 +62,7 @@ fun ChartScreen(
 }
 
 @Composable
-fun Body(categoria: String, porcentaje: String, total: String, list: MutableList<PieChartInput>, color1: Color, color2: Color) {
+fun Body(categoria: String, porcentaje: String, total: String, list: List<CategoryEntity>, color1: Color, color2: Color) {
     Column {
         Column(
             modifier = Modifier.height(300.dp),
