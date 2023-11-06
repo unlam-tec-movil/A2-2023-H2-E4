@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.data.category
+package ar.edu.unlam.mobile.scaffold.data.app.local
 
 import android.content.Context
 import android.content.SharedPreferences

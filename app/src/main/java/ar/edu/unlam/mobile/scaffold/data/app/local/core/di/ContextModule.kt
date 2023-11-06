@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.data.category.di
+package ar.edu.unlam.mobile.scaffold.data.app.local.core.di
 
 import android.app.Application
 import android.content.Context

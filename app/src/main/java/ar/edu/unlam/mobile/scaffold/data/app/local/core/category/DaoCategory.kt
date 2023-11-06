@@ -1,11 +1,10 @@
-package ar.edu.unlam.mobile.scaffold.data.category.repository
+package ar.edu.unlam.mobile.scaffold.data.app.local.core.category
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import ar.edu.unlam.mobile.scaffold.domain.models.TransactionType
 
 @Dao
 interface DaoCategory {
@@ -14,9 +13,8 @@ interface DaoCategory {
     @Query("SELECT * FROM Category")
     fun getAllCategories(): List<CategoryEntity>
 
-    // filtra por type de categorias
-    @Query("SELECT * FROM Category WHERE type = :transactionType")
-    fun getCategoriesByType(transactionType: TransactionType): List<CategoryEntity>
+    @Query("SELECT * FROM Category WHERE transaction_type_id = :transactionTypeId")
+    fun getCategoriesByTransactionType(transactionTypeId: Int): List<CategoryEntity>
 
     @Insert
     fun insertCategory(category: CategoryEntity): Long

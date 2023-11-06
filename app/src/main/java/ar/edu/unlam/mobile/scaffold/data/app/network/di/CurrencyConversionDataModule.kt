@@ -1,7 +1,7 @@
-package ar.edu.unlam.mobile.scaffold.data.transaction.network.di
+package ar.edu.unlam.mobile.scaffold.data.app.network.di
 
-import ar.edu.unlam.mobile.scaffold.data.transaction.network.repository.CurrencyConversionHTTPRepository
-import ar.edu.unlam.mobile.scaffold.data.transaction.network.repository.CurrencyConversionNetworkRepository
+import ar.edu.unlam.mobile.scaffold.data.app.network.repository.CurrencyConversionHTTPRepository
+import ar.edu.unlam.mobile.scaffold.data.app.network.repository.CurrencyConversionNetworkRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
