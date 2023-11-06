@@ -50,13 +50,12 @@ fun TransactionScreen(
 ) {
     val context = LocalContext.current
     var selectedTab by remember { mutableStateOf(0) }
+    var selectedCurrency by remember { mutableStateOf("ARS") }
     val tabs = listOf("Expense", "Income")
     val selectedTabState by viewModel.selectedTab.collectAsState()
     val convertedValue by viewModel.convertedValue.collectAsState()
     var amount by remember { mutableStateOf("") }
-    val currencies = arrayOf("ARS", "USD", "EUR")
     var expanded by remember { mutableStateOf(false) }
-    var selectedCurrency by remember { mutableStateOf(currencies[0]) }
 
     Column(
         modifier = Modifier
@@ -127,13 +126,13 @@ fun TransactionScreen(
                     expanded = expanded,
                     onDismissRequest = { expanded = false },
                 ) {
-                    currencies.forEach { item ->
+                    viewModel.currencies.value.forEach { currency ->
                         DropdownMenuItem(
-                            text = { Text(text = item) },
+                            text = { Text(text = currency.code) },
                             onClick = {
-                                selectedCurrency = item
+                                selectedCurrency = currency.code
                                 expanded = false
-                                Toast.makeText(context, item, Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, currency.code, Toast.LENGTH_SHORT).show()
                             },
                         )
                     }
