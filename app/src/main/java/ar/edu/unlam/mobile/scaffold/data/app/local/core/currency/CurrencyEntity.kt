@@ -9,6 +9,8 @@ data class CurrencyEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Int,
+    @ColumnInfo(name = "code")
+    val code: String,
     @ColumnInfo(name = "description")
     val description: String,
 )
