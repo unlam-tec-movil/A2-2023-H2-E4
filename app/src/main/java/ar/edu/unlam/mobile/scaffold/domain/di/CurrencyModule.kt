@@ -11,6 +11,6 @@ import dagger.hilt.components.SingletonComponent
 object CurrencyModule {
     @Provides
     fun provideCurrencyService(appDatabase: AppDatabase): CurrencyServiceInterface {
-        return CurrenciesService(appDatabase)
+        return CurrencyService(appDatabase)
     }
 }
