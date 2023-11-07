@@ -4,5 +4,5 @@ import ar.edu.unlam.mobile.scaffold.domain.models.Transaction
 
 interface TransactionRepositoryInterface {
     suspend fun addTransaction(transaction: TransactionEntity)
-    fun getAllTransactions(): List<Transaction>
+    suspend fun getAllTransactions(): List<Transaction>
 }
