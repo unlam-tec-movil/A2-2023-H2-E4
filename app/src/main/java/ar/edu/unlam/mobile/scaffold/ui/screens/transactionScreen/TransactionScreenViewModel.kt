@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.edu.unlam.mobile.scaffold.data.app.network.repository.CurrencyConversionHTTPRepository
-import ar.edu.unlam.mobile.scaffold.domain.di.CurrencyServiceInterface
+import ar.edu.unlam.mobile.scaffold.domain.services.CurrencyServiceInterface
 import ar.edu.unlam.mobile.scaffold.domain.models.Currency
 import ar.edu.unlam.mobile.scaffold.domain.models.TransactionType
 import dagger.hilt.android.lifecycle.HiltViewModel

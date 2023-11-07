@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.domain.di
+package ar.edu.unlam.mobile.scaffold.domain.services
 
 import ar.edu.unlam.mobile.scaffold.data.app.local.core.AppDatabase
 import ar.edu.unlam.mobile.scaffold.domain.models.Currency

@@ -3,6 +3,7 @@ package ar.edu.unlam.mobile.scaffold.data.app.local.core.transaction
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.time.LocalDate
 
 @Entity(tableName = "Transaction")
 data class TransactionEntity(

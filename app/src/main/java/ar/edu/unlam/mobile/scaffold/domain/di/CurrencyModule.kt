@@ -1,6 +1,8 @@
 package ar.edu.unlam.mobile.scaffold.domain.di
 
 import ar.edu.unlam.mobile.scaffold.data.app.local.core.AppDatabase
+import ar.edu.unlam.mobile.scaffold.domain.services.CurrencyService
+import ar.edu.unlam.mobile.scaffold.domain.services.CurrencyServiceInterface
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
