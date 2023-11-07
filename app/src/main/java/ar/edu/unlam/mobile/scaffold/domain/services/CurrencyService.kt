@@ -11,3 +11,4 @@ class CurrencyService @Inject constructor(
         return appDatabase.currencyDao().getAllCurrencies().map { Currency(it) }
     }
 }
+// ToDO: Corregir y cambiar el appDatabase por un repository (Tambien crear el repository)
