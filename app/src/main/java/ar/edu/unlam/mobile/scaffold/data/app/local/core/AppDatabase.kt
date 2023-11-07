@@ -18,6 +18,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun categoryDao(): DaoCategory
     abstract fun colorDao(): DaoColor
     abstract fun transactionTypeDao(): DaoTransactionType
-    abstract fun CurrencyDao(): DaoCurrency
-    abstract fun TransactionDao(): DaoTransaction
+    abstract fun currencyDao(): DaoCurrency
+    abstract fun transactionDao(): DaoTransaction
 }
