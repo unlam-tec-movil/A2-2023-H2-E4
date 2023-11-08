@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.domain.models
+package ar.edu.unlam.mobile.scaffold.data.transaction.models
 
 data class PieChartInput(
     val color: androidx.compose.ui.graphics.Color,

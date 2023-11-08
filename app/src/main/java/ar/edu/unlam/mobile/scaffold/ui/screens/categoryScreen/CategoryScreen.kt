@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import ar.edu.unlam.mobile.scaffold.domain.models.ColorsCategory
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.ColorsCategory
 import ar.edu.unlam.mobile.scaffold.ui.components.category.CategoryColor
 import ar.edu.unlam.mobile.scaffold.ui.components.category.CategoryRadioButton
 

@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ar.edu.unlam.mobile.scaffold.domain.models.PieChartInput
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.PieChartInput
 import ar.edu.unlam.mobile.scaffold.ui.screens.chartScreen.listOfPieChartInput
 import kotlin.math.roundToInt
 

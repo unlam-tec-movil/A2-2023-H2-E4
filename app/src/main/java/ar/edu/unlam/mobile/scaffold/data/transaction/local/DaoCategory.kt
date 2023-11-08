@@ -1,10 +1,11 @@
-package ar.edu.unlam.mobile.scaffold.data.app.local.core.category
+package ar.edu.unlam.mobile.scaffold.data.transaction.local
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CategoryEntity
 
 @Dao
 interface DaoCategory {

@@ -1,6 +1,6 @@
-package ar.edu.unlam.mobile.scaffold.domain.models
+package ar.edu.unlam.mobile.scaffold.data.transaction.models
 
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.currency.CurrencyEntity
+import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CurrencyEntity
 
 data class Currency(
     val id: Int,

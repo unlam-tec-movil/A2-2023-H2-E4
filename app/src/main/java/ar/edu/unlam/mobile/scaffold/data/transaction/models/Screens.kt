@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.domain.models
+package ar.edu.unlam.mobile.scaffold.data.transaction.models
 
 sealed class Screens(val route: String) {
     object Home : Screens("home")

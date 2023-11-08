@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.domain.models
+package ar.edu.unlam.mobile.scaffold.data.transaction.models
 
 enum class ColorsCategory(val colorHex: String) {
     ROJO("#ff6961"),

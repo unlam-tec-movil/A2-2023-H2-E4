@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import ar.edu.unlam.mobile.scaffold.domain.models.TransactionType
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

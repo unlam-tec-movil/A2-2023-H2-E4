@@ -1,8 +1,8 @@
-package ar.edu.unlam.mobile.scaffold.data.app.local.core.di
+package ar.edu.unlam.mobile.scaffold.data.transaction.local.di
 
 import android.content.Context
 import androidx.room.Room
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.AppDatabase
+import ar.edu.unlam.mobile.scaffold.data.transaction.local.TransactionDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,8 +15,8 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Provides
     @Singleton
-    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, "app-database")
+    fun provideAppDatabase(@ApplicationContext context: Context): TransactionDatabase {
+        return Room.databaseBuilder(context, TransactionDatabase::class.java, "app-database")
             .build()
     }
 }

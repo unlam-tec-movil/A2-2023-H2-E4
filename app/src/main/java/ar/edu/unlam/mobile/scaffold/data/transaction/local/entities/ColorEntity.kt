@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.data.app.local.core.color
+package ar.edu.unlam.mobile.scaffold.data.transaction.local.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

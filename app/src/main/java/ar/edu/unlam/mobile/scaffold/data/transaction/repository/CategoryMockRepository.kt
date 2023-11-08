@@ -1,14 +1,15 @@
-package ar.edu.unlam.mobile.scaffold.data.app.local.core.category.repository
+package ar.edu.unlam.mobile.scaffold.data.transaction.repository
 
 import androidx.compose.ui.graphics.Color
-import ar.edu.unlam.mobile.scaffold.domain.models.TransactionType
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
 import kotlin.math.roundToInt
 
-object CategoryRepository {
+object CategoryMockRepository {
     private val categories = mutableListOf(
-        Category(1, TransactionType.EXPENSE, "Ropa", 5000.0, Color.Magenta),
-        Category(2, TransactionType.EXPENSE, "Comida", 20000.0, Color.Cyan),
-        Category(3, TransactionType.EXPENSE, "Limpieza", 1000.0, Color.Green)
+        Category(1, "Ropa", 5000.0, Color.Magenta),
+        Category(2,  "Comida", 20000.0, Color.Cyan),
+        Category(3,  "Limpieza", 1000.0, Color.Green),
     )
 
     fun order(): List<Category> {

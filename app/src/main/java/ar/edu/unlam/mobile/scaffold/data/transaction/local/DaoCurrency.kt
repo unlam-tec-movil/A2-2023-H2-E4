@@ -1,8 +1,9 @@
-package ar.edu.unlam.mobile.scaffold.data.app.local.core.currency
+package ar.edu.unlam.mobile.scaffold.data.transaction.local
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CurrencyEntity
 
 @Dao
 interface DaoCurrency {

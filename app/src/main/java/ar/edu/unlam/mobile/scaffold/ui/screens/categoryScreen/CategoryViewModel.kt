@@ -2,8 +2,8 @@ package ar.edu.unlam.mobile.scaffold.ui.screens.categoryScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.AppDatabase
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.category.CategoryEntity
+import ar.edu.unlam.mobile.scaffold.data.transaction.local.TransactionDatabase
+import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CategoryEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CategoryViewModel
 @Inject
-constructor(val appDatabase: AppDatabase) : ViewModel() {
+constructor(val appDatabase: TransactionDatabase) : ViewModel() {
 
     // Agregar una categoría a la base de datos
     fun addCategoryToDatabase(name: String, type: String, colorHex: String) {
@@ -22,9 +22,9 @@ constructor(val appDatabase: AppDatabase) : ViewModel() {
             withContext(Dispatchers.IO) {
                 val newCategory = CategoryEntity(
                     id = 0, // Room generará automáticamente un ID único
-                    transaction_type_id = 1,
+                    transactionTypeId = 1,
                     name = name,
-                    color_id = 1,
+                    colorId = 1,
                 )
                 appDatabase.categoryDao().insertCategory(newCategory)
                 var myCategories = appDatabase.categoryDao().getAllCategories()

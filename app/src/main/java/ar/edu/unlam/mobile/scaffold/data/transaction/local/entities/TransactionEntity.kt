@@ -1,9 +1,8 @@
-package ar.edu.unlam.mobile.scaffold.data.app.local.core.transaction
+package ar.edu.unlam.mobile.scaffold.data.transaction.local.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.time.LocalDate
 
 @Entity(tableName = "Transaction")
 data class TransactionEntity(
@@ -13,11 +12,11 @@ data class TransactionEntity(
     @ColumnInfo(name = "description")
     val description: String,
     @ColumnInfo(name = "transaction_type_id")
-    val transaction_type_id: Int,
+    val transactionTypeID: Int,
     @ColumnInfo(name = "category_id")
-    val category_id: Int,
+    val categoryId: Int,
     @ColumnInfo(name = "currency_id")
-    val currency_id: Int,
+    val currencyId: Int,
     @ColumnInfo(name = "date")
     val date: String,
     @ColumnInfo(name = "amount")

@@ -1,20 +1,18 @@
-package ar.edu.unlam.mobile.scaffold.data.app.local.core
+package ar.edu.unlam.mobile.scaffold.data.transaction.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.category.CategoryEntity
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.category.DaoCategory
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.color.ColorEntity
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.color.DaoColor
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.currency.CurrencyEntity
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.currency.DaoCurrency
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.transaction.DaoTransaction
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.transaction.TransactionEntity
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.transactionType.DaoTransactionType
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.transactionType.TransactionTypeEntity
+import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CategoryEntity
+import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.ColorEntity
+import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CurrencyEntity
+import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.TransactionEntity
+import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.TransactionTypeEntity
 
-@Database(entities = [CategoryEntity::class, ColorEntity::class, TransactionTypeEntity::class, CurrencyEntity::class, TransactionEntity::class], version = 1)
-abstract class AppDatabase : RoomDatabase() {
+@Database(
+    entities = [CategoryEntity::class, ColorEntity::class, TransactionTypeEntity::class, CurrencyEntity::class, TransactionEntity::class],
+    version = 1,
+)
+abstract class TransactionDatabase : RoomDatabase() {
     abstract fun categoryDao(): DaoCategory
     abstract fun colorDao(): DaoColor
     abstract fun transactionTypeDao(): DaoTransactionType

@@ -13,7 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import ar.edu.unlam.mobile.scaffold.domain.models.Screens
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.Screens
 
 @Composable
 fun BottomBar(controller: NavHostController) {

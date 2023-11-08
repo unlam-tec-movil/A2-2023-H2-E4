@@ -1,10 +1,7 @@
-package ar.edu.unlam.mobile.scaffold.data.app.local.core.relationships
+package ar.edu.unlam.mobile.scaffold.data.transaction.local.entities
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.category.CategoryEntity
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.color.ColorEntity
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.transactionType.TransactionTypeEntity
 
 // Definición de relaciones
 data class CategoryWithDetails(

@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.data.app.network.dto
+package ar.edu.unlam.mobile.scaffold.data.transaction.network.dto
 
 data class CurrencyConversionResponseDTO(
     val result: ConversionResultDTO? = null,

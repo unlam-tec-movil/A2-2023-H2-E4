@@ -1,12 +1,6 @@
-package ar.edu.unlam.mobile.scaffold.domain.models
+package ar.edu.unlam.mobile.scaffold.data.transaction.models
 
-enum class TransactionType(val typeCode: Int) {
-    EXPENSE(0),
-    INCOME(1);
-
-    companion object {
-        private val map = values().associateBy(TransactionType::typeCode)
-        fun fromInt(code: Int) = map[code]
-    }
-}
-
+data class TransactionType(
+    val id: Int,
+    val description: String,
+)

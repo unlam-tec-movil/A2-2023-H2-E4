@@ -24,7 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ar.edu.unlam.mobile.scaffold.domain.models.ColorsCategory
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.ColorsCategory
 
 // Funcion que recorre el enum de colores y agrega el color al Box
 @Composable

@@ -4,10 +4,10 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ar.edu.unlam.mobile.scaffold.data.app.network.repository.CurrencyConversionHTTPRepository
+import ar.edu.unlam.mobile.scaffold.data.transaction.network.repository.CurrencyConversionHTTPRepository
 import ar.edu.unlam.mobile.scaffold.domain.services.CurrencyServiceInterface
-import ar.edu.unlam.mobile.scaffold.domain.models.Currency
-import ar.edu.unlam.mobile.scaffold.domain.models.TransactionType
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.Currency
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

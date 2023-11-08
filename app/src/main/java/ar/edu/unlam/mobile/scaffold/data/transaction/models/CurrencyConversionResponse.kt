@@ -1,7 +1,7 @@
-package ar.edu.unlam.mobile.scaffold.domain.models
+package ar.edu.unlam.mobile.scaffold.data.transaction.models
 
-import ar.edu.unlam.mobile.scaffold.data.app.network.dto.ConversionResultDTO
-import ar.edu.unlam.mobile.scaffold.data.app.network.dto.CurrencyConversionResponseDTO
+import ar.edu.unlam.mobile.scaffold.data.transaction.network.dto.ConversionResultDTO
+import ar.edu.unlam.mobile.scaffold.data.transaction.network.dto.CurrencyConversionResponseDTO
 
 data class CurrencyConversionResponse(
     val result: ConversionResult = ConversionResult(),
