@@ -1,8 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.domain.models
 
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.category.CategoryEntity
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.currency.CurrencyEntity
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.transaction.TransactionEntity
 import java.time.LocalDate
 
 data class Transaction(
@@ -15,7 +12,7 @@ data class Transaction(
     val date: LocalDate,
 )
 
-//{
+// {
 //    constructor(entity: TransactionEntity, category: CategoryEntity, currency: CurrencyEntity) : this(
 //        id = entity.id,
 //        description = entity.description,
@@ -25,4 +22,4 @@ data class Transaction(
 //        date = entity.date,
 //        amount = entity.amount
 //    )
-//}
+// }
