@@ -14,13 +14,13 @@ data class CategoryEntity(
     val transactionTypeId: Int,
     @ColumnInfo(name = "name")
     val name: String,
-    @ColumnInfo(name = "color_id")
-    val colorId: Int,
+    @ColumnInfo(name = "colorString")
+    val colorString: String,
 )
 
 fun CategoryEntity.toDomain(): Category = Category(
     id = id,
-    transactionTypeId = transactionTypeId,
+    type = transactionTypeId.toDomain(),
     name = name,
-    colorId = colorId,
+    color = colorString,
 )

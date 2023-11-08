@@ -5,11 +5,12 @@ import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CurrencyEnti
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.TransactionTypeEntity
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.toDomain
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Transaction
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
 import java.time.LocalDate
 
 data class TransactionModel(
     val id: Int,
-    val type: String,
+    val type: TransactionTypeEntity,
     val currencyEntity: CurrencyEntity,
     val transactionCategoryEntity: CategoryEntity,
     val amount: Double,
@@ -19,10 +20,10 @@ data class TransactionModel(
 
 fun TransactionModel.toDomain() = Transaction(
     id = id,
-    type = TransactionTypeEntity(id = 0, description = type).toDomain(),
-    currency = currencyEntity.toDomain(),
+    type = type,
+    currency = currencyCode,
+    category = categoryName,
     amount = amount.toFloat(),
     date = date,
     description = description,
-    category = transactionCategoryEntity.toDomain(),
 )

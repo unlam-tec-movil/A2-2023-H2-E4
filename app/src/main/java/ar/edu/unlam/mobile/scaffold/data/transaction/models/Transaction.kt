@@ -11,15 +11,3 @@ data class Transaction(
     val description: String,
     val date: LocalDate,
 )
-
-// {
-//    constructor(entity: TransactionEntity, category: CategoryEntity, currency: CurrencyEntity) : this(
-//        id = entity.id,
-//        description = entity.description,
-//        transactionType = TransactionType.fromInt(entity.transaction_type_id),
-//        category = Category(entity = category),
-//        currency = currency,
-//        date = entity.date,
-//        amount = entity.amount
-//    )
-// }

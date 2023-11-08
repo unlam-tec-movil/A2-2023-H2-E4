@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import ar.edu.unlam.mobile.scaffold.data.core.PreferenceUtils
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.TransactionDatabase
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CategoryEntity
-import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.ColorEntity
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CurrencyEntity
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.TransactionTypeEntity
 import ar.edu.unlam.mobile.scaffold.ui.screens.mainScreen.MainScreen

@@ -2,7 +2,6 @@ package ar.edu.unlam.mobile.scaffold.data.transaction.repository
 
 import androidx.compose.ui.graphics.Color
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
-import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
 import kotlin.math.roundToInt
 
 object CategoryMockRepository {

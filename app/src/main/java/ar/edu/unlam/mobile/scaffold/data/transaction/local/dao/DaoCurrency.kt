@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.data.transaction.local
+package ar.edu.unlam.mobile.scaffold.data.transaction.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
