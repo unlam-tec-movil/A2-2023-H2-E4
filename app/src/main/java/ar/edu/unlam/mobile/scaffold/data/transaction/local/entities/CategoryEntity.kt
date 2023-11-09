@@ -20,7 +20,7 @@ data class CategoryEntity(
 
 fun CategoryEntity.toDomain(): Category = Category(
     id = id,
-    type = transactionTypeId.toDomain(),
+    type = transactionTypeId,
     name = name,
     color = colorString,
 )

@@ -8,16 +8,19 @@ data class TransactionWithDetails(
     @Embedded
     val transaction: TransactionEntity,
     @Relation(
+        entity = TransactionTypeEntity::class,
         parentColumn = "transaction_type_id",
         entityColumn = "id",
     )
     val transactionType: TransactionTypeEntity,
     @Relation(
+        entity = CategoryEntity::class,
         parentColumn = "category_id",
         entityColumn = "id",
     )
     val category: CategoryEntity,
     @Relation(
+        entity = CurrencyEntity::class,
         parentColumn = "currency_id",
         entityColumn = "id",
     )

@@ -11,9 +11,4 @@ data class CategoryWithDetails(
         entityColumn = "id"
     )
     val transactionType: TransactionTypeEntity,
-    @Relation(
-        parentColumn = "color_id",
-        entityColumn = "id"
-    )
-    val color: ColorEntity,
 )

@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffold.data.transaction.local.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -42,9 +43,9 @@ interface DaoTransaction {
 //    fun getTransaction(): List<TransactionModel>
     @Query(
         "SELECT t.id as id, " +
-            "tt as type, " +
-            "cu as currencyEntity, " +
-            "c as transactionCategoryEntity, " +
+            "tt.description as type, " +
+            "cu.code as currencyCode, " +
+            "c.name as CategoryName, " +
             "t.amount as amount, " +
             "t.date as date, " +
             "t.description as description " +
@@ -53,5 +54,5 @@ interface DaoTransaction {
             "INNER JOIN `Currency` cu ON t.currency_id = cu.id " +
             "INNER JOIN `TransactionType` tt ON t.transaction_type_id = tt.id",
     )
-    fun getTransactionModels(): List<TransactionModel>
+    fun getTransactionModels(): LiveData<List<TransactionModel>>
 }
