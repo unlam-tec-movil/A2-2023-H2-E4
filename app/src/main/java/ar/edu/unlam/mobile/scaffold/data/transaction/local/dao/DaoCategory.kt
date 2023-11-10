@@ -1,5 +1,4 @@
 package ar.edu.unlam.mobile.scaffold.data.transaction.local.dao
-
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -9,10 +8,8 @@ import androidx.room.Update
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CategoryEntity
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CategoryWithDetails
 import kotlinx.coroutines.flow.Flow
-
 @Dao
 interface DaoCategory {
-
     // trae todas las categorias
     @Query("SELECT * FROM Category")
     fun getAllCategories(): List<CategoryEntity>
@@ -32,11 +29,11 @@ interface DaoCategory {
     @Transaction
     @Query(
         "SELECT c.id as id, " +
-                "c.id as transaction_type_id, " +
-                "c.name as name, " +
-                "c.colorString as colorString " +
-                "FROM `Category` c " +
-                "INNER JOIN `TransactionType` tt ON c.transaction_type_id = tt.id",
+            "c.id as transaction_type_id, " +
+            "c.name as name, " +
+            "c.colorString as colorString " +
+            "FROM `Category` c " +
+            "INNER JOIN `TransactionType` tt ON c.transaction_type_id = tt.id",
     )
     fun getCategory(): Flow<List<CategoryWithDetails>>
 }
