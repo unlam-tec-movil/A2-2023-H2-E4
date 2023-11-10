@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class CategoryRoomRepository @Inject constructor(
-    private val daoCategory: DaoCategory
+    private val daoCategory: DaoCategory,
 ) : CategoryLocalRepoInterface, CategoryServiceInterface {
     override fun getAllCategory(): Flow<List<CategoryWithDetails>> {
         return daoCategory.getCategory()
@@ -26,4 +26,3 @@ class CategoryRoomRepository @Inject constructor(
         return daoCategory.getAllCategories()
     }
 }
-
