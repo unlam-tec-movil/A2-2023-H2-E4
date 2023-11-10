@@ -24,7 +24,7 @@ fun Statistics(
     total: String,
     list: MutableList<PieChartInput>,
     color1: Color,
-    color2: Color
+    color2: Color,
 ) {
     Row(
         modifier = Modifier
@@ -32,7 +32,7 @@ fun Statistics(
             .background(color1)
             .padding(0.dp, 10.dp),
         horizontalArrangement = Arrangement.SpaceAround,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(text = categoria, fontSize = 23.sp, color = Color.White)
         Text(text = porcentaje, fontSize = 23.sp, color = Color.White)
@@ -46,7 +46,7 @@ fun ShowCategories(data: MutableList<PieChartInput>, color: Color) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
             .height(200.dp)
-            .background(color = color)
+            .background(color = color),
     ) {
         items(data) { item ->
             ListItemRow(item)
