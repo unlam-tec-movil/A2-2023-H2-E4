@@ -22,8 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import ar.edu.unlam.mobile.scaffold.domain.models.PieChartInput
-import ar.edu.unlam.mobile.scaffold.domain.models.Screens
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.PieChartInput
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.Screens
 import ar.edu.unlam.mobile.scaffold.ui.components.PieChart
 import ar.edu.unlam.mobile.scaffold.ui.components.Statistics
 

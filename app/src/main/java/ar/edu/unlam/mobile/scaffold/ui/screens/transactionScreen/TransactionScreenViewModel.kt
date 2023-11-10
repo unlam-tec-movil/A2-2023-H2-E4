@@ -4,10 +4,10 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ar.edu.unlam.mobile.scaffold.data.app.network.repository.CurrencyConversionHTTPRepository
-import ar.edu.unlam.mobile.scaffold.domain.di.CurrencyServiceInterface
-import ar.edu.unlam.mobile.scaffold.domain.models.Currency
-import ar.edu.unlam.mobile.scaffold.domain.models.TransactionType
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.Currency
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
+import ar.edu.unlam.mobile.scaffold.data.transaction.network.repository.CurrencyConversionHTTPRepository
+import ar.edu.unlam.mobile.scaffold.domain.services.CurrencyServiceInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,10 +19,10 @@ import javax.inject.Inject
 @HiltViewModel
 class TransactionScreenViewModel @Inject constructor(
     private val repository: CurrencyConversionHTTPRepository,
-    private val currencyService: CurrencyServiceInterface
+    private val currencyService: CurrencyServiceInterface,
 ) : ViewModel() {
-    private val _selectedTab = MutableStateFlow(TransactionType.EXPENSE)
-    val selectedTab: StateFlow<TransactionType> = _selectedTab
+    // private val _selectedTab = MutableStateFlow(TransactionType.EXPENSE)
+    // val selectedTab: StateFlow<TransactionType> = _selectedTab
 
     private val _convertedValue = MutableStateFlow("0")
     val convertedValue: MutableStateFlow<String> = _convertedValue
@@ -44,7 +44,7 @@ class TransactionScreenViewModel @Inject constructor(
     }
 
     fun changeTab(tabType: TransactionType) {
-        _selectedTab.value = tabType
+        // _selectedTab.value = tabType
     }
     fun getCurrencyConversion(source: String, target: String, format: String = "json", quantity: String, apiKey: String = "45717|jb3r*ko06befntG2Ed~oJdD3chm7CfRB") {
         viewModelScope.launch {

@@ -2,8 +2,8 @@ package ar.edu.unlam.mobile.scaffold.ui.screens.categoryScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.AppDatabase
-import ar.edu.unlam.mobile.scaffold.data.app.local.core.category.CategoryEntity
+import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CategoryEntity
+import ar.edu.unlam.mobile.scaffold.domain.services.CategoryServiceInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,21 +13,26 @@ import javax.inject.Inject
 @HiltViewModel
 class CategoryViewModel
 @Inject
-constructor(val appDatabase: AppDatabase) : ViewModel() {
+constructor(private val categoryService: CategoryServiceInterface) : ViewModel() {
 
     // Agregar una categoría a la base de datos
-    fun addCategoryToDatabase(name: String, type: String, colorHex: String) {
+    fun addCategory(name: String, type: String, colorHex: String) {
         // Inserta categorías en la base de datos usando una corutina
+        val typeValue = when (type) {
+            "Ingresos" -> 0
+            "Gastos" -> 1
+            else -> throw IllegalArgumentException("Tipo no válido")
+        }
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val newCategory = CategoryEntity(
                     id = 0, // Room generará automáticamente un ID único
-                    transaction_type_id = 1,
+                    categoryTransactionTypeId = typeValue,
                     name = name,
-                    color_id = 1,
+                    colorString = colorHex,
                 )
-                appDatabase.categoryDao().insertCategory(newCategory)
-                var myCategories = appDatabase.categoryDao().getAllCategories()
+                categoryService.insertCategory(newCategory)
+                var myCategories = categoryService.getAllCategories()
                 print(myCategories)
             }
         }
