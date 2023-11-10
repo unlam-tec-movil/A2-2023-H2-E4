@@ -9,16 +9,16 @@ data class CategoryWithDetails(
     @Embedded val category: CategoryEntity,
     @Relation(
         parentColumn = "transaction_type_id", // Actualiza el nombre de la columna
-        entityColumn = "id"
+        entityColumn = "id",
     )
-    val transactionType: TransactionTypeEntity
+    val transactionType: TransactionTypeEntity,
 ) {
     fun toDomain(): Category {
         return Category(
             id = category.id,
             type = transactionType.toDomain(),
             name = category.name,
-            color = category.colorString
+            color = category.colorString,
         )
     }
 }

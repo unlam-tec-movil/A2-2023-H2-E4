@@ -11,7 +11,7 @@ data class CategoryEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Int,
-    //TransactionType en la bd se tiene que guardar como Int
+    // TransactionType en la bd se tiene que guardar como Int
     @ColumnInfo(name = "transaction_type_id")
     val categoryTransactionTypeId: Int,
     @ColumnInfo(name = "name")
@@ -25,9 +25,9 @@ fun CategoryEntity.toDomain(): Category {
     val transactionType = TransactionTypeEnum.fromInt(categoryTransactionTypeId)
     return Category(
         id = id,
-        //aca se lo tengo que pasar como objeto no como Int
+        // aca se lo tengo que pasar como objeto no como Int
         type = transactionType,
         name = name,
-        color = colorString
+        color = colorString,
     )
 }
