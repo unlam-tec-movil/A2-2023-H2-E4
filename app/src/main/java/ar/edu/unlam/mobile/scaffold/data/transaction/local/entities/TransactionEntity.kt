@@ -9,16 +9,16 @@ data class TransactionEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Int,
-    @ColumnInfo(name = "description")
-    val description: String,
     @ColumnInfo(name = "transaction_type_id")
     val transactionTypeID: Int,
     @ColumnInfo(name = "category_id")
     val categoryId: Int,
     @ColumnInfo(name = "currency_id")
     val currencyId: Int,
+    @ColumnInfo(name = "amount")
+    val amount: Double,
     @ColumnInfo(name = "date")
     val date: String,
-    @ColumnInfo(name = "amount")
-    val amount: Float,
+    @ColumnInfo(name = "description")
+    val description: String,
 )

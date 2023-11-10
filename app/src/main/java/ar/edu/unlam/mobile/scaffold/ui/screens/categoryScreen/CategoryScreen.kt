@@ -87,7 +87,7 @@ fun CategoryScreen(
             enabled = isInputValid,
             onClick = {
                 // Llama funcion de viewModel que hace el insert a la BD
-                viewModel.addCategoryToDatabase(categoryName, selectedOption, selectedColor?.colorHex ?: ColorsCategory.ROJO.colorHex)
+                viewModel.addCategory(categoryName, selectedOption, selectedColor?.colorHex ?: ColorsCategory.ROJO.colorHex)
                 categoryName = ""
             },
         ) {

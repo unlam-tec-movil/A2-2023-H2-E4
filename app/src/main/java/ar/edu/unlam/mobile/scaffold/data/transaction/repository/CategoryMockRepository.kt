@@ -1,10 +1,6 @@
 package ar.edu.unlam.mobile.scaffold.data.transaction.repository
 
-import androidx.compose.ui.graphics.Color
-import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
-import kotlin.math.roundToInt
-
-object CategoryMockRepository {
+object CategoryMockRepository { /*
     private val categories = mutableListOf(
         Category(1, "Ropa", 5000.0, Color.Magenta),
         Category(2,  "Comida", 20000.0, Color.Cyan),
@@ -37,5 +33,5 @@ object CategoryMockRepository {
 
     fun porcentaje(category: Category): Int {
         return ((category.totalAmount.div(total())).times(100)).roundToInt()
-    }
+    }*/
 }

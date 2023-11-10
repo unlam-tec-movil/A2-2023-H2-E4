@@ -7,17 +7,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import ar.edu.unlam.mobile.scaffold.data.core.PreferenceUtils
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.TransactionDatabase
-import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CategoryEntity
-import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CurrencyEntity
-import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.TransactionTypeEntity
 import ar.edu.unlam.mobile.scaffold.ui.screens.mainScreen.MainScreen
 import ar.edu.unlam.mobile.scaffold.ui.theme.MyApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -29,7 +22,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // utilizacion de ShadersPreference para ingresar las categorias
-        val hasDefaultCategories = PreferenceUtils.hasDefaultCategories(this)
+        /*val hasDefaultCategories = PreferenceUtils.hasDefaultCategories(this)
 
         if (!hasDefaultCategories) {
             val viewModelScope = CoroutineScope(Dispatchers.IO)
@@ -250,7 +243,7 @@ class MainActivity : ComponentActivity() {
                 // Marca las categorías por defecto como agregadas
                 PreferenceUtils.setDefaultCategoriesFlag(this@MainActivity)
             }
-        }
+        }*/
         setContent {
             MyApplicationTheme {
                 // A surface container using the 'background' color from the theme
