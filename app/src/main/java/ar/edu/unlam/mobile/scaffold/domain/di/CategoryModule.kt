@@ -22,6 +22,3 @@ object CategoryModule {
         return categoryRoomRepository
     }
 }
-
-
-

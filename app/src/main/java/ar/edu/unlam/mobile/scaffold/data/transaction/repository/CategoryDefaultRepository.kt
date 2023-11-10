@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class CategoryDefaultRepository @Inject constructor(
-    private val categoryLocalRepo: CategoryLocalRepoInterface
+    private val categoryLocalRepo: CategoryLocalRepoInterface,
 ) : CategoryRepositoryInterface {
     override suspend fun addCategory(category: CategoryEntity) {
         categoryLocalRepo.addCategory(category)

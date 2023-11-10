@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class TransactionDefaultRepository @Inject constructor(
-    private val transactionLocalRepo: TransactionLocalRepoInterface
+    private val transactionLocalRepo: TransactionLocalRepoInterface,
 ) : TransactionRepositoryInterface {
     override suspend fun addTransaction(transaction: TransactionEntity) {
         transactionLocalRepo.addTransaction(transaction)
@@ -22,6 +22,3 @@ class TransactionDefaultRepository @Inject constructor(
         }
     }
 }
-
-
-

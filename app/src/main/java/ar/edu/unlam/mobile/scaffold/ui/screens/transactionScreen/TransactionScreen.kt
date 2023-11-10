@@ -53,7 +53,7 @@ fun TransactionScreen(
     var selectedTab by remember { mutableStateOf(0) }
     var selectedCurrency by remember { mutableStateOf("ARS") }
     val tabs = listOf("Expense", "Income")
-    //val selectedTabState by viewModel.selectedTab.collectAsState()
+    // val selectedTabState by viewModel.selectedTab.collectAsState()
     val convertedValue by viewModel.convertedValue.collectAsState()
     var amount by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
@@ -88,7 +88,7 @@ fun TransactionScreen(
                     selected = selectedTab == index,
                     onClick = {
                         selectedTab = index
-                        //viewModel.changeTab(TransactionType.values()[index])
+                        // viewModel.changeTab(TransactionType.values()[index])
                     },
                 )
             }
@@ -147,7 +147,7 @@ fun TransactionScreen(
 
         Text(text = convertedValue)
 
-        //Text(text = "Estoy en la pantalla $selectedTabState")
+        // Text(text = "Estoy en la pantalla $selectedTabState")
         Button(onClick = {
             viewModel.getCurrencyConversion(
                 source = "$selectedCurrency",

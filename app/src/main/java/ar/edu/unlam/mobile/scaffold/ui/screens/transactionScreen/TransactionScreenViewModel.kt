@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TransactionScreenViewModel @Inject constructor(
     private val repository: CurrencyConversionHTTPRepository,
-    private val currencyService: CurrencyServiceInterface
+    private val currencyService: CurrencyServiceInterface,
 ) : ViewModel() {
     // private val _selectedTab = MutableStateFlow(TransactionType.EXPENSE)
     // val selectedTab: StateFlow<TransactionType> = _selectedTab
