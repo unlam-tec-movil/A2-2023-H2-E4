@@ -18,13 +18,18 @@ constructor(private val categoryService: CategoryServiceInterface) : ViewModel()
     // Agregar una categoría a la base de datos
     fun addCategory(name: String, type: String, colorHex: String) {
         // Inserta categorías en la base de datos usando una corutina
+        val typeValue = when (type) {
+            "Ingresos" -> 0
+            "Gastos" -> 1
+            else -> throw IllegalArgumentException("Tipo no válido")
+        }
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val newCategory = CategoryEntity(
                     id = 0, // Room generará automáticamente un ID único
-                    categoryTransactionTypeId = 1,
+                    categoryTransactionTypeId = typeValue,
                     name = name,
-                    colorString = "rojo",
+                    colorString = colorHex,
                 )
                 categoryService.insertCategory(newCategory)
                 var myCategories = categoryService.getAllCategories()
