@@ -6,16 +6,16 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CategoryEntity
-import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CategoryWithDetails
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
 import kotlinx.coroutines.flow.Flow
 @Dao
 interface DaoCategory {
-    // trae todas las categorias
+
     @Query("SELECT * FROM Category")
     fun getAllCategories(): List<CategoryEntity>
 
-    @Query("SELECT * FROM Category WHERE transaction_type_id = :transactionTypeId")
-    fun getCategoriesByTransactionType(transactionTypeId: Int): List<CategoryEntity>
+    @Query("SELECT * FROM Category WHERE transaction_type = :transactionType")
+    fun getCategoriesByTransactionType(transactionType: TransactionType): List<CategoryEntity>
 
     @Insert
     fun insertCategory(category: CategoryEntity)
@@ -28,12 +28,7 @@ interface DaoCategory {
 
     @Transaction
     @Query(
-        "SELECT c.id as id, " +
-            "c.id as transaction_type_id, " +
-            "c.name as name, " +
-            "c.colorString as colorString " +
-            "FROM `Category` c " +
-            "INNER JOIN `TransactionType` tt ON c.transaction_type_id = tt.id",
+        "SELECT * " + "FROM `Category` ",
     )
-    fun getCategory(): Flow<List<CategoryWithDetails>>
+    fun getCategory(): Flow<List<CategoryEntity>>
 }
