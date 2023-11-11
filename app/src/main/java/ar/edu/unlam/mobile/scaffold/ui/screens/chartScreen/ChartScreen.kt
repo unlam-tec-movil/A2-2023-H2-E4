@@ -17,10 +17,17 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.PieChartInput
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Screens
@@ -31,6 +38,7 @@ import ar.edu.unlam.mobile.scaffold.ui.components.Statistics
 @Composable
 fun ChartScreen(
     controller: NavHostController,
+    viewModel: ChartScreenViewModel = hiltViewModel()
 ) {
     Column(
         modifier = Modifier
@@ -40,7 +48,7 @@ fun ChartScreen(
         CenterAlignedTopAppBar(
             title = { Text(text = "Tus gastos") },
         )
-        Body(categoria = "Categoría", porcentaje = "Porcentaje", total = "Total", list = listOfPieChartInputOrder() as MutableList<PieChartInput>, Color.Blue, Color.LightGray)
+        Body(categoria = "Categoría", porcentaje = "Porcentaje", total = "Total", viewModel, Color.Blue, Color.LightGray)
         Spacer(modifier = Modifier.height(20.dp))
         Box(modifier = Modifier.fillMaxSize()) {
             FloatingActionButton(
@@ -59,32 +67,35 @@ fun ChartScreen(
 }
 
 @Composable
-fun Body(categoria: String, porcentaje: String, total: String, list: MutableList<PieChartInput>, color1: Color, color2: Color) {
+fun Body(categoria: String, porcentaje: String, total: String, viewModel: ChartScreenViewModel, color1: Color, color2: Color) {
     Column {
+
+        var listPieChartInput by remember { mutableStateOf(emptyList<PieChartInput>()) }
+
+        LaunchedEffect(viewModel) {
+            // Ejecuta la lógica asincrónica y actualiza el estado
+            val result = viewModel.calculateTotalAmountPerCategory()
+            listPieChartInput = result
+        }
         Column(
             modifier = Modifier.height(300.dp),
             verticalArrangement = Arrangement.Center,
         ) {
             PieChart(
-                data = listOfPieChartInput(),
+                data = listPieChartInput,
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
-        Statistics(categoria = categoria, porcentaje = porcentaje, total = total, list = list, color1, color2)
+        Statistics(categoria = categoria, porcentaje = porcentaje, total = total, list = listPieChartInput, color1, color2,viewModel)
     }
 }
 
-fun listOfPieChartInput(): List<PieChartInput> {
-    return listOf(
-        PieChartInput(Color.Gray, 20.0, "Ropa"),
-        PieChartInput(Color.White, 50.0, "Electrodomesticos"),
-        PieChartInput(Color.Blue, 100.0, "Gastos Universitarios"),
-        PieChartInput(Color.Green, 100.4, "Comida"),
-        PieChartInput(Color.Magenta, 70.8, "Bebidas"),
-        PieChartInput(Color.Red, 30.8, "Otros"),
-    )
+@Preview(showBackground = true)
+@Composable
+fun ChartScreenPreview(){
+
 }
 
-fun listOfPieChartInputOrder(): List<PieChartInput> {
+/*fun listOfPieChartInputOrder(): List<PieChartInput> {
     return listOfPieChartInput().sortedByDescending { it.value }
-}
+}*/

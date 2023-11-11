@@ -29,7 +29,7 @@ fun PieChart(
     innerRadius: Float = 250f,
     transparentwidth: Float = 70f,
 ) {
-    val totalSum = data.sumOf { it.value }
+    val totalSum = data.sumOf { it.totalAmount }
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -50,10 +50,10 @@ fun PieChart(
                 var currentStarAngle = 0.0
                 data.forEach { pieChartInput ->
                     val scale = if (pieChartInput.isTapped) 1.1f else 1.0f
-                    val angleToDraw = pieChartInput.value.div(anglePerValue)
+                    val angleToDraw = pieChartInput.totalAmount.div(anglePerValue)
                     scale(scale) {
                         drawArc(
-                            color = pieChartInput.color,
+                            color = Color(android.graphics.Color.parseColor(pieChartInput.category.color)),
                             startAngle = currentStarAngle.toFloat(),
                             sweepAngle = angleToDraw.toFloat(),
                             useCenter = true,
@@ -115,7 +115,7 @@ fun TextCenter(
         )
     }
 }
-
+/*
 @Preview(showBackground = true)
 @Composable
 fun PieChartPreview() {
@@ -135,4 +135,4 @@ fun PieChartPreview() {
             ),
         )
     }
-}
+}*/
