@@ -22,4 +22,13 @@ class CategoryDefaultRepository @Inject constructor(
                 list.map { it.toDomain() }
             }
     }
+    override suspend fun getCategoriesByType(
+        type: String,
+        dispatcherProvider: DispatcherProvider,
+    ): Flow<List<Category>> {
+        return categoryLocalRepo.getCategoriesByType(type)
+            .map { list ->
+                list.map { it.toDomain() }
+            }
+    }
 }

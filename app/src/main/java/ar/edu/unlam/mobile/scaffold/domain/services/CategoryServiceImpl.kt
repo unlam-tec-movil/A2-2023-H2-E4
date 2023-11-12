@@ -8,6 +8,7 @@ import ar.edu.unlam.mobile.scaffold.domain.provider.DispatcherProvider
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+
 class CategoryServiceImpl @Inject constructor(
     private val categoryRepository: CategoryRepositoryInterface,
     private val dispatcherProvider: DispatcherProvider,
@@ -25,6 +26,12 @@ class CategoryServiceImpl @Inject constructor(
 
     override suspend fun getAllCategories(): Flow<List<Category>> =
         categoryRepository.getAllCategory(dispatcherProvider)
+            .map { list ->
+                list.map { it.toDomain() }
+            }
+
+    override suspend fun getCategoriesByType(type: String): Flow<List<Category>> =
+        categoryRepository.getCategoriesByType(type, dispatcherProvider)
             .map { list ->
                 list.map { it.toDomain() }
             }

@@ -15,7 +15,7 @@ interface DaoCategory {
     fun getAllCategories(): List<CategoryEntity>
 
     @Query("SELECT * FROM Category WHERE transaction_type = :transactionType")
-    fun getCategoriesByTransactionType(transactionType: TransactionType): List<CategoryEntity>
+    fun getCategoriesByTransactionType(transactionType: TransactionType): Flow<List<CategoryEntity>>
 
     @Insert
     fun insertCategory(category: CategoryEntity)
