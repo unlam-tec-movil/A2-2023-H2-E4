@@ -1,16 +1,11 @@
 package ar.edu.unlam.mobile.scaffold.domain.di
 
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.TransactionDatabase
-import ar.edu.unlam.mobile.scaffold.data.transaction.local.dao.DaoCategory
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.dao.DaoTransaction
-import ar.edu.unlam.mobile.scaffold.data.transaction.local.repository.CategoryRoomRepository
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.repository.TransactionLocalRepoInterface
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.repository.TransactionRoomRepository
 import ar.edu.unlam.mobile.scaffold.data.transaction.repository.TransactionDefaultRepository
 import ar.edu.unlam.mobile.scaffold.data.transaction.repository.TransactionRepositoryInterface
-import ar.edu.unlam.mobile.scaffold.domain.services.CategoryServiceInterface
-import ar.edu.unlam.mobile.scaffold.domain.services.CurrencyService
-import ar.edu.unlam.mobile.scaffold.domain.services.CurrencyServiceInterface
 import ar.edu.unlam.mobile.scaffold.domain.services.TransactionService
 import ar.edu.unlam.mobile.scaffold.domain.services.TransactionServiceInterface
 import dagger.Module

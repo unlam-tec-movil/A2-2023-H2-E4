@@ -7,5 +7,4 @@ interface TransactionServiceInterface {
     suspend fun insertTransaction(transaction: Transaction)
 
     suspend fun getAllTransactions(): Flow<List<Transaction>>
-
 }
