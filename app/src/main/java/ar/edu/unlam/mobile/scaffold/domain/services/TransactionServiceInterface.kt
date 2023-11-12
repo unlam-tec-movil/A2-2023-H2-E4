@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface TransactionServiceInterface {
     suspend fun insertTransaction()
-    suspend fun getAllTransaction(): List<Transaction>
+    suspend fun getAllTransaction(): Flow<List<Transaction>>
 }

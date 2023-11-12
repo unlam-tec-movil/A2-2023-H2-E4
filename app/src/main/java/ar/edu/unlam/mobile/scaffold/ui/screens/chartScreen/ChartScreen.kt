@@ -38,7 +38,7 @@ import ar.edu.unlam.mobile.scaffold.ui.components.Statistics
 @Composable
 fun ChartScreen(
     controller: NavHostController,
-    viewModel: ChartScreenViewModel = hiltViewModel()
+    viewModel: ChartScreenViewModel = hiltViewModel(),
 ) {
     Column(
         modifier = Modifier
@@ -69,13 +69,11 @@ fun ChartScreen(
 @Composable
 fun Body(categoria: String, porcentaje: String, total: String, viewModel: ChartScreenViewModel, color1: Color, color2: Color) {
     Column {
-
         var listPieChartInput by remember { mutableStateOf(emptyList<PieChartInput>()) }
 
         LaunchedEffect(viewModel) {
             // Ejecuta la lógica asincrónica y actualiza el estado
-            val result = viewModel.calculateTotalAmountPerCategory()
-            listPieChartInput = result
+            viewModel.loadDatePieChartList()
         }
         Column(
             modifier = Modifier.height(300.dp),
@@ -86,14 +84,13 @@ fun Body(categoria: String, porcentaje: String, total: String, viewModel: ChartS
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
-        Statistics(categoria = categoria, porcentaje = porcentaje, total = total, list = listPieChartInput, color1, color2,viewModel)
+        Statistics(categoria = categoria, porcentaje = porcentaje, total = total, list = listPieChartInput, color1, color2, viewModel)
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ChartScreenPreview(){
-
+fun ChartScreenPreview() {
 }
 
 /*fun listOfPieChartInputOrder(): List<PieChartInput> {

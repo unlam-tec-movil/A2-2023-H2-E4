@@ -8,4 +8,8 @@ data class Transaction(
     val amount: Double,
     val date: String,
     val description: String,
-)
+) {
+    fun toDomain(): Transaction {
+        return this
+    }
+}
