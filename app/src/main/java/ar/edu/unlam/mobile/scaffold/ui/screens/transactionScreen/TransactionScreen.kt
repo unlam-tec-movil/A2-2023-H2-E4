@@ -47,7 +47,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Currency
-import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionTypeEnum
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -61,9 +61,9 @@ fun TransactionScreen(
     val context = LocalContext.current
     var selectedTab by remember { mutableIntStateOf(0) }
     var selectedCurrency by remember { mutableStateOf(Currency(0, "ARS", "Argentine Peso")) }
-    val selectedCategory by remember { mutableStateOf(Category(0, TransactionTypeEnum.fromInt(1), "Comida", "FFFFFF")) }
+    val selectedCategory by remember { mutableStateOf(Category(0, TransactionType.Ingresos, "Comida", "FFFFFF")) }
 
-    val tabs = listOf("Expense", "Income")
+    val tabs = TransactionType.values().toList()
     val selectedTabState by viewModel.selectedTab.collectAsState()
     val convertedValue by viewModel.convertedValue.collectAsState()
     var amount by remember { mutableStateOf("") }
@@ -95,11 +95,11 @@ fun TransactionScreen(
         ) {
             tabs.forEachIndexed { index, title ->
                 Tab(
-                    text = { Text(title) },
+                    text = { Text(title.name) },
                     selected = selectedTab == index,
                     onClick = {
                         selectedTab = index
-                        viewModel.changeTab(TransactionTypeEnum.fromInt(index))
+                        viewModel.changeTab(TransactionType.valueOf(title.toString()))
                     },
                 )
             }
@@ -157,10 +157,11 @@ fun TransactionScreen(
 
         Text(text = convertedValue)
 
-        Text(text = "Estoy en la pantalla ${TransactionTypeEnum.fromInt(selectedTab).description}")
+        Text(text = "Estoy en la pantalla ${TransactionType.values()[selectedTab]}")
+
         Button(onClick = {
             viewModel.getCurrencyConversion(
-                source = "$selectedCurrency",
+                source = "${selectedCurrency.code}",
                 target = "ARS",
                 quantity = amount,
             )
@@ -177,7 +178,7 @@ fun TransactionScreen(
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
                 val current = LocalDateTime.now().format(formatter)
 
-                viewModel.createNewTransaction(selectedTab, selectedCategory, selectedCurrency, amount.toDouble(), current, "Comida")
+                viewModel.createNewTransaction(selectedTabState, selectedCategory, selectedCurrency, amount.toDouble(), current, "Comida")
             },
         ) {
             Text(text = "Agregar")

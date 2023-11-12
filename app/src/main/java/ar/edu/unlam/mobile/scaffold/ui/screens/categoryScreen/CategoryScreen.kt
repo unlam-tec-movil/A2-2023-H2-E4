@@ -93,5 +93,9 @@ fun CategoryScreen(
         ) {
             Text(text = "Agregar")
         }
+
+        Spacer(modifier = Modifier.height(5.dp))
+
+        // viewModel.loadCategories()
     }
 }

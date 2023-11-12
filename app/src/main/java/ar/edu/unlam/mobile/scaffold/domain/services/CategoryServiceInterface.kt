@@ -1,8 +1,9 @@
 package ar.edu.unlam.mobile.scaffold.domain.services
 
-import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CategoryEntity
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
+import kotlinx.coroutines.flow.Flow
 
 interface CategoryServiceInterface {
-    suspend fun insertCategory(category: CategoryEntity)
-    suspend fun getAllCategories(): List<CategoryEntity>
+    suspend fun addCategory(name: String, type: String, colorHex: String)
+    suspend fun getAllCategories(): Flow<List<Category>>
 }

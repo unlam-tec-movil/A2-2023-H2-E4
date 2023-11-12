@@ -9,11 +9,6 @@ data class TransactionWithDetails(
     @Embedded
     val transaction: TransactionEntity,
     @Relation(
-        parentColumn = "transaction_type_id",
-        entityColumn = "id",
-    )
-    val transactionType: TransactionTypeEntity,
-    @Relation(
         parentColumn = "category_id",
         entityColumn = "id",
     )
@@ -27,12 +22,12 @@ data class TransactionWithDetails(
     fun toDomain(): Transaction {
         return Transaction(
             id = transaction.id,
-            type = transactionType.toDomain(),
+            type = transaction.transactionType,
             category = category.toDomain(),
             currency = currency.toDomain(),
             amount = transaction.amount,
             date = transaction.date,
-            description = transaction.description
+            description = transaction.description,
         )
     }
 }

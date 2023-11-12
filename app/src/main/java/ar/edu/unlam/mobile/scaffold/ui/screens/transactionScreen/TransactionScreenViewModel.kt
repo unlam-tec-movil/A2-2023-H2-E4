@@ -8,7 +8,6 @@ import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Currency
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Transaction
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
-import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionTypeEnum
 import ar.edu.unlam.mobile.scaffold.data.transaction.network.repository.CurrencyConversionHTTPRepository
 import ar.edu.unlam.mobile.scaffold.domain.services.CurrencyServiceInterface
 import ar.edu.unlam.mobile.scaffold.domain.services.TransactionServiceInterface
@@ -26,8 +25,8 @@ class TransactionScreenViewModel @Inject constructor(
     private val currencyService: CurrencyServiceInterface,
     private val transactionService: TransactionServiceInterface,
 ) : ViewModel() {
-    private val _selectedTab = MutableStateFlow(TransactionTypeEnum)
-    val selectedTab: MutableStateFlow<TransactionTypeEnum.Companion> = _selectedTab
+    private val _selectedTab = MutableStateFlow(TransactionType.Ingresos)
+    val selectedTab: MutableStateFlow<TransactionType> = _selectedTab
 
     private val _convertedValue = MutableStateFlow("0")
     val convertedValue: MutableStateFlow<String> = _convertedValue
@@ -49,7 +48,7 @@ class TransactionScreenViewModel @Inject constructor(
     }
 
     fun changeTab(tabType: TransactionType) {
-        // _selectedTab.value = tabType
+        _selectedTab.value = tabType
     }
     fun getCurrencyConversion(source: String, target: String, format: String = "json", quantity: String, apiKey: String = "45717|jb3r*ko06befntG2Ed~oJdD3chm7CfRB") {
         viewModelScope.launch {
@@ -67,10 +66,10 @@ class TransactionScreenViewModel @Inject constructor(
         return@withContext currencyService.getAllCurrencies()
     }
 
-    fun createNewTransaction(type: Int, category: Category, currency: Currency, amount: Double, date: String, description: String) {
+    fun createNewTransaction(type: TransactionType, category: Category, currency: Currency, amount: Double, date: String, description: String) {
         val transaction = Transaction(
             id = 0,
-            type = TransactionTypeEnum.fromInt(type),
+            type = type,
             category = category,
             currency = currency,
             amount = amount,

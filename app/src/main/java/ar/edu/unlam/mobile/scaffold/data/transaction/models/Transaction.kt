@@ -14,7 +14,7 @@ data class Transaction(
     fun toEntity(): TransactionEntity {
         return TransactionEntity(
             id = id,
-            transactionTypeID = type.id,
+            transactionType = type,
             categoryId = category.id,
             currencyId = currency.id,
             amount = amount,
