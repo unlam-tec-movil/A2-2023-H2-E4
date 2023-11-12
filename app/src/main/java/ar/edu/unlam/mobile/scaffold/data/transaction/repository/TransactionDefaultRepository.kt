@@ -4,7 +4,6 @@ import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.TransactionE
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.repository.TransactionLocalRepoInterface
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Transaction
 import ar.edu.unlam.mobile.scaffold.domain.provider.DispatcherProvider
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
