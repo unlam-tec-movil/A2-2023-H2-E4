@@ -42,7 +42,7 @@ fun ListItemRow(item: PieChartInput, viewModel: ChartScreenViewModel) {
                     .background(color = Color(android.graphics.Color.parseColor(item.category.color)))
                     .border(
                         width = 2.dp,
-                        color = Color.White ,
+                        color = Color.White,
                         shape = RoundedCornerShape(20.dp),
                     ),
             )
@@ -70,5 +70,3 @@ fun ListItemRow(item: PieChartInput, viewModel: ChartScreenViewModel) {
         }
     }
 }
-
-

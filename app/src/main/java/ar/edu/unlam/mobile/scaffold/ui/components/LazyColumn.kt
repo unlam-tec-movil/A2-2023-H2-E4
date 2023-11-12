@@ -46,7 +46,7 @@ fun Statistics(
             Text(text = porcentaje, fontSize = 23.sp, color = Color.Black)
             Text(text = total, fontSize = 23.sp, color = Color.Black)
         }
-        ShowCategories(list,color2,viewModel)
+        ShowCategories(list, color2, viewModel)
     }
 }
 
@@ -59,7 +59,7 @@ fun ShowCategories(data: List<PieChartInput>, color: Color, viewModel: ChartScre
             .background(color = color)
     ) {
         items(data) { item ->
-            ListItemRow(item,viewModel)
+            ListItemRow(item, viewModel)
         }
     }
 }
