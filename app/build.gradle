@@ -57,7 +57,6 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
 
     def nav_version = "2.7.1"
-    def hilt_version = "2.47"
     def retrofit_version = "2.9.0"
     def roomVersion = "2.3.0"
 
@@ -65,9 +64,10 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
     // Hilt & Dagger
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.1.0'
+    implementation "com.google.dagger:hilt-android:2.48.1"
+    kapt "com.google.dagger:hilt-compiler:2.48.1"
 
     implementation "androidx.room:room-runtime:2.6.0"
     implementation "androidx.room:room-ktx:2.6.0"

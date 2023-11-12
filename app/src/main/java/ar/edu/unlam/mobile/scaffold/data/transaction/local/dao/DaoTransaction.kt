@@ -28,7 +28,7 @@ interface DaoTransaction {
     @Query(
         /* value = */
         "SELECT t.id as id, " +
-            "tt.id as transaction_type_id, " +
+            "t.transaction_type, " +
             "c.id as category_id, " +
             "cu.id as currency_id, " +
             "t.amount as amount, " +
@@ -36,8 +36,7 @@ interface DaoTransaction {
             "t.description as description " +
             "FROM `Transaction` t " +
             "INNER JOIN `Category` c ON t.category_id = c.id " +
-            "INNER JOIN `Currency` cu ON t.currency_id = cu.id " +
-            "INNER JOIN `TransactionType` tt ON t.transaction_type_id = tt.id",
+            "INNER JOIN `Currency` cu ON t.currency_id = cu.id ",
     )
     fun getTransaction(): Flow<List<TransactionWithDetails>>
 }
