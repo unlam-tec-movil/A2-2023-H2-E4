@@ -29,7 +29,7 @@ class CategoryServiceImpl @Inject constructor(
             .map { list ->
                 list.map { it.toDomain() }
             }
-
+  
     override suspend fun getCategoriesByType(type: String): Flow<List<Category>> =
         categoryRepository.getCategoriesByType(type, dispatcherProvider)
             .map { list ->
