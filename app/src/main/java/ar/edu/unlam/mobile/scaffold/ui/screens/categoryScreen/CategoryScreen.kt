@@ -1,3 +1,5 @@
+@file:Suppress("IMPLICIT_CAST_TO_ANY", "UNCHECKED_CAST")
+
 package ar.edu.unlam.mobile.scaffold.ui.screens.categoryScreen
 
 import androidx.compose.foundation.background
@@ -12,6 +14,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,20 +26,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.ColorsCategory
 import ar.edu.unlam.mobile.scaffold.ui.components.category.CategoryColor
+import ar.edu.unlam.mobile.scaffold.ui.components.category.CategoryDisplay
 import ar.edu.unlam.mobile.scaffold.ui.components.category.CategoryRadioButton
 
 @Composable
 fun CategoryScreen(
-    controller: NavHostController,
     viewModel: CategoryViewModel = hiltViewModel(),
 ) {
     var selectedColor by remember { mutableStateOf<ColorsCategory?>(null) }
     var colorClick by remember { mutableStateOf(false) }
     var selectedOption by remember { mutableStateOf("Ingresos") }
     var categoryName by remember { mutableStateOf("") }
+
+    var selectedCategory by remember { mutableStateOf<Category?>(null) }
+    val categories by viewModel.categories.collectAsState()
+
+    LaunchedEffect(selectedOption) {
+        viewModel.getCategoriesByType(selectedOption)
+    }
 
     Column(
         modifier = Modifier
@@ -89,6 +100,7 @@ fun CategoryScreen(
                 // Llama funcion de viewModel que hace el insert a la BD
                 viewModel.addCategory(categoryName, selectedOption, selectedColor?.colorHex ?: ColorsCategory.ROJO.colorHex)
                 categoryName = ""
+                viewModel.loadCategories() // Cargar categorías filtradas después de agregar
             },
         ) {
             Text(text = "Agregar")
@@ -96,6 +108,13 @@ fun CategoryScreen(
 
         Spacer(modifier = Modifier.height(5.dp))
 
-        // viewModel.loadCategories()
+        Text(text = "Categorias Agregadas")
+
+        CategoryDisplay(
+            categories = categories,
+            selectedCategory = selectedCategory,
+        ) { clickedCategory ->
+            selectedCategory = clickedCategory
+        }
     }
 }

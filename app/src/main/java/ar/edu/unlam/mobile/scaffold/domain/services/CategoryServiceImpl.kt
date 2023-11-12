@@ -12,7 +12,6 @@ class CategoryServiceImpl @Inject constructor(
     private val categoryRepository: CategoryRepositoryInterface,
     private val dispatcherProvider: DispatcherProvider,
 ) : CategoryServiceInterface {
-
     override suspend fun addCategory(name: String, type: String, colorHex: String) {
         val newCategory = CategoryEntity(
             id = 0,
@@ -22,9 +21,13 @@ class CategoryServiceImpl @Inject constructor(
         )
         categoryRepository.addCategory(newCategory, dispatcherProvider)
     }
-
     override suspend fun getAllCategories(): Flow<List<Category>> =
         categoryRepository.getAllCategory(dispatcherProvider)
+            .map { list ->
+                list.map { it.toDomain() }
+            }
+    override suspend fun getCategoriesByType(type: String): Flow<List<Category>> =
+        categoryRepository.getCategoriesByType(type, dispatcherProvider)
             .map { list ->
                 list.map { it.toDomain() }
             }
