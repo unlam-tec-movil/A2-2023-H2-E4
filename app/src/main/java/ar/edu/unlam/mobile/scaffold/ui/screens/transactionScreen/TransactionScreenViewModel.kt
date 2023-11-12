@@ -4,10 +4,14 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Currency
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.Transaction
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionTypeEnum
 import ar.edu.unlam.mobile.scaffold.data.transaction.network.repository.CurrencyConversionHTTPRepository
 import ar.edu.unlam.mobile.scaffold.domain.services.CurrencyServiceInterface
+import ar.edu.unlam.mobile.scaffold.domain.services.TransactionServiceInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,9 +24,10 @@ import javax.inject.Inject
 class TransactionScreenViewModel @Inject constructor(
     private val repository: CurrencyConversionHTTPRepository,
     private val currencyService: CurrencyServiceInterface,
+    private val transactionService: TransactionServiceInterface,
 ) : ViewModel() {
-    // private val _selectedTab = MutableStateFlow(TransactionType.EXPENSE)
-    // val selectedTab: StateFlow<TransactionType> = _selectedTab
+    private val _selectedTab = MutableStateFlow(TransactionTypeEnum)
+    val selectedTab: MutableStateFlow<TransactionTypeEnum.Companion> = _selectedTab
 
     private val _convertedValue = MutableStateFlow("0")
     val convertedValue: MutableStateFlow<String> = _convertedValue
@@ -60,5 +65,22 @@ class TransactionScreenViewModel @Inject constructor(
     }
     suspend fun loadCurrencies(): List<Currency> = withContext(Dispatchers.IO) {
         return@withContext currencyService.getAllCurrencies()
+    }
+
+    fun createNewTransaction(type: Int, category: Category, currency: Currency, amount: Double, date: String, description: String) {
+        val transaction = Transaction(
+            id = 0,
+            type = TransactionTypeEnum.fromInt(type),
+            category = category,
+            currency = currency,
+            amount = amount,
+            date = date,
+            description = description,
+        )
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                transactionService.insertTransaction(transaction)
+            }
+        }
     }
 }

@@ -1,6 +1,8 @@
 package ar.edu.unlam.mobile.scaffold.ui.screens.transactionScreen
 
+import android.os.Build
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -29,6 +31,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -42,7 +45,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.Currency
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionTypeEnum
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TransactionScreen(
@@ -50,10 +59,12 @@ fun TransactionScreen(
     viewModel: TransactionScreenViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
-    var selectedTab by remember { mutableStateOf(0) }
-    var selectedCurrency by remember { mutableStateOf("ARS") }
+    var selectedTab by remember { mutableIntStateOf(0) }
+    var selectedCurrency by remember { mutableStateOf(Currency(0, "ARS", "Argentine Peso")) }
+    val selectedCategory by remember { mutableStateOf(Category(0, TransactionTypeEnum.fromInt(1), "Comida", "FFFFFF")) }
+
     val tabs = listOf("Expense", "Income")
-    // val selectedTabState by viewModel.selectedTab.collectAsState()
+    val selectedTabState by viewModel.selectedTab.collectAsState()
     val convertedValue by viewModel.convertedValue.collectAsState()
     var amount by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
@@ -88,7 +99,7 @@ fun TransactionScreen(
                     selected = selectedTab == index,
                     onClick = {
                         selectedTab = index
-                        // viewModel.changeTab(TransactionType.values()[index])
+                        viewModel.changeTab(TransactionTypeEnum.fromInt(index))
                     },
                 )
             }
@@ -119,14 +130,13 @@ fun TransactionScreen(
                 },
             ) {
                 TextField(
-                    value = selectedCurrency,
+                    value = selectedCurrency.code,
                     onValueChange = {},
                     readOnly = true,
                     modifier = Modifier
                         .menuAnchor()
                         .width(100.dp),
                 )
-
                 ExposedDropdownMenu(
                     expanded = expanded,
                     onDismissRequest = { expanded = false },
@@ -135,7 +145,7 @@ fun TransactionScreen(
                         DropdownMenuItem(
                             text = { Text(text = currency.code) },
                             onClick = {
-                                selectedCurrency = currency.code
+                                selectedCurrency = currency
                                 expanded = false
                                 Toast.makeText(context, currency.code, Toast.LENGTH_SHORT).show()
                             },
@@ -147,7 +157,7 @@ fun TransactionScreen(
 
         Text(text = convertedValue)
 
-        // Text(text = "Estoy en la pantalla $selectedTabState")
+        Text(text = "Estoy en la pantalla ${TransactionTypeEnum.fromInt(selectedTab).description}")
         Button(onClick = {
             viewModel.getCurrencyConversion(
                 source = "$selectedCurrency",
@@ -160,19 +170,22 @@ fun TransactionScreen(
         Spacer(modifier = Modifier.weight(1f)) // Esto asegura que el botón siempre esté en la parte inferior
 
         Button(
-            onClick = {
-                // Lógica del botón
-            },
             modifier = Modifier
-                .fillMaxWidth() // El botón ocupará todo el ancho
-                .padding(16.dp), // Agrega un espacio alrededor del botón
+                .fillMaxWidth()
+                .padding(16.dp),
+            onClick = {
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+                val current = LocalDateTime.now().format(formatter)
 
+                viewModel.createNewTransaction(selectedTab, selectedCategory, selectedCurrency, amount.toDouble(), current, "Comida")
+            },
         ) {
             Text(text = "Agregar")
         }
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 @Preview
 fun TransactionScreenPreview() {

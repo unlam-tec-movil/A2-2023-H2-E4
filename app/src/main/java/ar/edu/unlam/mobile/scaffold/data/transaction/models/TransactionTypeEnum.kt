@@ -1,8 +1,8 @@
 package ar.edu.unlam.mobile.scaffold.data.transaction.models
 
 enum class TransactionTypeEnum(val id: Int, val description: String) {
-    INCOME(1, "Income"),
-    EXPENSE(2, "Expense"),
+    INCOME(0, "Expense"),
+    EXPENSE(1, "Income"),
     ;
 
     companion object {
