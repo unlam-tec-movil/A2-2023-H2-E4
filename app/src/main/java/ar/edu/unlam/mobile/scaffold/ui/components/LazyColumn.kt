@@ -10,9 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardElevation
-import androidx.compose.material3.ListItemDefaults.contentColor
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -49,9 +46,8 @@ fun Statistics(
             Text(text = porcentaje, fontSize = 23.sp, color = Color.Black)
             Text(text = total, fontSize = 23.sp, color = Color.Black)
         }
-        ShowCategories(list, color2,viewModel)
+        ShowCategories(list,color2,viewModel)
     }
-
 }
 
 @Composable
@@ -60,7 +56,7 @@ fun ShowCategories(data: List<PieChartInput>, color: Color, viewModel: ChartScre
         modifier = Modifier
             .fillMaxWidth()
             .height(200.dp)
-            .background(color = color),
+            .background(color = color)
     ) {
         items(data) { item ->
             ListItemRow(item,viewModel)

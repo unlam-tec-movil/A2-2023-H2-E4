@@ -39,5 +39,4 @@ object TransactionModule {
     fun provideTransactionLocalRepo(daoTransaction: DaoTransaction): TransactionLocalRepoInterface {
         return TransactionRoomRepository(daoTransaction)
     }
-
 }
