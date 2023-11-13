@@ -18,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -68,17 +69,18 @@ fun ChartScreen(
 
 @Composable
 fun Body(categoria: String, porcentaje: String, total: String, viewModel: ChartScreenViewModel, color1: Color, color2: Color) {
-    Column {
-        var listPieChartInput by remember { mutableStateOf(emptyList<PieChartInput>()) }
+    val listPieChartInput by viewModel.pieCharInputList.collectAsState()
+    val transaction by viewModel.transaction.collectAsState()
 
-        LaunchedEffect(viewModel) {
-            // Ejecuta la lógica asincrónica y actualiza el estado
-            viewModel.loadDatePieChartList()
-        }
+    Column {
         Column(
             modifier = Modifier.height(300.dp),
             verticalArrangement = Arrangement.Center,
         ) {
+
+            if(transaction.isEmpty()){
+                Text(text = "la lista esta vacia  de transaction")
+            }
             PieChart(
                 data = listPieChartInput,
             )
@@ -91,8 +93,6 @@ fun Body(categoria: String, porcentaje: String, total: String, viewModel: ChartS
 @Preview(showBackground = true)
 @Composable
 fun ChartScreenPreview() {
+    
 }
 
-/*fun listOfPieChartInputOrder(): List<PieChartInput> {
-    return listOfPieChartInput().sortedByDescending { it.value }
-}*/

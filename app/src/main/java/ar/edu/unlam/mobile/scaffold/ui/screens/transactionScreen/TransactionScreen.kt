@@ -52,6 +52,7 @@ import ar.edu.unlam.mobile.scaffold.ui.components.category.CategoryDisplay
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TransactionScreen(

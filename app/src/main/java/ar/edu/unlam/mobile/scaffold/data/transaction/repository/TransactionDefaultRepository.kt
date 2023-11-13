@@ -15,7 +15,7 @@ class TransactionDefaultRepository @Inject constructor(
         transactionLocalRepo.addTransaction(transaction)
     }
 
-    override suspend fun getAllTransactions(): Flow<List<Transaction>> {
+    override suspend fun getAllTransactions(dispatcherProvider: DispatcherProvider): Flow<List<Transaction>> {
         return transactionLocalRepo.getAllTransactions().map { list ->
             list.map {
                 it.toDomain()

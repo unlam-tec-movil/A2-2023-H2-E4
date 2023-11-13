@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface TransactionRepositoryInterface {
     suspend fun addTransaction(transaction: TransactionEntity)
-    suspend fun getAllTransactions(): Flow<List<Transaction>>
+    suspend fun getAllTransactions(dispatcherProvider: DispatcherProvider): Flow<List<Transaction>>
 }

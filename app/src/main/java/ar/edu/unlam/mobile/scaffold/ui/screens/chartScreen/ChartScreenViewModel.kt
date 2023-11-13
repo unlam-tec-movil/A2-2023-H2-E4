@@ -1,51 +1,82 @@
 package ar.edu.unlam.mobile.scaffold.ui.screens.chartScreen
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.PieChartInput
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Transaction
+import ar.edu.unlam.mobile.scaffold.domain.provider.DispatcherProvider
 import ar.edu.unlam.mobile.scaffold.domain.services.TransactionServiceInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
 @HiltViewModel
 class ChartScreenViewModel @Inject constructor(
-    private val transactionService: TransactionServiceInterface,
+    private val transactionService: TransactionServiceInterface
 ) : ViewModel() {
+
     private val transactionsValue = MutableStateFlow<List<Transaction>>(emptyList())
-    var pieCharInputList by mutableStateOf(emptyList<PieChartInput>())
-        private set
+    val transaction : MutableStateFlow<List<Transaction>> get() = transactionsValue
 
-    fun loadDatePieChartList() {
+    val pieCharInputList = MutableStateFlow<List<PieChartInput>>(emptyList())
+    //val listaDeInptForCharScreen: MutableStateFlow<List<PieChartInput>> get() = pieCharInputList
+
+    init {
+        loadTransaction()
+        println(transactionsValue)
+
         viewModelScope.launch {
-            pieCharInputList = calculateTotalAmountPerCategory()
-        }
-    }
-    suspend fun loadTransaction() {
-        transactionService.getAllTransaction().collect { transaction ->
-            transactionsValue.value = transaction.map { it.toDomain() }
+            val pieChartInput = calculateTotalAmountPerCategory()
+            pieCharInputList.value = pieChartInput
         }
     }
 
-    // /me olvide de filtrar por tipo
-    suspend fun calculateTotalAmountPerCategory(): MutableList<PieChartInput> {
-        return transactionsValue.first().groupBy { it.category }
-            .mapTo(mutableListOf()) { (category, transactions) ->
+   /* suspend fun loadTransaction() : Flow<List<Transaction>> = withContext(Dispatchers.IO){
+        val result =  transactionService.getAllTransactions()
+        println(result)
+        return@withContext result
+    }*/
+
+    fun loadTransaction()  {
+        viewModelScope.launch {
+            transactionService.getAllTransactions()
+                .catch { exception ->
+                    // Maneja la excepción
+                    println("Error al obtener transacciones: $exception")
+                }
+                .collect { listaDetransacciones ->
+                    transactionsValue.value = listaDetransacciones.map { it.toDomain() }
+                    println(transactionsValue.value)
+                }
+        }
+    }
+
+    private fun calculateTotalAmountPerCategory(): List<PieChartInput> {
+        return transactionsValue.value.groupBy { it.category }
+            .map { (category, transactions) ->
                 PieChartInput(category, transactions.sumOf { it.amount })
             }
     }
+
+    private fun loadDatePieChartList() {
+        viewModelScope.launch {
+            pieCharInputList.value = calculateTotalAmountPerCategory()
+        }
+    }
+
     fun calcularPorcentaje(item: PieChartInput): Int {
         var total = 0.0
-        pieCharInputList.forEach {
+        pieCharInputList.value.forEach {
             total += it.totalAmount
         }
         return ((item.totalAmount).div(total).times(100)).roundToInt()
     }
+
 }
