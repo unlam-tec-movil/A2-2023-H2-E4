@@ -20,23 +20,26 @@ class CategoryViewModel
     private val _categories = MutableStateFlow<List<Category>>(emptyList())
     val categories: StateFlow<List<Category>> get() = _categories
 
-    // Agregar una categoría a la base de datos
+    private var lastSelectedType: String = "Ingresos" // Valor predeterminado
     fun addCategory(name: String, type: String, colorHex: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 categoryService.addCategory(name, type, colorHex)
+                lastSelectedType = type // Actualiza la última opción seleccionada
+                loadCategories() // Cargar categorías filtradas después de agregar
             }
         }
     }
-
-    // Cargar todas las categorías
-    fun loadCategories() {
+    fun getCategoriesByType(type: String) {
         viewModelScope.launch {
-            categoryService.getAllCategories()
+            categoryService.getCategoriesByType(type)
                 .catch { /* Manejar errores, si es necesario */ }
                 .collect { categories ->
                     _categories.value = categories.map { it.toDomain() }
                 }
         }
+    }
+    fun loadCategories() {
+        getCategoriesByType(lastSelectedType)
     }
 }

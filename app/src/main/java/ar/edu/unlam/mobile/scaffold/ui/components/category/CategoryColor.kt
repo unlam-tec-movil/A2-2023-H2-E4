@@ -76,16 +76,3 @@ fun ColorBox(color: Color, isSelected: Boolean, onColorClick: () -> Unit) {
             ),
     )
 }
-
-// Funcion que parcea de hexa a enum para guardar en la bd
-fun getColorCategoryFromHex(hexColor: String): ColorsCategory {
-    return when (hexColor) {
-        ColorsCategory.ROJO.colorHex -> ColorsCategory.ROJO
-        ColorsCategory.VERDE.colorHex -> ColorsCategory.VERDE
-        ColorsCategory.AZUL.colorHex -> ColorsCategory.AZUL
-        ColorsCategory.AMARILLO.colorHex -> ColorsCategory.AMARILLO
-        ColorsCategory.NARANJA.colorHex -> ColorsCategory.NARANJA
-        ColorsCategory.MORADO.colorHex -> ColorsCategory.MORADO
-        else -> ColorsCategory.ROJO // Color predeterminado para la categoria
-    }
-}

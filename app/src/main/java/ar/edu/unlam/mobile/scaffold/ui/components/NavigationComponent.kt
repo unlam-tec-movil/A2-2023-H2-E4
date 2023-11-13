@@ -21,7 +21,7 @@ fun NavigationComponent(
         modifier = modifier,
     ) {
         composable(Screens.Category.route) {
-            CategoryScreen(controller = navigationController)
+            CategoryScreen()
         }
         composable(Screens.ChartScreen.route) {
             ChartScreen(controller = navigationController)
