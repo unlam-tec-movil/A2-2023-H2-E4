@@ -112,9 +112,11 @@ fun CategoryScreen(
 
         CategoryDisplay(
             categories = categories,
-            selectedCategory = selectedCategory,
-        ) { clickedCategory ->
-            selectedCategory = clickedCategory
-        }
+            onSelectable = false,
+            maxDisplayedCategories = 8,
+            moreButtonText = "Mostrar todas",
+            onMoreButtonClick = { /* Lógica al hacer clic en "Ver más" */ },
+            onCategoryClick = { /* Lógica al hacer clic en una categoría */ },
+        )
     }
 }

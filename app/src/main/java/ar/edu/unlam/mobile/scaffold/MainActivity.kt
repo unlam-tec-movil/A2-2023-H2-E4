@@ -7,10 +7,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import ar.edu.unlam.mobile.scaffold.data.core.PreferenceUtils
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.TransactionDatabase
+import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CategoryEntity
+import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CurrencyEntity
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
 import ar.edu.unlam.mobile.scaffold.ui.screens.mainScreen.MainScreen
 import ar.edu.unlam.mobile.scaffold.ui.theme.MyApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -22,36 +29,47 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // utilizacion de ShadersPreference para ingresar las categorias
-        /*val hasDefaultCategories = PreferenceUtils.hasDefaultCategories(this)
+        val hasDefaultCategories = PreferenceUtils.hasDefaultCategories(this)
 
         if (!hasDefaultCategories) {
             val viewModelScope = CoroutineScope(Dispatchers.IO)
 
             viewModelScope.launch {
-                val defaultColor = listOf(
-                    ColorEntity(0, "ROJO", "#ff6961"),
-                    ColorEntity(0, "VERDE", "#37bc3d"),
-                    ColorEntity(0, "AZUL", "#3777bc"),
-                    ColorEntity(0, "AMARILLO", "#FFD700"),
-                    ColorEntity(0, "NARANJA", "#ff9d00"),
-                    ColorEntity(0, "MORADO", "#a13ed6"),
-                )
-                defaultColor.forEach { color ->
-                    appDatabase.colorDao().insertColor(color)
-                }
-                val defaultTransactionType = listOf(
-                    TransactionTypeEntity(0, "Income"),
-                    TransactionTypeEntity(0, "Expense"),
-                )
-                defaultTransactionType.forEach { transactionType ->
-                    appDatabase.transactionTypeDao().insertTransactionType(transactionType)
-                }
+//                val defaultColor = listOf(
+//                    ColorEntity(0, "ROJO", "#ff6961"),
+//                    ColorEntity(0, "VERDE", "#37bc3d"),
+//                    ColorEntity(0, "AZUL", "#3777bc"),
+//                    ColorEntity(0, "AMARILLO", "#FFD700"),
+//                    ColorEntity(0, "NARANJA", "#ff9d00"),
+//                    ColorEntity(0, "MORADO", "#a13ed6"),
+//                )
+//                defaultColor.forEach { color ->
+//                    appDatabase.colorDao().insertColor(color)
+//                }
+//                val defaultTransactionType = listOf(
+//                    TransactionTypeEntity(0, "Income"),
+//                    TransactionTypeEntity(0, "Expense"),
+//                )
+//                defaultTransactionType.forEach { transactionType ->
+//                    appDatabase.transactionTypeDao().insertTransactionType(transactionType)
+//                }
                 val defaultCategories = listOf(
-                    CategoryEntity(0, 0, "Salario", 0),
-                    CategoryEntity(0, 0, "Ventas", 1),
-                    CategoryEntity(0, 1, "Alquiler", 2),
-                    CategoryEntity(0, 1, "Comestibles", 3),
-                    CategoryEntity(0, 1, "Transporte", 4),
+                    CategoryEntity(0, TransactionType.Ingresos, "Salario", "#FF5733"),
+                    CategoryEntity(0, TransactionType.Ingresos, "Ventas", "#33FF57"),
+                    CategoryEntity(0, TransactionType.Ingresos, "Bonificaciones", "#FFD700"),
+                    CategoryEntity(0, TransactionType.Ingresos, "Inversiones", "#8A2BE2"),
+                    CategoryEntity(0, TransactionType.Ingresos, "Regalías", "#FF8C00"),
+                    CategoryEntity(0, TransactionType.Ingresos, "Honorarios", "#00CED1"),
+                    CategoryEntity(0, TransactionType.Ingresos, "Subvenciones", "#9ACD32"),
+                    CategoryEntity(0, TransactionType.Ingresos, "Préstamos", "#4B0082"),
+                    CategoryEntity(0, TransactionType.Gastos, "Alquiler", "#5733FF"),
+                    CategoryEntity(0, TransactionType.Gastos, "Comestibles", "#FF5733"),
+                    CategoryEntity(0, TransactionType.Gastos, "Transporte", "#33FF57"),
+                    CategoryEntity(0, TransactionType.Gastos, "Entretenimiento", "#FF1493"),
+                    CategoryEntity(0, TransactionType.Gastos, "Facturas", "#1E90FF"),
+                    CategoryEntity(0, TransactionType.Gastos, "Salud", "#FF6347"),
+                    CategoryEntity(0, TransactionType.Gastos, "Educación", "#9370DB"),
+                    CategoryEntity(0, TransactionType.Gastos, "Ropa", "#20B2AA"),
                 )
                 defaultCategories.forEach { category ->
                     appDatabase.categoryDao().insertCategory(category)
@@ -243,7 +261,7 @@ class MainActivity : ComponentActivity() {
                 // Marca las categorías por defecto como agregadas
                 PreferenceUtils.setDefaultCategoriesFlag(this@MainActivity)
             }
-        }*/
+        }
         setContent {
             MyApplicationTheme {
                 // A surface container using the 'background' color from the theme

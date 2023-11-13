@@ -1,6 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.data.transaction.repository
 
-import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.TransactionEntity
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.repository.TransactionLocalRepoInterface
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Transaction
 import kotlinx.coroutines.flow.Flow
@@ -10,7 +9,7 @@ import javax.inject.Inject
 class TransactionDefaultRepository @Inject constructor(
     private val transactionLocalRepo: TransactionLocalRepoInterface,
 ) : TransactionRepositoryInterface {
-    override suspend fun addTransaction(transaction: TransactionEntity) {
+    override suspend fun addTransaction(transaction: Transaction) {
         transactionLocalRepo.addTransaction(transaction)
     }
 
