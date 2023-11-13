@@ -30,7 +30,7 @@ class TransactionScreenViewModel @Inject constructor(
     private val transactionService: TransactionServiceInterface,
     private val categoryService: CategoryServiceInterface,
 ) : ViewModel() {
-    private val _selectedTab = MutableStateFlow(TransactionType.Ingresos)
+    private val _selectedTab = MutableStateFlow(TransactionType.Gastos)
     val selectedTab: MutableStateFlow<TransactionType> = _selectedTab
 
     private val _convertedValue = MutableStateFlow("0")
@@ -53,8 +53,7 @@ class TransactionScreenViewModel @Inject constructor(
             val loadedCurrencies = loadCurrencies()
             _currencies.value = loadedCurrencies
 
-//            var loadedCategories = loadCategories()
-            loadCategories().collect { loadedCategories ->
+            loadCategories(selectedTab.value).collect { loadedCategories ->
                 _categories.value = loadedCategories
             }
         }
@@ -62,6 +61,11 @@ class TransactionScreenViewModel @Inject constructor(
 
     fun changeTab(tabType: TransactionType) {
         _selectedTab.value = tabType
+        viewModelScope.launch {
+            loadCategories(tabType).collect { loadedCategories ->
+                _categories.value = loadedCategories
+            }
+        }
     }
     fun getCurrencyConversion(source: String, target: String, format: String = "json", quantity: String, apiKey: String = "45717|jb3r*ko06befntG2Ed~oJdD3chm7CfRB") {
         viewModelScope.launch {
@@ -75,7 +79,7 @@ class TransactionScreenViewModel @Inject constructor(
             }
         }
     }
-    
+
     fun createNewTransaction(type: TransactionType, category: Category, currency: Currency, amount: Double, date: String, description: String) {
         val transaction = Transaction(
             id = 0,
@@ -105,7 +109,7 @@ class TransactionScreenViewModel @Inject constructor(
     suspend fun loadCurrencies(): List<Currency> = withContext(Dispatchers.IO) {
         return@withContext currencyService.getAllCurrencies()
     }
-    suspend fun loadCategories(selectedTab: TransactionType = TransactionType.Ingresos): Flow<List<Category>> = withContext(Dispatchers.IO) {
+    suspend fun loadCategories(selectedTab: TransactionType): Flow<List<Category>> = withContext(Dispatchers.IO) {
         return@withContext categoryService.getCategoriesByType(selectedTab.name)
     }
 }

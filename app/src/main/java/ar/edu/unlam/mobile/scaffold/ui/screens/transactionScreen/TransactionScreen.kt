@@ -69,6 +69,7 @@ fun TransactionScreen(
     val selectedTabState by viewModel.selectedTab.collectAsState()
     val convertedValue by viewModel.convertedValue.collectAsState()
     var amount by remember { mutableStateOf("") }
+    var description by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
     val localfocusManager = LocalFocusManager.current
 
@@ -116,6 +117,7 @@ fun TransactionScreen(
             TextField(
                 value = amount,
                 onValueChange = { amount = it },
+                placeholder = { Text("Ingresa un monto") },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Number,
                 ),
@@ -157,26 +159,41 @@ fun TransactionScreen(
             }
         }
 
-        Text(text = convertedValue)
-
-        Text(text = "Estoy en la pantalla ${TransactionType.values()[selectedTab]}")
-
-        Button(onClick = {
-            viewModel.getCurrencyConversion(
-                source = "${selectedCurrency.code}",
-                target = "ARS",
-                quantity = amount,
-            )
-        }) {
-            Text(text = "Convertir")
-        }
+//        Text(text = convertedValue)
+//
+//        Text(text = "Estoy en la pantalla ${TransactionType.values()[selectedTab]}")
+//
+//        Button(onClick = {
+//            viewModel.getCurrencyConversion(
+//                source = "${selectedCurrency.code}",
+//                target = "ARS",
+//                quantity = amount,
+//            )
+//        }) {
+//            Text(text = "Convertir")
+//        }
+        Text(text = "Categorías")
         CategoryDisplay(
             categories = categories,
-            selectedCategory = categories.firstOrNull(),
+            onSelectable = true,
             maxDisplayedCategories = 8,
-            moreButtonText = "Mostrar todas",
+            moreButtonText = "Mostrar más",
             onMoreButtonClick = { /* Lógica al hacer clic en "Ver más" */ },
-            onCategoryClick = { /* Lógica al hacer clic en una categoría */ },
+            onCategoryClick = { selectedCategory = it },
+        )
+
+        Text(text = "Comentario")
+        TextField(
+            value = description,
+            onValueChange = { description = it },
+            placeholder = { Text("Ingresa un comentario") },
+            modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                start = 55.dp,
+                end = 55.dp,
+                top = 20.dp,
+            ),
         )
 
         Spacer(modifier = Modifier.weight(1f)) // Esto asegura que el botón siempre esté en la parte inferior
@@ -189,7 +206,7 @@ fun TransactionScreen(
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
                 val current = LocalDateTime.now().format(formatter)
 
-                viewModel.createNewTransaction(selectedTabState, selectedCategory, selectedCurrency, amount.toDouble(), current, "Comida")
+                viewModel.createNewTransaction(selectedTabState, selectedCategory, selectedCurrency, amount.toDouble(), current, description)
             },
         ) {
             Text(text = "Agregar")

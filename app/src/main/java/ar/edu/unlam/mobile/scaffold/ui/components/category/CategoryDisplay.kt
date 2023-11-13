@@ -15,10 +15,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
@@ -27,7 +32,7 @@ import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
 @Composable
 fun CategoryDisplay(
     categories: List<Category>,
-    selectedCategory: Category?,
+    onSelectable: Boolean = true,
     onCategoryClick: (Category) -> Unit,
     maxDisplayedCategories: Int = Int.MAX_VALUE,
     moreButtonText: String = "Ver más",
@@ -35,7 +40,7 @@ fun CategoryDisplay(
 ) {
     val uniqueCategories = categories.distinctBy { it.name }
 
-    val categoriesToShow = uniqueCategories.take(maxDisplayedCategories)
+    var selectedCategory by remember { mutableStateOf<Category?>(null) }
 
     Column {
         LazyVerticalGrid(
@@ -44,30 +49,40 @@ fun CategoryDisplay(
                 .padding(16.dp)
                 .align(Alignment.CenterHorizontally),
         ) {
-            items(categoriesToShow) { uniqueCategory ->
-                val category = categories.find { it == uniqueCategory }
-                val isSelected = category == selectedCategory
+            items(uniqueCategories.take(maxDisplayedCategories)) { uniqueCategory ->
+                val isSelected = uniqueCategory == selectedCategory
+
+                val modifier = if (onSelectable) {
+                    Modifier.clickable {
+                        selectedCategory = uniqueCategory
+                        onCategoryClick(uniqueCategory)
+                    }
+                } else {
+                    Modifier
+                }
 
                 Column(
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally),
                 ) {
-                    if (category != null) {
-                        CategoryColors(
-                            category = category,
-                            isSelected = isSelected,
-                            onCategoryClick = { onCategoryClick(category) },
-                        )
-                    }
+                    CategoryColors(
+                        category = uniqueCategory,
+                        isSelected = isSelected,
+                        onCategoryClick = {
+                            selectedCategory = uniqueCategory
+                            onCategoryClick(uniqueCategory)
+                        },
+                    )
                     Text(
                         text = "${uniqueCategory.name}",
-                        color = if (isSelected) Color.Green else Color.Gray,
+                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                        color = Color.Black,
                     )
                 }
             }
         }
 
-        if (uniqueCategories.size >= maxDisplayedCategories) {
+        if (uniqueCategories.size > maxDisplayedCategories) {
             Button(
                 onClick = onMoreButtonClick,
                 modifier = Modifier
@@ -96,7 +111,7 @@ fun CategoryColors(
             }
             .border(
                 width = 2.dp,
-                color = if (isSelected) Color.White else Color.Transparent,
+                color = if (isSelected) Color.Black else Color.Transparent,
                 shape = RoundedCornerShape(20.dp),
             ),
     )
@@ -119,8 +134,8 @@ fun CategoryDisplayPreview() {
 
     CategoryDisplay(
         categories = categories,
-        selectedCategory = categories.firstOrNull(),
-        maxDisplayedCategories = categories.size,
+        onSelectable = false, // Opcional, por defecto es true
+        maxDisplayedCategories = 8,
         moreButtonText = "Mostrar todas",
         onMoreButtonClick = { /* Lógica al hacer clic en "Ver más" */ },
         onCategoryClick = { /* Lógica al hacer clic en una categoría */ },
