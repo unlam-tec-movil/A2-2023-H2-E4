@@ -48,6 +48,7 @@ import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Currency
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
+import ar.edu.unlam.mobile.scaffold.ui.components.category.CategoryDisplay
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -61,8 +62,9 @@ fun TransactionScreen(
     val context = LocalContext.current
     var selectedTab by remember { mutableIntStateOf(0) }
     var selectedCurrency by remember { mutableStateOf(Currency(0, "ARS", "Argentine Peso")) }
-    val selectedCategory by remember { mutableStateOf(Category(0, TransactionType.Ingresos, "Comida", "FFFFFF")) }
-
+    var selectedCategory by remember { mutableStateOf(Category(0, TransactionType.Ingresos, "Comida", "FFFFFF")) }
+    val categories by viewModel.categories.collectAsState()
+//    var selectedCategory by remember { mutableStateOf<Category?>(null) }
     val tabs = TransactionType.values().toList()
     val selectedTabState by viewModel.selectedTab.collectAsState()
     val convertedValue by viewModel.convertedValue.collectAsState()
@@ -168,6 +170,15 @@ fun TransactionScreen(
         }) {
             Text(text = "Convertir")
         }
+        CategoryDisplay(
+            categories = categories,
+            selectedCategory = categories.firstOrNull(),
+            maxDisplayedCategories = 8,
+            moreButtonText = "Mostrar todas",
+            onMoreButtonClick = { /* Lógica al hacer clic en "Ver más" */ },
+            onCategoryClick = { /* Lógica al hacer clic en una categoría */ },
+        )
+
         Spacer(modifier = Modifier.weight(1f)) // Esto asegura que el botón siempre esté en la parte inferior
 
         Button(
