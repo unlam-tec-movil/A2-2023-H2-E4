@@ -188,12 +188,12 @@ fun TransactionScreen(
             onValueChange = { description = it },
             placeholder = { Text("Ingresa un comentario") },
             modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                start = 55.dp,
-                end = 55.dp,
-                top = 20.dp,
-            ),
+                .fillMaxWidth()
+                .padding(
+                    start = 55.dp,
+                    end = 55.dp,
+                    top = 20.dp,
+                ),
         )
 
         Spacer(modifier = Modifier.weight(1f)) // Esto asegura que el botón siempre esté en la parte inferior
