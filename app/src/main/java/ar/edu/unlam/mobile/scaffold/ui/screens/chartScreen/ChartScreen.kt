@@ -47,6 +47,7 @@ fun ChartScreen(
             title = {
                 Text(
                     text = "Tus gastos",
+
                     fontWeight = FontWeight.Bold,
                 )
             },
