@@ -85,10 +85,10 @@ fun AddTransactionScreen(
 
         when (viewModel.transactionScreenUIState.value) {
             is TransactionScreenUIState.Loading -> {
-                // Muestra un componente de carga en el centro de la pantalla
                 CircularProgressIndicator(
                     modifier = Modifier
-                        .size(50.dp),
+                        .size(50.dp)
+                        .align(Alignment.CenterHorizontally),
                 )
             }
             is TransactionScreenUIState.Success -> {
@@ -121,8 +121,7 @@ fun AddTransactionScreen(
                         },
                     ) {
                         TextField(
-                            value = selectedCurrency?.code.orEmpty(),
-                            placeholder = { Text("") },
+                            value = (viewModel.selectedCurrency.value?.code ?: ""),
                             onValueChange = { },
                             readOnly = true,
                             modifier = Modifier
@@ -153,7 +152,7 @@ fun AddTransactionScreen(
                     onSelectable = true,
                     maxDisplayedCategories = 8,
                     moreButtonText = "Mostrar más",
-                    onMoreButtonClick = { /* Lógica al hacer clic en "Ver más" */ },
+                    onMoreButtonClick = { },
                     onCategoryClick = { viewModel.setSelectedCategory(it) },
                 )
 
@@ -191,7 +190,6 @@ fun AddTransactionScreen(
             }
 
             is TransactionScreenUIState.Error -> {
-                // Puedes manejar el estado de error si es necesario
                 Text("Error: ${(viewModel.transactionScreenUIState.value as TransactionScreenUIState.Error).message}")
             }
         }
@@ -214,7 +212,7 @@ fun ContentScreen(
         onSelectable = true,
         maxDisplayedCategories = 8,
         moreButtonText = "Mostrar más",
-        onMoreButtonClick = { /* Lógica al hacer clic en "Ver más" */ },
+        onMoreButtonClick = { },
         onCategoryClick = { },
     )
 }
