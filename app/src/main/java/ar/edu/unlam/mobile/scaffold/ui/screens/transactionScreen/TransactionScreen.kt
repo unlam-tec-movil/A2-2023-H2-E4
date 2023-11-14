@@ -159,19 +159,6 @@ fun TransactionScreen(
             }
         }
 
-//        Text(text = convertedValue)
-//
-//        Text(text = "Estoy en la pantalla ${TransactionType.values()[selectedTab]}")
-//
-//        Button(onClick = {
-//            viewModel.getCurrencyConversion(
-//                source = "${selectedCurrency.code}",
-//                target = "ARS",
-//                quantity = amount,
-//            )
-//        }) {
-//            Text(text = "Convertir")
-//        }
         Text(text = "Categorías")
         CategoryDisplay(
             categories = categories,
@@ -205,8 +192,9 @@ fun TransactionScreen(
             onClick = {
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
                 val current = LocalDateTime.now().format(formatter)
-
                 viewModel.createNewTransaction(selectedTabState, selectedCategory, selectedCurrency, amount.toDouble(), current, description)
+                amount = ""
+                description = ""
             },
         ) {
             Text(text = "Agregar")
