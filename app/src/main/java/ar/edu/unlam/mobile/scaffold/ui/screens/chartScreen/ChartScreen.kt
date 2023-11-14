@@ -49,7 +49,7 @@ fun ChartScreen(
                     text = "Tus gastos",
                     fontWeight = FontWeight.Bold
                 )
-                    }
+            }
         )
         Body(categoria = "Categoría", porcentaje = "Porcentaje", total = "Total", viewModel, Color.Blue, Color.LightGray, controller)
         Spacer(modifier = Modifier.height(20.dp))

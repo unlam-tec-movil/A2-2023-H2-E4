@@ -32,7 +32,7 @@ class ChartScreenViewModel @Inject constructor(
         }
     }
 
-     fun calculateTotalAmountPerCategory(): List<PieChartInput> {
+     private fun calculateTotalAmountPerCategory(): List<PieChartInput> {
         return transactionsValue.value.groupBy { it.category }
             .map { (category, transactions) ->
                 PieChartInput(category, transactions.sumOf { it.amount })
@@ -55,13 +55,11 @@ class ChartScreenViewModel @Inject constructor(
     suspend fun loadTransaction() {
         transactionService.getAllTransactions()
             .catch { exception ->
-                    // Maneja la excepción
-                    println("Error al obtener transacciones: $exception")
+                println("Error al obtener transacciones: $exception")
             }
             .collect { listaDetransacciones ->
-                    transactionsValue.value = listaDetransacciones.map { it.toDomain() }
-
-                    loadDatePieChartList()
+                transactionsValue.value = listaDetransacciones.map { it.toDomain() }
+                loadDatePieChartList()
             }
     }
 

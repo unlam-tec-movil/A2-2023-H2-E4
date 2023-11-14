@@ -11,7 +11,7 @@ data class Transaction(
     val date: String,
     val description: String,
 ) {
-    fun toDomain(): Transaction{
+    fun toDomain(): Transaction {
         return this
     }
     fun toEntity(): TransactionEntity {

@@ -47,7 +47,7 @@ fun PieChart(
                 var currentStarAngle = 0.0
                 data.forEach { pieChartInput ->
                     val scale = if (pieChartInput.isTapped) 1.1f else 1.0f
-                    val angleToDraw = pieChartInput.totalAmount.div(totalSum)*360f
+                    val angleToDraw = pieChartInput.totalAmount.div(totalSum) * 360f
                     scale(scale) {
                         drawArc(
                             color = Color(android.graphics.Color.parseColor(pieChartInput.category.color)),

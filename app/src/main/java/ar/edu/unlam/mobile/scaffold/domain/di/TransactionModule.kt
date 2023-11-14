@@ -20,18 +20,21 @@ object TransactionModule {
     @Provides
     fun provideTransactionService(
         repository: TransactionRepositoryInterface,
-        dispatcherProvider: DispatcherProvider
+        dispatcherProvider: DispatcherProvider,
     ): TransactionServiceInterface {
-        return TransactionService(repository,dispatcherProvider)
+        return TransactionService(repository, dispatcherProvider)
     }
+
     @Provides
     fun provideTransactionDefaultRepository(transactionLocalRepo: TransactionLocalRepoInterface): TransactionRepositoryInterface {
         return TransactionDefaultRepository(transactionLocalRepo)
     }
+
     @Provides
     fun provideTransactionRoomRepository(daoTransaction: DaoTransaction): TransactionLocalRepoInterface {
         return TransactionRoomRepository(daoTransaction)
     }
+
     @Provides
     fun provideDaoTransaction(appDatabase: TransactionDatabase): DaoTransaction {
         return appDatabase.transactionDao()
