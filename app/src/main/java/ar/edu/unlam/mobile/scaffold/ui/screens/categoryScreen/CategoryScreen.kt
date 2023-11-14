@@ -26,8 +26,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.ColorsCategory
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.Screens
 import ar.edu.unlam.mobile.scaffold.ui.components.category.CategoryColor
 import ar.edu.unlam.mobile.scaffold.ui.components.category.CategoryDisplay
 import ar.edu.unlam.mobile.scaffold.ui.components.category.CategoryRadioButton
@@ -35,6 +37,7 @@ import ar.edu.unlam.mobile.scaffold.ui.components.category.CategoryRadioButton
 @Composable
 fun CategoryScreen(
     viewModel: CategoryViewModel = hiltViewModel(),
+    controller: NavHostController,
 ) {
     var selectedColor by remember { mutableStateOf<ColorsCategory?>(null) }
     var colorClick by remember { mutableStateOf(false) }
@@ -115,8 +118,11 @@ fun CategoryScreen(
             onSelectable = false,
             maxDisplayedCategories = 8,
             moreButtonText = "Mostrar todas",
-            onMoreButtonClick = { /* Lógica al hacer clic en "Ver más" */ },
-            onCategoryClick = { /* Lógica al hacer clic en una categoría */ },
+            onMoreButtonClick = {
+                controller.navigate(Screens.AllCategories.createRoute(selectedOption))
+            },
+            controller = controller,
+            onCategoryClick = { viewModel.setSelectedCategory(it) },
         )
     }
 }

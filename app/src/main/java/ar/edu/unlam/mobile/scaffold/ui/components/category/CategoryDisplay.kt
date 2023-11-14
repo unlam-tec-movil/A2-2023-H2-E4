@@ -24,10 +24,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
-import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
 
 @Composable
 fun CategoryDisplay(
@@ -37,6 +36,7 @@ fun CategoryDisplay(
     maxDisplayedCategories: Int = Int.MAX_VALUE,
     moreButtonText: String = "Ver más",
     onMoreButtonClick: () -> Unit = {},
+    controller: NavHostController,
 ) {
     val uniqueCategories = categories.distinctBy { it.name }
 
@@ -114,30 +114,5 @@ fun CategoryColors(
                 color = if (isSelected) Color.Black else Color.Transparent,
                 shape = RoundedCornerShape(20.dp),
             ),
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CategoryDisplayPreview() {
-    val categories = listOf(
-        Category(1, TransactionType.Ingresos, "Category1", "#FF5733"),
-        Category(2, TransactionType.Gastos, "Category2", "#33FF57"),
-        Category(3, TransactionType.Ingresos, "Category3", "#5733FF"),
-        Category(4, TransactionType.Ingresos, "Category4", "#FF5733"),
-        Category(5, TransactionType.Gastos, "Category5", "#33FF57"),
-        Category(6, TransactionType.Ingresos, "Category6", "#5733FF"),
-        Category(7, TransactionType.Ingresos, "Category7", "#5733FF"),
-        Category(8, TransactionType.Ingresos, "Category8", "#5733FF"),
-        Category(9, TransactionType.Ingresos, "Category9", "#5733FF"),
-    )
-
-    CategoryDisplay(
-        categories = categories,
-        onSelectable = false, // Opcional, por defecto es true
-        maxDisplayedCategories = 8,
-        moreButtonText = "Mostrar todas",
-        onMoreButtonClick = { /* Lógica al hacer clic en "Ver más" */ },
-        onCategoryClick = { /* Lógica al hacer clic en una categoría */ },
     )
 }

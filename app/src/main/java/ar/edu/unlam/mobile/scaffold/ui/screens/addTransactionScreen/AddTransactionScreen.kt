@@ -38,8 +38,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
-import ar.edu.unlam.mobile.scaffold.data.transaction.models.Currency
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.Screens
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
 import ar.edu.unlam.mobile.scaffold.ui.components.category.CategoryDisplay
 import kotlinx.coroutines.runBlocking
@@ -150,10 +149,13 @@ fun AddTransactionScreen(
                 CategoryDisplay(
                     categories = categories,
                     onSelectable = true,
+                    onCategoryClick = { viewModel.setSelectedCategory(it) },
                     maxDisplayedCategories = 8,
                     moreButtonText = "Mostrar más",
-                    onMoreButtonClick = { },
-                    onCategoryClick = { viewModel.setSelectedCategory(it) },
+                    onMoreButtonClick = {
+                        controller.navigate(Screens.AllCategories.createRoute(viewModel.selectedTab.value.toString()))
+                    },
+                    controller = controller,
                 )
 
                 Text(text = "Comentario")
@@ -200,7 +202,7 @@ fun AddTransactionScreen(
     }
 }
 
-@Composable
+/*@Composable
 fun ContentScreen(
     categories: List<Category>,
     currencies: List<Currency>,
@@ -210,9 +212,11 @@ fun ContentScreen(
     CategoryDisplay(
         categories = categories,
         onSelectable = true,
+        onCategoryClick = { },
         maxDisplayedCategories = 8,
         moreButtonText = "Mostrar más",
         onMoreButtonClick = { },
-        onCategoryClick = { },
+        controller = controller,
     )
 }
+*/

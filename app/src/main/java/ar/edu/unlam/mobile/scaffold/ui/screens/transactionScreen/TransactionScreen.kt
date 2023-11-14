@@ -163,10 +163,11 @@ fun TransactionScreen(
         CategoryDisplay(
             categories = categories,
             onSelectable = true,
+            onCategoryClick = { selectedCategory = it },
             maxDisplayedCategories = 8,
             moreButtonText = "Mostrar más",
             onMoreButtonClick = { /* Lógica al hacer clic en "Ver más" */ },
-            onCategoryClick = { selectedCategory = it },
+            controller = controller,
         )
 
         Text(text = "Comentario")
