@@ -32,7 +32,7 @@ class ChartScreenViewModel @Inject constructor(
         }
     }
 
-     private fun calculateTotalAmountPerCategory(): List<PieChartInput> {
+    private fun calculateTotalAmountPerCategory(): List<PieChartInput> {
         return transactionsValue.value.groupBy { it.category }
             .map { (category, transactions) ->
                 PieChartInput(category, transactions.sumOf { it.amount })
