@@ -6,6 +6,7 @@ import ar.edu.unlam.mobile.scaffold.data.transaction.local.repository.Transactio
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.repository.TransactionRoomRepository
 import ar.edu.unlam.mobile.scaffold.data.transaction.repository.TransactionDefaultRepository
 import ar.edu.unlam.mobile.scaffold.data.transaction.repository.TransactionRepositoryInterface
+import ar.edu.unlam.mobile.scaffold.domain.provider.DispatcherProvider
 import ar.edu.unlam.mobile.scaffold.domain.services.TransactionService
 import ar.edu.unlam.mobile.scaffold.domain.services.TransactionServiceInterface
 import dagger.Module
@@ -17,8 +18,11 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object TransactionModule {
     @Provides
-    fun provideTransactionService(repository: TransactionRepositoryInterface): TransactionServiceInterface {
-        return TransactionService(repository)
+    fun provideTransactionService(
+        repository: TransactionRepositoryInterface,
+        dispatcherProvider: DispatcherProvider,
+    ): TransactionServiceInterface {
+        return TransactionService(repository, dispatcherProvider)
     }
 
     @Provides

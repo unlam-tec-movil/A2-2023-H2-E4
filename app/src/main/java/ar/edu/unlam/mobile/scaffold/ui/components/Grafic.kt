@@ -1,6 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,7 +16,6 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.PieChartInput
@@ -29,7 +27,7 @@ fun PieChart(
     innerRadius: Float = 250f,
     transparentwidth: Float = 70f,
 ) {
-    val totalSum = data.sumOf { it.value }
+    val totalSum = data.sumOf { it.totalAmount }
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -46,14 +44,13 @@ fun PieChart(
                 val width = size.width
                 val height = size.height
                 val circleCenter = Offset(x = width.div(2f), y = height.div(2f))
-                val anglePerValue = 360f.div(totalSum)
                 var currentStarAngle = 0.0
                 data.forEach { pieChartInput ->
                     val scale = if (pieChartInput.isTapped) 1.1f else 1.0f
-                    val angleToDraw = pieChartInput.value.div(anglePerValue)
+                    val angleToDraw = pieChartInput.totalAmount.div(totalSum) * 360f
                     scale(scale) {
                         drawArc(
-                            color = pieChartInput.color,
+                            color = Color(android.graphics.Color.parseColor(pieChartInput.category.color)),
                             startAngle = currentStarAngle.toFloat(),
                             sweepAngle = angleToDraw.toFloat(),
                             useCenter = true,
@@ -112,27 +109,6 @@ fun TextCenter(
             text = text,
             fontWeight = FontWeight.SemiBold,
             fontSize = 25.sp,
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PieChartPreview() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-    ) {
-        PieChart(
-            data =
-            listOf(
-                PieChartInput(Color.Black, 20.0, "Ropa"),
-                PieChartInput(Color.White, 50.0, "electrodomesticos"),
-                PieChartInput(Color.Blue, 100.0, "gastosUniversitarios"),
-                PieChartInput(Color.Green, 100.4, "comida"),
-                PieChartInput(Color.Magenta, 70.8, "bebidas"),
-                PieChartInput(Color.Red, 30.8, "otros"),
-            ),
         )
     }
 }
