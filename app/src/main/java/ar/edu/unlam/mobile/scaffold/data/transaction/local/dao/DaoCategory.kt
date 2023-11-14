@@ -27,7 +27,7 @@ interface DaoCategory {
 
     @Transaction
     @Query(
-        "SELECT * " + "FROM `Category` ",
+        "SELECT * FROM `Category` ",
     )
     fun getCategory(): Flow<List<CategoryEntity>>
 }

@@ -43,8 +43,8 @@ fun ListItemRow(item: PieChartInput, viewModel: ChartScreenViewModel) {
                     .border(
                         width = 2.dp,
                         color = Color.White,
-                        shape = RoundedCornerShape(20.dp),
-                    ),
+                        shape = RoundedCornerShape(20.dp)
+                    )
             )
             Text(item.category.name, textAlign = TextAlign.Left, fontSize = 15.sp)
         }

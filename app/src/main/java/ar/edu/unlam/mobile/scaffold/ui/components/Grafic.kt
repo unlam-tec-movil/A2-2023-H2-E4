@@ -44,11 +44,10 @@ fun PieChart(
                 val width = size.width
                 val height = size.height
                 val circleCenter = Offset(x = width.div(2f), y = height.div(2f))
-                val anglePerValue = 360f.div(totalSum)
                 var currentStarAngle = 0.0
                 data.forEach { pieChartInput ->
                     val scale = if (pieChartInput.isTapped) 1.1f else 1.0f
-                    val angleToDraw = pieChartInput.totalAmount.div(anglePerValue)
+                    val angleToDraw = pieChartInput.totalAmount.div(totalSum)*360f
                     scale(scale) {
                         drawArc(
                             color = Color(android.graphics.Color.parseColor(pieChartInput.category.color)),
@@ -113,24 +112,3 @@ fun TextCenter(
         )
     }
 }
-/*
-@Preview(showBackground = true)
-@Composable
-fun PieChartPreview() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-    ) {
-        PieChart(
-            data =
-            listOf(
-                PieChartInput(Color.Black, 20.0, "Ropa"),
-                PieChartInput(Color.White, 50.0, "electrodomesticos"),
-                PieChartInput(Color.Blue, 100.0, "gastosUniversitarios"),
-                PieChartInput(Color.Green, 100.4, "comida"),
-                PieChartInput(Color.Magenta, 70.8, "bebidas"),
-                PieChartInput(Color.Red, 30.8, "otros"),
-            ),
-        )
-    }
-}*/

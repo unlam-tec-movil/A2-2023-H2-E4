@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.PieChartInput
@@ -42,9 +43,9 @@ fun Statistics(
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(text = categoria, fontSize = 23.sp, color = Color.Black)
-            Text(text = porcentaje, fontSize = 23.sp, color = Color.Black)
-            Text(text = total, fontSize = 23.sp, color = Color.Black)
+            Text(text = categoria, fontSize = 23.sp, color = Color.Black, fontWeight = FontWeight.Bold)
+            Text(text = porcentaje, fontSize = 23.sp, color = Color.Black, fontWeight = FontWeight.Bold)
+            Text(text = total, fontSize = 23.sp, color = Color.Black, fontWeight = FontWeight.Bold)
         }
         ShowCategories(list, color2, viewModel)
     }
@@ -55,7 +56,7 @@ fun ShowCategories(data: List<PieChartInput>, color: Color, viewModel: ChartScre
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp)
+            .height(300.dp)
             .background(color = color)
     ) {
         items(data) { item ->
