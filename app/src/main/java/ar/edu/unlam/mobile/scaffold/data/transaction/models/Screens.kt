@@ -8,4 +8,5 @@ sealed class Screens(val route: String) {
     object ChartScreen : Screens("chartScreen")
     object TransactionScreen : Screens("transactionScreen")
     object Category : Screens("CreateCategory")
+    object AddTransactionScreen : Screens("addTransactionScreen")
 }
