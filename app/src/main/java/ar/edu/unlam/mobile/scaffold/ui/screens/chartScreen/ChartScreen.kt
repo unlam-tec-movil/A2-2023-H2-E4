@@ -47,9 +47,10 @@ fun ChartScreen(
             title = {
                 Text(
                     text = "Tus gastos",
-                    fontWeight = FontWeight.Bold
+
+                    fontWeight = FontWeight.Bold,
                 )
-            }
+            },
         )
         Body(categoria = "Categoría", porcentaje = "Porcentaje", total = "Total", viewModel, Color.Blue, Color.LightGray, controller)
         Spacer(modifier = Modifier.height(20.dp))
@@ -85,7 +86,7 @@ fun Body(
                     .align(alignment = Alignment.CenterEnd),
                 shape = MaterialTheme.shapes.medium,
                 onClick = {
-                    controller.navigate(Screens.TransactionScreen.route)
+                    controller.navigate(Screens.AddTransactionScreen.route)
                 },
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
