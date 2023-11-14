@@ -38,9 +38,9 @@ fun PieChart(
             Canvas(
                 modifier = Modifier
                     .fillMaxSize()
-                    .pointerInput(true) {
-                    },
-            ) {
+                    .pointerInput(true) { },
+            )
+            {
                 val width = size.width
                 val height = size.height
                 val circleCenter = Offset(x = width.div(2f), y = height.div(2f))
@@ -95,8 +95,7 @@ fun TextCenter(
     innerRadius: Float,
 ) {
     Column(
-        modifier =
-        Modifier
+        modifier = Modifier
             .width(Dp(innerRadius / 1.5f)),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

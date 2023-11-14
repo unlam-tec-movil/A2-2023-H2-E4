@@ -47,24 +47,18 @@ fun ChartScreen(
             title = {
                 Text(
                     text = "Tus gastos",
-
                     fontWeight = FontWeight.Bold,
                 )
             },
         )
-        Body(categoria = "Categoría", porcentaje = "Porcentaje", total = "Total", viewModel, Color.Blue, Color.LightGray, controller)
+        Body(viewModel, controller)
         Spacer(modifier = Modifier.height(20.dp))
     }
 }
 
 @Composable
 fun Body(
-    categoria: String,
-    porcentaje: String,
-    total: String,
     viewModel: ChartScreenViewModel,
-    color1: Color,
-    color2: Color,
     controller: NavHostController,
 ) {
     val listPieChartInput by viewModel.pieCharInputList.collectAsState()
@@ -92,11 +86,6 @@ fun Body(
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
             }
         }
-        Statistics(categoria = categoria, porcentaje = porcentaje, total = total, list = listPieChartInput, color1, color2, viewModel)
+        Statistics(list = listPieChartInput, viewModel)
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ChartScreenPreview() {
 }
