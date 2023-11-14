@@ -122,6 +122,19 @@ class AddTransactionScreenViewModel @Inject constructor(
         }
     }
 
+    fun getCurrencyConversion(source: String, target: String, format: String = "json", quantity: String, apiKey: String = "45717|jb3r*ko06befntG2Ed~oJdD3chm7CfRB") {
+        viewModelScope.launch {
+            repository.getCurrencyConversion(source, target, format, quantity, apiKey).collect {
+                if (it.status == "OK") {
+                    val convertedValue = it.result.amount
+                    _convertedValue.value = convertedValue
+                } else {
+                    print("Error de conversion")
+                }
+            }
+        }
+    }
+
     // Funciones de cambio de valor
 
     fun setSelectedCurrency(currency: Currency) {
@@ -130,6 +143,7 @@ class AddTransactionScreenViewModel @Inject constructor(
 
     fun setSelectedCategory(category: Category) {
         _selectedCategory.value = category
+        updateButtonEnabledState()
     }
 
     fun setTab(value: TransactionType) {
@@ -153,6 +167,6 @@ class AddTransactionScreenViewModel @Inject constructor(
     }
 
     private fun updateButtonEnabledState() {
-        _isButtonEnabled.value = _amount.value.isNotEmpty() && _comment.value.isNotEmpty()
+        _isButtonEnabled.value = _amount.value.isNotEmpty() && _comment.value.isNotEmpty() && _selectedCategory.value != null
     }
 }
