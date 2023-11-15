@@ -5,6 +5,6 @@ import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.TransactionW
 import kotlinx.coroutines.flow.Flow
 
 interface TransactionLocalRepoInterface {
-    fun getAllTransactions(): Flow<List<TransactionWithDetails>>
-    fun addTransaction(transaction: TransactionEntity)
+    suspend fun getAllTransactions(): Flow<List<TransactionWithDetails>>
+    suspend fun addTransaction(transaction: TransactionEntity)
 }

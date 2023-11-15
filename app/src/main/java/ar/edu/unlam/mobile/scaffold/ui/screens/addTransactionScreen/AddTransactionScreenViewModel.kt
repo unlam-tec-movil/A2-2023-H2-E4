@@ -104,7 +104,7 @@ class AddTransactionScreenViewModel @Inject constructor(
             try {
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
                 val current = LocalDateTime.now().format(formatter)
-// aca deberia actualizar el amount y transformarlo a pesos argentinos.
+                // aca deberia actualizar el amount y transformarlo a pesos argentinos.
 
                 repository.getCurrencyConversion(
                     selectedCurrency.value!!.code,
