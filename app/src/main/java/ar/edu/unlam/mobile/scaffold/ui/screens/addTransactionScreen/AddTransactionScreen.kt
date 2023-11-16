@@ -42,7 +42,6 @@ import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Currency
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
 import ar.edu.unlam.mobile.scaffold.ui.components.category.CategoryDisplay
-import kotlinx.coroutines.runBlocking
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -91,11 +90,15 @@ fun AddTransactionScreen(
                         .align(Alignment.CenterHorizontally),
                 )
             }
+
             is TransactionScreenUIState.Success -> {
                 // Muestra el contenido principal utilizando viewModel.transactionScreenUIState.value
-                val categories = (viewModel.transactionScreenUIState.value as TransactionScreenUIState.Success).categories
-                val currencies = (viewModel.transactionScreenUIState.value as TransactionScreenUIState.Success).currencies
-                val selectedCurrency = (viewModel.transactionScreenUIState.value as TransactionScreenUIState.Success).selectedCurrency
+                val categories =
+                    (viewModel.transactionScreenUIState.value as TransactionScreenUIState.Success).categories
+                val currencies =
+                    (viewModel.transactionScreenUIState.value as TransactionScreenUIState.Success).currencies
+                val selectedCurrency =
+                    (viewModel.transactionScreenUIState.value as TransactionScreenUIState.Success).selectedCurrency
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
@@ -179,9 +182,7 @@ fun AddTransactionScreen(
                             return@Button
                         }
                         viewModel.setConvertedValue(viewModel.amount.value)
-                        runBlocking {
-                            viewModel.insertTransaction()
-                        }
+                        viewModel.insertTransaction()
                     },
                     enabled = viewModel.isButtonEnabled.value, // Habilita o deshabilita el botón según el estado
                 ) {

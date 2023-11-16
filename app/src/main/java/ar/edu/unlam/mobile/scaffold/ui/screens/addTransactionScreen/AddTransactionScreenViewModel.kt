@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffold.ui.screens.addTransactionScreen
 
+import android.util.Log
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -45,7 +46,8 @@ class AddTransactionScreenViewModel @Inject constructor(
     private val categoryService: CategoryServiceInterface,
 ) : ViewModel() {
     // Variables que almacenan el estado de la pantalla
-    private val _transactionScreenUIState = mutableStateOf<TransactionScreenUIState>(TransactionScreenUIState.Loading)
+    private val _transactionScreenUIState =
+        mutableStateOf<TransactionScreenUIState>(TransactionScreenUIState.Loading)
     val transactionScreenUIState: State<TransactionScreenUIState> = _transactionScreenUIState
 
     private val _amount = mutableStateOf("")
@@ -96,42 +98,66 @@ class AddTransactionScreenViewModel @Inject constructor(
             _transactionScreenUIState.value = TransactionScreenUIState.Error("$e.message")
         }
     }
-    suspend fun insertTransaction() {
-        try {
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-            val current = LocalDateTime.now().format(formatter)
 
-            val transaction = Transaction(
-                id = 0,
-                type = selectedTab.value,
-                category = selectedCategory.value ?: Category(0, TransactionType.Gastos, "Sin categoria", "FFFFFF"),
-                currency = selectedCurrency.value ?: Currency(0, "ARS", "Peso Argentino"),
-                amount = _convertedValue.value,
-                date = current,
-                description = comment.value,
-            )
-            withContext(Dispatchers.IO) {
-                transactionService.insertTransaction(transaction)
+    fun insertTransaction() {
+        viewModelScope.launch {
+            try {
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+                val current = LocalDateTime.now().format(formatter)
+                // aca deberia actualizar el amount y transformarlo a pesos argentinos.
+
+                repository.getCurrencyConversion(
+                    selectedCurrency.value!!.code,
+                    "ARS",
+                    "json",
+                    amount.value,
+                    "45717|jb3r*ko06befntG2Ed~oJdD3chm7CfRB",
+                ).collect {
+                    if (it.status == "OK") {
+                        val convertedValue = it.result.amount
+                        transactionService.insertTransaction(
+                            Transaction(
+                                id = 0,
+                                type = selectedTab.value,
+                                category = selectedCategory.value ?: Category(
+                                    0,
+                                    TransactionType.Gastos,
+                                    "Sin categoria",
+                                    "FFFFFF",
+                                ),
+                                currency = selectedCurrency.value ?: Currency(
+                                    0,
+                                    "ARS",
+                                    "Peso Argentino",
+                                ),
+                                amount = convertedValue,
+                                date = current,
+                                description = comment.value,
+                            ),
+                        )
+                    } else {
+                        print("Error de conversion")
+                    }
+                }
+            } catch (e: Exception) {
+                // Manejar errores si es necesario
+                Log.e("Error", e.message.toString(), e)
+                print("Hubo un error")
+            } finally {
+                _amount.value = ""
+                _comment.value = ""
             }
-
-            _amount.value = ""
-            _comment.value = ""
-        } catch (e: Exception) {
-            // Manejar errores si es necesario
-            print("Hubo un error")
         }
     }
 
-    fun getCurrencyConversion(source: String, target: String, format: String = "json", quantity: String, apiKey: String = "45717|jb3r*ko06befntG2Ed~oJdD3chm7CfRB") {
+    fun getCurrencyConversion(
+        source: String,
+        target: String,
+        format: String = "json",
+        quantity: String,
+        apiKey: String = "45717|jb3r*ko06befntG2Ed~oJdD3chm7CfRB",
+    ) {
         viewModelScope.launch {
-            repository.getCurrencyConversion(source, target, format, quantity, apiKey).collect {
-                if (it.status == "OK") {
-                    val convertedValue = it.result.amount
-                    _convertedValue.value = convertedValue
-                } else {
-                    print("Error de conversion")
-                }
-            }
         }
     }
 
@@ -156,6 +182,7 @@ class AddTransactionScreenViewModel @Inject constructor(
     fun setConvertedValue(value: String) {
         _convertedValue.value = value.toDouble()
     }
+
     fun setAmount(value: String) {
         _amount.value = value
         updateButtonEnabledState()
@@ -167,6 +194,7 @@ class AddTransactionScreenViewModel @Inject constructor(
     }
 
     private fun updateButtonEnabledState() {
-        _isButtonEnabled.value = _amount.value.isNotEmpty() && _comment.value.isNotEmpty() && _selectedCategory.value != null
+        _isButtonEnabled.value =
+            _amount.value.isNotEmpty() && _comment.value.isNotEmpty() && _selectedCategory.value != null
     }
 }
