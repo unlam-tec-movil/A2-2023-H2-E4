@@ -9,7 +9,6 @@ import ar.edu.unlam.mobile.scaffold.data.transaction.models.Screens
 import ar.edu.unlam.mobile.scaffold.ui.screens.addTransactionScreen.AddTransactionScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.categoryScreen.CategoryScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.chartScreen.ChartScreen
-import ar.edu.unlam.mobile.scaffold.ui.screens.transactionScreen.TransactionScreen
 
 @Composable
 fun NavigationComponent(
@@ -26,9 +25,6 @@ fun NavigationComponent(
         }
         composable(Screens.ChartScreen.route) {
             ChartScreen(controller = navigationController)
-        }
-        composable(Screens.TransactionScreen.route) {
-            TransactionScreen(controller = navigationController)
         }
         composable(Screens.AddTransactionScreen.route) {
             AddTransactionScreen(controller = navigationController)
