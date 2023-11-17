@@ -23,18 +23,13 @@ import ar.edu.unlam.mobile.scaffold.ui.screens.chartScreen.ChartScreenViewModel
 
 @Composable
 fun Statistics(
-    categoria: String,
-    porcentaje: String,
-    total: String,
     list: List<PieChartInput>,
-    color1: Color,
-    color2: Color,
     viewModel: ChartScreenViewModel,
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(3.dp, 10.dp),
+            .padding(horizontal = 3.dp, vertical = 10.dp),
         shape = RoundedCornerShape(16.dp)
     ) {
         Row(
@@ -43,21 +38,21 @@ fun Statistics(
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(text = categoria, fontSize = 23.sp, color = Color.Black, fontWeight = FontWeight.Bold)
-            Text(text = porcentaje, fontSize = 23.sp, color = Color.Black, fontWeight = FontWeight.Bold)
-            Text(text = total, fontSize = 23.sp, color = Color.Black, fontWeight = FontWeight.Bold)
+            Text(text = "Categoria", fontSize = 23.sp, color = Color.Black, fontWeight = FontWeight.Bold)
+            Text(text = "Porcentaje", fontSize = 23.sp, color = Color.Black, fontWeight = FontWeight.Bold)
+            Text(text = "Total", fontSize = 23.sp, color = Color.Black, fontWeight = FontWeight.Bold)
         }
-        ShowCategories(list, color2, viewModel)
+        ShowCategories(list, viewModel)
     }
 }
 
 @Composable
-fun ShowCategories(data: List<PieChartInput>, color: Color, viewModel: ChartScreenViewModel) {
+fun ShowCategories(data: List<PieChartInput>, viewModel: ChartScreenViewModel) {
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
             .height(300.dp)
-            .background(color = color)
+            .background(color = Color.Gray)
     ) {
         items(data) { item ->
             ListItemRow(item, viewModel)
