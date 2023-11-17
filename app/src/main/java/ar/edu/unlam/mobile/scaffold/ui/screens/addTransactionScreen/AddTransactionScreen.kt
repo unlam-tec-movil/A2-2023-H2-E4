@@ -37,16 +37,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Screens
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
 import ar.edu.unlam.mobile.scaffold.ui.components.category.CategoryDisplay
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddTransactionScreen(
     controller: NavHostController,
     viewModel: AddTransactionScreenViewModel = hiltViewModel(),
+    OnselectedCategory: Int?,
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -152,7 +156,21 @@ fun AddTransactionScreen(
                 CategoryDisplay(
                     categories = categories,
                     onSelectable = true,
-                    onCategoryClick = { viewModel.setSelectedCategory(it) },
+                    onCategoryClick = { selectedCategory ->
+                        viewModel.viewModelScope.launch {
+                            val category: Category? = OnselectedCategory?.let {
+                                viewModel.obtenerCategoriaDeFormaSincrona(
+                                    it,
+                                )
+                            }
+
+                            if (category != null) {
+                                viewModel.setSelectedCategory(category) // .toDomain())
+                            } else {
+                                viewModel.setSelectedCategory(selectedCategory)
+                            }
+                        }
+                    },
                     maxDisplayedCategories = 8,
                     moreButtonText = "Mostrar más",
                     onMoreButtonClick = {
@@ -186,7 +204,7 @@ fun AddTransactionScreen(
                         viewModel.setConvertedValue(viewModel.amount.value)
                         viewModel.insertTransaction()
                     },
-                    enabled = viewModel.isButtonEnabled.value, // Habilita o deshabilita el botón según el estado
+                    enabled = true, // viewModel.isButtonEnabled.value, // Habilita o deshabilita el botón según el estado
                 ) {
                     Text(text = "Agregar")
                 }
@@ -202,22 +220,3 @@ fun AddTransactionScreen(
         viewModel.loadData()
     }
 }
-
-/*@Composable
-fun ContentScreen(
-    categories: List<Category>,
-    currencies: List<Currency>,
-    selectedCurrency: Currency?,
-) {
-    Text(text = "Categorías")
-    CategoryDisplay(
-        categories = categories,
-        onSelectable = true,
-        onCategoryClick = { },
-        maxDisplayedCategories = 8,
-        moreButtonText = "Mostrar más",
-        onMoreButtonClick = { },
-        controller = controller,
-    )
-}
-*/

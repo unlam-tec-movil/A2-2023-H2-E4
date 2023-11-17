@@ -5,6 +5,7 @@ import ar.edu.unlam.mobile.scaffold.data.transaction.local.repository.CategoryLo
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
 import ar.edu.unlam.mobile.scaffold.domain.provider.DispatcherProvider
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -30,5 +31,15 @@ class CategoryDefaultRepository @Inject constructor(
             .map { list ->
                 list.map { it.toDomain() }
             }
+    }
+    override suspend fun getCategoriesById(
+        id: Int,
+        dispatcherProvider: DispatcherProvider,
+    ): Flow<Category> {
+        return categoryLocalRepo.getCategoriesById(id)
+            .map { categoryEntity ->
+                categoryEntity?.toDomain() ?: throw NoSuchElementException("Category not found")
+            }
+            .flowOn(dispatcherProvider.io)
     }
 }

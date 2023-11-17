@@ -11,5 +11,7 @@ sealed class Screens(val route: String) {
     object AllCategories : Screens("allCategoriesScreen/{type}") {
         fun createRoute(type: String) = "allCategoriesScreen/$type"
     }
-    object AddTransactionScreen : Screens("addTransactionScreen")
+    object AddTransactionScreen : Screens("addTransactionScreen/{categoryId}") {
+        fun categoryRoute(categoryId: Int) = "addTransactionScreen/$categoryId"
+    }
 }

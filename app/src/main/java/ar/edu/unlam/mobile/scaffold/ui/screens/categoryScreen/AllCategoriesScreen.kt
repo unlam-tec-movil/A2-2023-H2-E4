@@ -27,7 +27,6 @@ fun AllCategoriesScreen(
     AllCategoriesDisplay(
         categories = categories,
         onSelectable = false,
-        onCategoryClick = { /* Lógica al hacer clic en una categoría */ },
         controller = controller,
     )
 }

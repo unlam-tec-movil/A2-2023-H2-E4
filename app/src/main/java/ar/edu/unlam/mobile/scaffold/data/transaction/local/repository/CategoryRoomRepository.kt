@@ -20,4 +20,8 @@ class CategoryRoomRepository @Inject constructor(
     override suspend fun getCategoriesByType(type: String): Flow<List<CategoryEntity>> {
         return daoCategory.getCategoriesByTransactionType(TransactionType.valueOf(type))
     }
+
+    override suspend fun getCategoriesById(id: Int): Flow<CategoryEntity?> {
+        return daoCategory.getCategoriesById(id)
+    }
 }

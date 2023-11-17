@@ -16,11 +16,16 @@ import ar.edu.unlam.mobile.scaffold.domain.services.CurrencyServiceInterface
 import ar.edu.unlam.mobile.scaffold.domain.services.TransactionServiceInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.singleOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 @Immutable
 sealed interface TransactionScreenUIState {
@@ -196,5 +201,20 @@ class AddTransactionScreenViewModel @Inject constructor(
     private fun updateButtonEnabledState() {
         _isButtonEnabled.value =
             _amount.value.isNotEmpty() && _comment.value.isNotEmpty() && _selectedCategory.value != null
+    }
+    suspend fun obtenerCategoriaDeFormaSincrona(tuId: Int): Category? {
+        return suspendCoroutine { continuation ->
+            viewModelScope.launch {
+                val result = getCategoriesById(tuId)
+                continuation.resume(result)
+            }
+        }
+    }
+
+    private suspend fun getCategoriesById(id: Int): Category? {
+        return categoryService.getCategoriesById(id)
+            .catch { /* Manejar errores, si es necesario */ }
+            .map { it?.toDomain() } // Usar it?.toDomain() para manejar el caso de null
+            .singleOrNull()
     }
 }

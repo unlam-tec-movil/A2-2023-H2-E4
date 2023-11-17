@@ -1,8 +1,10 @@
 package ar.edu.unlam.mobile.scaffold.ui.components.category
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -21,58 +23,59 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
+import ar.edu.unlam.mobile.scaffold.data.transaction.models.Screens
 
 @Composable
 fun AllCategoriesDisplay(
     categories: List<Category>,
     onSelectable: Boolean = true,
-    onCategoryClick: (Category) -> Unit,
     controller: NavHostController,
 ) {
     val uniqueCategories = categories.distinctBy { it.name }
-
     var selectedCategory by remember { mutableStateOf<Category?>(null) }
 
-    LazyColumn(
-        modifier = Modifier.padding(16.dp),
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
     ) {
-        items(uniqueCategories) { uniqueCategory ->
-            val isSelected = uniqueCategory == selectedCategory
+        LazyColumn {
+            items(uniqueCategories) { uniqueCategory ->
+                val isSelected = uniqueCategory == selectedCategory
 
-            val modifier = if (onSelectable) {
-                Modifier.clickable {
-                    selectedCategory = uniqueCategory
-                    onCategoryClick(uniqueCategory)
-                    controller.navigateUp() // Navegar hacia atrás al hacer clic
-                }
-            } else {
-                Modifier
-            }
-
-            Row(
-                modifier = modifier,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                CategoryColors(
-                    category = uniqueCategory,
-                    isSelected = isSelected,
-                    onCategoryClick = {
+                val modifier = if (onSelectable) {
+                    Modifier.clickable {
                         selectedCategory = uniqueCategory
-                        onCategoryClick(uniqueCategory)
                         controller.navigateUp() // Navegar hacia atrás al hacer clic
-                    },
-                )
+                    }
+                } else {
+                    Modifier
+                }
 
-                Spacer(modifier = Modifier.width(8.dp))
+                Row(
+                    modifier = modifier,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    CategoryColors(
+                        category = uniqueCategory,
+                        isSelected = isSelected,
+                        onCategoryClick = {
+                            selectedCategory = uniqueCategory
+                            controller.navigate(Screens.AddTransactionScreen.categoryRoute(uniqueCategory.id))
+                        },
+                    )
 
-                Text(
-                    text = "${uniqueCategory.name}",
-                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                    color = Color.Black,
-                )
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Text(
+                        text = "${uniqueCategory.name}",
+                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                        color = Color.Black,
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(8.dp)) // Agregar espacio entre las categorías
             }
-
-            Spacer(modifier = Modifier.height(8.dp)) // Agregar espacio entre las categorías
         }
     }
 }

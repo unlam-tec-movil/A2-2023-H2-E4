@@ -27,7 +27,10 @@ fun NavigationComponent(
         }
         composable(Screens.AllCategories.route) { navBackStackEntry ->
             val type = navBackStackEntry.arguments?.getString("type") ?: "Ingresos"
-            AllCategoriesScreen(controller = navigationController, type = type)
+            AllCategoriesScreen(
+                controller = navigationController,
+                type = type,
+            )
         }
         composable(Screens.ChartScreen.route) {
             ChartScreen(controller = navigationController)
@@ -35,8 +38,12 @@ fun NavigationComponent(
         composable(Screens.TransactionScreen.route) {
             TransactionScreen(controller = navigationController)
         }
-        composable(Screens.AddTransactionScreen.route) {
-            AddTransactionScreen(controller = navigationController)
+        composable(Screens.AddTransactionScreen.route) { navBackStackEntry ->
+            val categoryId = navBackStackEntry.arguments?.getInt("categoryId")
+            AddTransactionScreen(
+                controller = navigationController,
+                OnselectedCategory = categoryId,
+            )
         }
     }
 }
