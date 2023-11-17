@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -69,7 +68,7 @@ class TransactionScreenViewModel @Inject constructor(
     }
     fun getCurrencyConversion(source: String, target: String, format: String = "json", quantity: String, apiKey: String = "45717|jb3r*ko06befntG2Ed~oJdD3chm7CfRB") {
         viewModelScope.launch {
-            repository.getCurrencyConversion(source, target, format, quantity, apiKey).collect {
+            repository.getCurrencyConversion(source, target).collect {
                 if (it.status == "OK") {
                     val convertedValue = it.result.amount
                     _convertedValue.value = "El valor es $convertedValue"
@@ -90,11 +89,11 @@ class TransactionScreenViewModel @Inject constructor(
             date = date,
             description = description,
         )
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                transactionService.insertTransaction(transaction)
-            }
-        }
+//        viewModelScope.launch {
+//            withContext(Dispatchers.IO) {
+//                transactionService.insertTransaction(transaction)
+//            }
+//        }
     }
 
     fun getCategoriesByType(type: String) {

@@ -5,10 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface CurrencyConversionNetworkRepository {
     suspend fun getCurrencyConversion(
-        source: String,
-        target: String,
-        format: String,
+        source: String? = "ARS",
         quantity: String,
-        apiKey: String,
     ): Flow<CurrencyConversionResponse>
 }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -34,8 +35,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
@@ -108,7 +112,10 @@ fun AddTransactionScreen(
                 ) {
                     TextField(
                         value = viewModel.amount.value,
-                        onValueChange = { viewModel.setAmount(it) },
+                        onValueChange = {
+                            val filteredValue = it.filter { char -> char.isDigit() }
+                            viewModel.setAmount(filteredValue)
+                        },
                         placeholder = { Text("Ingresa un monto") },
                         keyboardOptions = KeyboardOptions.Default.copy(
                             keyboardType = KeyboardType.Number,
@@ -162,7 +169,10 @@ fun AddTransactionScreen(
                 Text(text = "Comentario")
                 TextField(
                     value = viewModel.comment.value,
-                    onValueChange = { viewModel.setComment(it) },
+                    onValueChange = {
+                        val filteredValue = it.filter { char -> char.isDigit() }
+                        viewModel.setComment(filteredValue)
+                    },
                     placeholder = { Text("Ingresa un comentario") },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -172,26 +182,45 @@ fun AddTransactionScreen(
                             top = 20.dp,
                         ),
                 )
-                Spacer(modifier = Modifier.weight(1f)) // Esto asegura que el botón siempre esté en la parte inferior
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    onClick = {
-                        if (viewModel.amount.value == "") {
-                            return@Button
-                        }
-                        viewModel.setConvertedValue(viewModel.amount.value)
-                        viewModel.insertTransaction()
-                    },
-                    enabled = viewModel.isButtonEnabled.value, // Habilita o deshabilita el botón según el estado
-                ) {
-                    Text(text = "Agregar")
-                }
             }
 
             is TransactionScreenUIState.Error -> {
                 Text("Error: ${(viewModel.transactionScreenUIState.value as TransactionScreenUIState.Error).message}")
+            }
+        }
+        Spacer(modifier = Modifier.weight(1f)) // Esto asegura que el botón siempre esté en la parte inferior
+
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+                .imePadding(),
+            onClick = {
+                if (viewModel.amount.value == "") {
+                    return@Button
+                }
+                viewModel.setConvertedValue(viewModel.amount.value)
+                viewModel.insertTransaction()
+            },
+            enabled = viewModel.isButtonEnabled.value, // Habilita o deshabilita el botón según el estado
+        ) {
+            when (viewModel.transactionButtonState.value) {
+                TransactionButtonState.Finished -> {
+                    Text(
+                        text = "Agregar",
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        fontSize = 18.sp,
+                    )
+                }
+                TransactionButtonState.Loading -> {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .size(15.dp),
+                        color = Color.White,
+                    )
+                }
             }
         }
     }
