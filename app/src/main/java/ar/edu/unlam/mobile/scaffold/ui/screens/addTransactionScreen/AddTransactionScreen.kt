@@ -29,10 +29,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -42,8 +38,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
-import ar.edu.unlam.mobile.scaffold.data.transaction.models.Currency
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
 import ar.edu.unlam.mobile.scaffold.ui.components.category.CategoryDisplay
 
@@ -53,8 +47,6 @@ fun AddTransactionScreen(
     controller: NavHostController,
     viewModel: AddTransactionScreenViewModel = hiltViewModel(),
 ) {
-    var expanded by remember { mutableStateOf(false) }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -124,29 +116,30 @@ fun AddTransactionScreen(
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     ExposedDropdownMenuBox(
-                        expanded = expanded,
+                        expanded = viewModel.isExpanded.value,
                         onExpandedChange = {
-                            expanded = !expanded
+                            viewModel.setExpanded()
                         },
                     ) {
                         TextField(
-                            value = (viewModel.selectedCurrency.value?.code ?: ""),
-                            onValueChange = { },
-                            readOnly = true,
+                            value = viewModel.searchText.value,
+                            placeholder = { Text("ARS") },
+                            onValueChange = { viewModel.setSearchText(it) },
+                            readOnly = false,
                             modifier = Modifier
                                 .menuAnchor()
                                 .width(100.dp),
                         )
                         ExposedDropdownMenu(
-                            expanded = expanded,
-                            onDismissRequest = { expanded = false },
+                            expanded = viewModel.isExpanded.value,
+                            onDismissRequest = { viewModel.setExpanded() },
                         ) {
-                            currencies.forEach { currency ->
+                            viewModel.filteredCurrencies.value.forEach { currency ->
                                 DropdownMenuItem(
                                     text = { Text(text = currency.code) },
                                     onClick = {
                                         viewModel.setSelectedCurrency(currency)
-                                        expanded = false
+                                        viewModel.setExpanded()
 //                                            Toast.makeText(context, currency.code, Toast.LENGTH_SHORT).show()
                                     },
                                 )
@@ -184,7 +177,7 @@ fun AddTransactionScreen(
                 Text("Error: ${(viewModel.transactionScreenUIState.value as TransactionScreenUIState.Error).message}")
             }
         }
-        Spacer(modifier = Modifier.weight(1f)) // Esto asegura que el botón siempre esté en la parte inferior
+        Spacer(modifier = Modifier.weight(1f))
 
         Button(
             modifier = Modifier
@@ -198,7 +191,7 @@ fun AddTransactionScreen(
                 viewModel.setConvertedValue(viewModel.amount.value)
                 viewModel.insertTransaction()
             },
-            enabled = viewModel.isButtonEnabled.value, // Habilita o deshabilita el botón según el estado
+            enabled = viewModel.isButtonEnabled.value,
         ) {
             when (viewModel.transactionButtonState.value) {
                 TransactionButtonState.Finished -> {
@@ -224,21 +217,4 @@ fun AddTransactionScreen(
     LaunchedEffect(Unit) {
         viewModel.loadData()
     }
-}
-
-@Composable
-fun ContentScreen(
-    categories: List<Category>,
-    currencies: List<Currency>,
-    selectedCurrency: Currency?,
-) {
-    Text(text = "Categorías")
-    CategoryDisplay(
-        categories = categories,
-        onSelectable = true,
-        maxDisplayedCategories = 8,
-        moreButtonText = "Mostrar más",
-        onMoreButtonClick = { },
-        onCategoryClick = { },
-    )
 }
