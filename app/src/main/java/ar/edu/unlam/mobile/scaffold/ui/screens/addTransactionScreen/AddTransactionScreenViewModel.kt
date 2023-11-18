@@ -154,7 +154,10 @@ class AddTransactionScreenViewModel @Inject constructor(
     }
 
     fun setAmount(value: String) {
-        _amount.value = value
+        val filteredValue = value.filter { char ->
+            char.isDigit()
+        }
+        _amount.value = filteredValue
         updateButtonEnabledState()
     }
 

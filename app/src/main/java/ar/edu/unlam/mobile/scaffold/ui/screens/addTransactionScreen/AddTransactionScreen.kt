@@ -113,8 +113,7 @@ fun AddTransactionScreen(
                     TextField(
                         value = viewModel.amount.value,
                         onValueChange = {
-                            val filteredValue = it.filter { char -> char.isDigit() }
-                            viewModel.setAmount(filteredValue)
+                            viewModel.setAmount(it)
                         },
                         placeholder = { Text("Ingresa un monto") },
                         keyboardOptions = KeyboardOptions.Default.copy(
