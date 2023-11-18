@@ -169,10 +169,7 @@ fun AddTransactionScreen(
                 Text(text = "Comentario")
                 TextField(
                     value = viewModel.comment.value,
-                    onValueChange = {
-                        val filteredValue = it.filter { char -> char.isDigit() }
-                        viewModel.setComment(filteredValue)
-                    },
+                    onValueChange = { viewModel.setComment(it) },
                     placeholder = { Text("Ingresa un comentario") },
                     modifier = Modifier
                         .fillMaxWidth()

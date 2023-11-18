@@ -14,9 +14,9 @@ import ar.edu.unlam.mobile.scaffold.domain.services.CurrencyConversionServiceInt
 import ar.edu.unlam.mobile.scaffold.domain.services.CurrencyServiceInterface
 import ar.edu.unlam.mobile.scaffold.domain.services.TransactionServiceInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @Immutable
@@ -75,28 +75,28 @@ class AddTransactionScreenViewModel @Inject constructor(
     val tabs = TransactionType.values().toList()
 
     suspend fun loadData() {
-        try {
-            _transactionScreenUIState.value = TransactionScreenUIState.Loading
+        viewModelScope.launch {
+            try {
+                _transactionScreenUIState.value = TransactionScreenUIState.Loading
 
-            val categories = withContext(Dispatchers.IO) {
-                categoryService.getCategoriesByType(selectedTab.value.name)
-            }
-            val loadedCurrencies = withContext(Dispatchers.IO) {
-                currencyService.getAllCurrencies()
-            }
+                val categoriesFlow = categoryService.getCategoriesByType(selectedTab.value.name)
 
-            categories.collect { categories ->
-                val arsCurrency = loadedCurrencies.find { it.code == "ARS" }
-                _selectedCurrency.value = arsCurrency
-                _transactionScreenUIState.value = TransactionScreenUIState.Success(
-                    categories = categories,
-                    currencies = loadedCurrencies,
-                    selectedCurrency = arsCurrency,
-                )
+                val currenciesFlow = currencyService.getAllCurrencies()
+
+                categoriesFlow.zip(currenciesFlow) { categories, currencies ->
+                    val arsCurrency = currencies.find { it.code == "ARS" }
+                    _selectedCurrency.value = arsCurrency
+
+                    _transactionScreenUIState.value = TransactionScreenUIState.Success(
+                        categories = categories,
+                        currencies = currencies,
+                        selectedCurrency = arsCurrency,
+                    )
+                }.collect()
+            } catch (e: Exception) {
+                // Manejar errores si es necesario
+                _transactionScreenUIState.value = TransactionScreenUIState.Error("$e.message")
             }
-        } catch (e: Exception) {
-            // Manejar errores si es necesario
-            _transactionScreenUIState.value = TransactionScreenUIState.Error("$e.message")
         }
     }
 
