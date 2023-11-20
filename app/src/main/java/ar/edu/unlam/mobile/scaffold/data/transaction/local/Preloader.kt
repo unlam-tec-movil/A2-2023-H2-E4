@@ -3,6 +3,7 @@ package ar.edu.unlam.mobile.scaffold.data.transaction.local
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CategoryEntity
 import ar.edu.unlam.mobile.scaffold.data.transaction.local.entities.CurrencyEntity
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
+import java.time.LocalDate
 
 val defaultCategories = listOf(
     CategoryEntity(0, TransactionType.Ingresos, "Salario", "#FF5733"),
@@ -203,4 +204,24 @@ val defaultCurrencies = listOf(
     CurrencyEntity(0, "MATIC", "Matic Token"),
     CurrencyEntity(0, "LTC", "Litecoin"),
     CurrencyEntity(0, "ADA", "Cardano"),
+)
+val defaultYears = listOf<String>(
+    LocalDate.now().year.toString(),
+    (LocalDate.now().year - 1).toString(),
+    (LocalDate.now().year - 2).toString(),
+)
+val defaultMonth: Map<String, String> = mapOf(
+    "Mes" to "Mes",
+    "enero" to "01",
+    "febrero" to "02",
+    "marzo" to "03",
+    "abril" to "04",
+    "mayo" to "05",
+    "junio" to "06",
+    "julio" to "07",
+    "agosto" to "08",
+    "septiembre" to "09",
+    "octubre" to "10",
+    "noviembre" to "11",
+    "diciembre" to "12"
 )

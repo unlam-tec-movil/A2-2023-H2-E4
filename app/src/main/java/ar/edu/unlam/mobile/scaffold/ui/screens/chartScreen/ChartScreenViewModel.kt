@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -19,13 +20,11 @@ class ChartScreenViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val transactionsValue = MutableStateFlow<List<Transaction>>(emptyList())
-    val transaction: MutableStateFlow<List<Transaction>> get() = transactionsValue
 
     val pieCharInputList = MutableStateFlow<List<PieChartInput>>(emptyList())
-
     init {
         viewModelScope.launch {
-            loadTransaction()
+            loadTransactionForYear(LocalDate.now().year.toString())
         }
     }
 
@@ -42,17 +41,26 @@ class ChartScreenViewModel @Inject constructor(
         pieCharInputList.value = calculateTotalAmountPerCategory()
     }
 
-    suspend fun loadTransaction() {
-        transactionService.getAllTransactions()
+    suspend fun loadTransactionForYear(year: String) {
+        transactionService.getTransactionForYear(year)
             .catch { exception ->
-                println("Error al obtener transacciones: $exception")
+                println("error al obtener transacciones por año: $exception")
             }
-            .collect { listaDetransacciones ->
-                transactionsValue.value = listaDetransacciones.map { it.toDomain() }
+            .collect { listaDeTransacciones ->
+                transactionsValue.value = listaDeTransacciones.map { it.toDomain() }
                 loadDatePieChartList()
             }
     }
-
+    suspend fun loadTransactionForYearAndMonth(year: String, month: String) {
+        transactionService.getTransactionForMonthAndYear(month, year)
+            .catch { exception ->
+                println("error al obtener transacciones por año: $exception")
+            }
+            .collect { listaDeTransacciones ->
+                transactionsValue.value = listaDeTransacciones.map { it.toDomain() }
+                loadDatePieChartList()
+            }
+    }
     fun calcularPorcentaje(item: PieChartInput): Int {
         var total = 0.0
         pieCharInputList.value.forEach {

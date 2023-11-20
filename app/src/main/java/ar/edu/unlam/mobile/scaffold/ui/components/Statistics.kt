@@ -1,6 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,8 +28,8 @@ fun Statistics(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 3.dp, vertical = 10.dp),
-        shape = RoundedCornerShape(16.dp)
+            .padding(3.dp, 10.dp),
+        shape = RoundedCornerShape(16.dp),
     ) {
         Row(
             modifier = Modifier
@@ -42,17 +41,21 @@ fun Statistics(
             Text(text = "Porcentaje", fontSize = 23.sp, color = Color.Black, fontWeight = FontWeight.Bold)
             Text(text = "Total", fontSize = 23.sp, color = Color.Black, fontWeight = FontWeight.Bold)
         }
+        ShowCategories(data = list, viewModel = viewModel)
         ShowCategories(list, viewModel)
     }
 }
 
 @Composable
-fun ShowCategories(data: List<PieChartInput>, viewModel: ChartScreenViewModel) {
+fun ShowCategories(
+    data: List<PieChartInput>,
+    viewModel: ChartScreenViewModel,
+) {
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
             .height(300.dp)
-            .background(color = Color.Gray)
+            .padding(top = 3.dp),
     ) {
         items(data) { item ->
             ListItemRow(item, viewModel)
