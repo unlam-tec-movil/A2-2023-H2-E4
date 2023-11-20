@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,42 +32,61 @@ fun ListItemRow(item: PieChartInput, viewModel: ChartScreenViewModel) {
             .padding(5.dp)
     ) {
         Spacer(modifier = Modifier.width(20.dp))
-
         Column(
             modifier = Modifier.weight(1f)
         ) {
-            Box(
-                modifier = Modifier
-                    .size(30.dp)
-                    .clip(RoundedCornerShape(20.dp))
-                    .background(color = Color(android.graphics.Color.parseColor(item.category.color)))
-                    .border(
-                        width = 2.dp,
-                        color = Color.White,
-                        shape = RoundedCornerShape(20.dp)
-                    )
-            )
-            Text(item.category.name, textAlign = TextAlign.Left, fontSize = 15.sp)
-        }
+            Row {
+                Box(
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(color = Color(android.graphics.Color.parseColor(item.category.color)))
+                        .border(
+                            width = 2.dp,
+                            color = Color.White,
+                            shape = RoundedCornerShape(20.dp)
+                        )
+                )
+                Text(
+                    item.category.name,
+                    textAlign = TextAlign.Left,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold)
+            }
 
-        Column(
-            modifier = Modifier
-                .width(100.dp)
-                .fillMaxHeight()
-        ) {
-            Text(
-                "${viewModel.calcularPorcentaje(item)}%",
-                textAlign = TextAlign.Center,
-                fontSize = 15.sp
-            )
         }
+        PercentageColumn(item, viewModel)
+        TotalAmountColumn(item = item)
+    }
+}
 
-        Column(
-            modifier = Modifier
-                .width(100.dp)
-                .fillMaxHeight()
-        ) {
-            Text("${item.totalAmount}", textAlign = TextAlign.Right, fontSize = 15.sp)
-        }
+@Composable
+fun PercentageColumn(item: PieChartInput, viewModel: ChartScreenViewModel) {
+    Column(
+        modifier = Modifier
+            .width(100.dp)
+            .fillMaxHeight()
+    ) {
+        Text(
+            text = "${viewModel.calcularPorcentaje(item)}%",
+            textAlign = TextAlign.Center,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+@Composable
+private fun TotalAmountColumn(item: PieChartInput) {
+    Column(
+        modifier = Modifier
+            .width(100.dp)
+            .fillMaxHeight()
+    ) {
+        Text("${item.totalAmount}",
+            textAlign = TextAlign.Right,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold
+        )
     }
 }

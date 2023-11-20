@@ -16,4 +16,19 @@ class TransactionService(
     override suspend fun getAllTransactions(): Flow<List<Transaction>> {
         return repository.getAllTransactions(dispatcherProvider)
     }
+
+    override suspend fun getTransactionForYear(year: String): Flow<List<Transaction>> {
+        return repository.getTransactionForYear(year)
+    }
+
+    override suspend fun getTransactionForMonth(month: String): Flow<List<Transaction>> {
+        return repository.getTransactionForMonth(month)
+    }
+
+    override suspend fun getTransactionForMonthAndYear(
+        month: String,
+        year: String,
+    ): Flow<List<Transaction>> {
+        return repository.getTransactionForMonthAndYear(month, year)
+    }
 }
