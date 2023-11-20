@@ -51,11 +51,14 @@ class AddTransactionScreenViewModel @Inject constructor(
 
     private val _transactionButtonState = mutableStateOf<TransactionButtonState>(TransactionButtonState.Finished)
     val transactionButtonState: State<TransactionButtonState> = _transactionButtonState
+
     private val _amount = mutableStateOf("")
     val amount: State<String> = _amount
 
+    private val _searchText = mutableStateOf("")
+    val searchText: State<String> = _searchText
+
     private val _convertedValue = mutableStateOf(0.0)
-    val convertedValue: State<Double> = _convertedValue
 
     private val _selectedCurrency = mutableStateOf<Currency?>(null)
     val selectedCurrency: State<Currency?> = _selectedCurrency
@@ -72,6 +75,16 @@ class AddTransactionScreenViewModel @Inject constructor(
     private val _isButtonEnabled = mutableStateOf(false)
     val isButtonEnabled: State<Boolean> = _isButtonEnabled
 
+    private val _currencies = mutableStateOf<List<Currency>>(emptyList())
+
+    private val _filteredCurrencies = mutableStateOf<List<Currency>>(emptyList())
+    val filteredCurrencies: State<List<Currency>> = _filteredCurrencies
+
+    private val _categories = mutableStateOf<List<Category>>(emptyList())
+
+    private val _isExpanded = mutableStateOf(false)
+    val isExpanded: State<Boolean> = _isExpanded
+
     val tabs = TransactionType.values().toList()
 
     suspend fun loadData() {
@@ -86,11 +99,14 @@ class AddTransactionScreenViewModel @Inject constructor(
                 categoriesFlow.zip(currenciesFlow) { categories, currencies ->
                     val arsCurrency = currencies.find { it.code == "ARS" }
                     _selectedCurrency.value = arsCurrency
+                    _currencies.value = currencies
+                    _categories.value = categories
+                    _filteredCurrencies.value = currencies
 
                     _transactionScreenUIState.value = TransactionScreenUIState.Success(
-                        categories = categories,
-                        currencies = currencies,
-                        selectedCurrency = arsCurrency,
+                        categories = _categories.value,
+                        currencies = _currencies.value,
+                        selectedCurrency = _selectedCurrency.value,
                     )
                 }.collect()
             } catch (e: Exception) {
@@ -135,6 +151,7 @@ class AddTransactionScreenViewModel @Inject constructor(
 
     fun setSelectedCurrency(currency: Currency) {
         _selectedCurrency.value = currency
+        _searchText.value = currency.code
     }
 
     fun setSelectedCategory(category: Category) {
@@ -169,5 +186,32 @@ class AddTransactionScreenViewModel @Inject constructor(
     private fun updateButtonEnabledState() {
         _isButtonEnabled.value =
             _amount.value.isNotEmpty() && _comment.value.isNotEmpty() && _selectedCategory.value != null
+    }
+
+    fun setExpanded() {
+        _isExpanded.value = !_isExpanded.value
+    }
+
+    fun setSearchText(value: String) {
+        val filteredValue = value.filter { it.isLetter() }.take(3)
+        _searchText.value = filteredValue
+        filterCurrencies(filteredValue)
+    }
+
+    private fun filterCurrencies(filter: String) {
+        if (filter.isEmpty()) {
+            _filteredCurrencies.value = _currencies.value
+            reOpenDropDownMenu()
+            return
+        }
+        _filteredCurrencies.value = _currencies.value.filter { currency ->
+            currency.code.startsWith(filter, ignoreCase = true)
+        }
+        reOpenDropDownMenu()
+    }
+
+    private fun reOpenDropDownMenu() {
+        _isExpanded.value = false
+        _isExpanded.value = true
     }
 }
