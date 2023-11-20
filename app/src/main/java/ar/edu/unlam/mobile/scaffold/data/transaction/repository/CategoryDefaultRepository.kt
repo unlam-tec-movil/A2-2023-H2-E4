@@ -38,7 +38,7 @@ class CategoryDefaultRepository @Inject constructor(
     ): Flow<Category> {
         return categoryLocalRepo.getCategoriesById(id)
             .map { categoryEntity ->
-                categoryEntity?.toDomain() ?: throw NoSuchElementException("Category not found")
+                categoryEntity.toDomain() // ?: throw NoSuchElementException("Category not found")
             }
             .flowOn(dispatcherProvider.io)
     }

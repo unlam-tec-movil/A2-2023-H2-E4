@@ -99,7 +99,7 @@ fun CategoryDisplay(
 fun CategoryColors(
     category: Category,
     isSelected: Boolean,
-    onCategoryClick: () -> Unit,
+    onCategoryClick: (Int) -> Unit, // Cambiado para aceptar solo el ID
 ) {
     Box(
         modifier = Modifier
@@ -107,7 +107,7 @@ fun CategoryColors(
             .clip(RoundedCornerShape(20.dp))
             .background(Color(android.graphics.Color.parseColor(category.color)))
             .clickable {
-                onCategoryClick()
+                onCategoryClick(category.id) // Pasar el ID en lugar del objeto completo
             }
             .border(
                 width = 2.dp,

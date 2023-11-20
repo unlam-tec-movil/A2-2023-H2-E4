@@ -8,24 +8,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Currency
-import ar.edu.unlam.mobile.scaffold.data.transaction.models.Transaction
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
-import ar.edu.unlam.mobile.scaffold.data.transaction.network.repository.CurrencyConversionHTTPRepository
 import ar.edu.unlam.mobile.scaffold.domain.services.CategoryServiceInterface
+import ar.edu.unlam.mobile.scaffold.domain.services.CurrencyConversionServiceInterface
 import ar.edu.unlam.mobile.scaffold.domain.services.CurrencyServiceInterface
 import ar.edu.unlam.mobile.scaffold.domain.services.TransactionServiceInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.singleOrNull
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 @Immutable
 sealed interface TransactionScreenUIState {
@@ -38,14 +31,17 @@ sealed interface TransactionScreenUIState {
     object Loading : TransactionScreenUIState
     data class Error(val message: String) : TransactionScreenUIState
 }
-
+sealed interface TransactionButtonState {
+    object Loading : TransactionButtonState
+    object Finished : TransactionButtonState
+}
 data class TransactionScreenViewState(
     val transactionScreenState: TransactionScreenUIState = TransactionScreenUIState.Loading,
 )
 
 @HiltViewModel
 class AddTransactionScreenViewModel @Inject constructor(
-    private val repository: CurrencyConversionHTTPRepository,
+    private val currencyConversionService: CurrencyConversionServiceInterface,
     private val currencyService: CurrencyServiceInterface,
     private val transactionService: TransactionServiceInterface,
     private val categoryService: CategoryServiceInterface,
@@ -55,6 +51,9 @@ class AddTransactionScreenViewModel @Inject constructor(
         mutableStateOf<TransactionScreenUIState>(TransactionScreenUIState.Loading)
     val transactionScreenUIState: State<TransactionScreenUIState> = _transactionScreenUIState
 
+    private val _transactionButtonState =
+        mutableStateOf<TransactionButtonState>(TransactionButtonState.Finished)
+    val transactionButtonState: State<TransactionButtonState> = _transactionButtonState
     private val _amount = mutableStateOf("")
     val amount: State<String> = _amount
 
@@ -105,64 +104,33 @@ class AddTransactionScreenViewModel @Inject constructor(
     }
 
     fun insertTransaction() {
+        _transactionButtonState.value = TransactionButtonState.Loading
+
         viewModelScope.launch {
             try {
-                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-                val current = LocalDateTime.now().format(formatter)
-                // aca deberia actualizar el amount y transformarlo a pesos argentinos.
-
-                repository.getCurrencyConversion(
-                    selectedCurrency.value!!.code,
-                    "ARS",
-                    "json",
+                currencyConversionService.getCurrencyConversion(
+                    selectedCurrency.value?.code,
                     amount.value,
-                    "45717|jb3r*ko06befntG2Ed~oJdD3chm7CfRB",
-                ).collect {
-                    if (it.status == "OK") {
-                        val convertedValue = it.result.amount
+                    onSuccess = { amount ->
                         transactionService.insertTransaction(
-                            Transaction(
-                                id = 0,
-                                type = selectedTab.value,
-                                category = selectedCategory.value ?: Category(
-                                    0,
-                                    TransactionType.Gastos,
-                                    "Sin categoria",
-                                    "FFFFFF",
-                                ),
-                                currency = selectedCurrency.value ?: Currency(
-                                    0,
-                                    "ARS",
-                                    "Peso Argentino",
-                                ),
-                                amount = convertedValue,
-                                date = current,
-                                description = comment.value,
-                            ),
+                            selectedTab.value,
+                            selectedCategory.value,
+                            selectedCurrency.value,
+                            amount,
+                            comment.value,
                         )
-                    } else {
+                    },
+                    onFailure = {
                         print("Error de conversion")
-                    }
-                }
+                    },
+                )
             } catch (e: Exception) {
-                // Manejar errores si es necesario
                 Log.e("Error", e.message.toString(), e)
-                print("Hubo un error")
             } finally {
+                _transactionButtonState.value = TransactionButtonState.Finished
                 _amount.value = ""
                 _comment.value = ""
             }
-        }
-    }
-
-    fun getCurrencyConversion(
-        source: String,
-        target: String,
-        format: String = "json",
-        quantity: String,
-        apiKey: String = "45717|jb3r*ko06befntG2Ed~oJdD3chm7CfRB",
-    ) {
-        viewModelScope.launch {
         }
     }
 
@@ -170,11 +138,6 @@ class AddTransactionScreenViewModel @Inject constructor(
 
     fun setSelectedCurrency(currency: Currency) {
         _selectedCurrency.value = currency
-    }
-
-    fun setSelectedCategory(category: Category) {
-        _selectedCategory.value = category
-        updateButtonEnabledState()
     }
 
     fun setTab(value: TransactionType) {
@@ -202,19 +165,19 @@ class AddTransactionScreenViewModel @Inject constructor(
         _isButtonEnabled.value =
             _amount.value.isNotEmpty() && _comment.value.isNotEmpty() && _selectedCategory.value != null
     }
-    suspend fun obtenerCategoriaDeFormaSincrona(tuId: Int): Category? {
-        return suspendCoroutine { continuation ->
-            viewModelScope.launch {
-                val result = getCategoriesById(tuId)
-                continuation.resume(result)
+    fun setSelectedCategory(category: Category) {
+        _selectedCategory.value = category
+        updateButtonEnabledState()
+    }
+    fun getCategoriesById(id: Int) {
+        viewModelScope.launch {
+            try {
+                var category: Category = categoryService.getCategoriesById(id).firstOrNull()!!
+                category.let { setSelectedCategory(it) }
+            } catch (e: Exception) {
+                // Manejar errores si es necesario
+                // _selectedCategory.value = null
             }
         }
-    }
-
-    private suspend fun getCategoriesById(id: Int): Category? {
-        return categoryService.getCategoriesById(id)
-            .catch { /* Manejar errores, si es necesario */ }
-            .map { it?.toDomain() } // Usar it?.toDomain() para manejar el caso de null
-            .singleOrNull()
     }
 }

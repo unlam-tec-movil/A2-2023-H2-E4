@@ -7,5 +7,5 @@ interface CategoryServiceInterface {
     suspend fun addCategory(name: String, type: String, colorHex: String)
     suspend fun getAllCategories(): Flow<List<Category>>
     suspend fun getCategoriesByType(type: String): Flow<List<Category>>
-    suspend fun getCategoriesById(id: Int): Flow<Category?>
+    suspend fun getCategoriesById(id: Int): Flow<Category>
 }

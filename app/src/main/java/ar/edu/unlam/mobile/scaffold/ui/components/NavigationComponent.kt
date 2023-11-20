@@ -10,7 +10,6 @@ import ar.edu.unlam.mobile.scaffold.ui.screens.addTransactionScreen.AddTransacti
 import ar.edu.unlam.mobile.scaffold.ui.screens.categoryScreen.AllCategoriesScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.categoryScreen.CategoryScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.chartScreen.ChartScreen
-import ar.edu.unlam.mobile.scaffold.ui.screens.transactionScreen.TransactionScreen
 
 @Composable
 fun NavigationComponent(
@@ -35,11 +34,8 @@ fun NavigationComponent(
         composable(Screens.ChartScreen.route) {
             ChartScreen(controller = navigationController)
         }
-        composable(Screens.TransactionScreen.route) {
-            TransactionScreen(controller = navigationController)
-        }
         composable(Screens.AddTransactionScreen.route) { navBackStackEntry ->
-            val categoryId = navBackStackEntry.arguments?.getInt("categoryId")
+            val categoryId = navBackStackEntry.arguments?.getString("categoryId") ?: ""
             AddTransactionScreen(
                 controller = navigationController,
                 OnselectedCategory = categoryId,

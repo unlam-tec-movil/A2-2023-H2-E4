@@ -30,5 +30,5 @@ interface DaoCategory {
     fun getCategory(): Flow<List<CategoryEntity>>
 
     @Query("SELECT * FROM Category WHERE id = :id")
-    fun getCategoriesById(id: Int): Flow<CategoryEntity?>
+    fun getCategoriesById(id: Int): Flow<CategoryEntity>
 }

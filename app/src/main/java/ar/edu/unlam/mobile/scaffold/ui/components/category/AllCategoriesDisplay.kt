@@ -30,6 +30,7 @@ fun AllCategoriesDisplay(
     categories: List<Category>,
     onSelectable: Boolean = true,
     controller: NavHostController,
+    onCategoryClick: (Category) -> Unit = {},
 ) {
     val uniqueCategories = categories.distinctBy { it.name }
     var selectedCategory by remember { mutableStateOf<Category?>(null) }
@@ -43,17 +44,17 @@ fun AllCategoriesDisplay(
             items(uniqueCategories) { uniqueCategory ->
                 val isSelected = uniqueCategory == selectedCategory
 
-                val modifier = if (onSelectable) {
+                val clickableModifier = if (onSelectable) {
                     Modifier.clickable {
                         selectedCategory = uniqueCategory
-                        controller.navigateUp() // Navegar hacia atrás al hacer clic
+                        onCategoryClick(uniqueCategory)
                     }
                 } else {
                     Modifier
                 }
 
                 Row(
-                    modifier = modifier,
+                    modifier = clickableModifier,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     CategoryColors(
@@ -61,7 +62,8 @@ fun AllCategoriesDisplay(
                         isSelected = isSelected,
                         onCategoryClick = {
                             selectedCategory = uniqueCategory
-                            controller.navigate(Screens.AddTransactionScreen.categoryRoute(uniqueCategory.id))
+                            onCategoryClick(uniqueCategory)
+                            controller.navigate(Screens.AddTransactionScreen.categoryRoute(uniqueCategory.id.toString()))
                         },
                     )
 
