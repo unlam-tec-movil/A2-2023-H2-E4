@@ -29,11 +29,11 @@ fun ListItemRow(item: PieChartInput, viewModel: ChartScreenViewModel) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(5.dp)
+            .padding(5.dp),
     ) {
         Spacer(modifier = Modifier.width(20.dp))
         Column(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         ) {
             Row {
                 Box(
@@ -44,16 +44,16 @@ fun ListItemRow(item: PieChartInput, viewModel: ChartScreenViewModel) {
                         .border(
                             width = 2.dp,
                             color = Color.White,
-                            shape = RoundedCornerShape(20.dp)
-                        )
+                            shape = RoundedCornerShape(20.dp),
+                        ),
                 )
                 Text(
                     item.category.name,
                     textAlign = TextAlign.Left,
                     fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold)
+                    fontWeight = FontWeight.Bold,
+                )
             }
-
         }
         PercentageColumn(item, viewModel)
         TotalAmountColumn(item = item)
@@ -65,13 +65,13 @@ fun PercentageColumn(item: PieChartInput, viewModel: ChartScreenViewModel) {
     Column(
         modifier = Modifier
             .width(100.dp)
-            .fillMaxHeight()
+            .fillMaxHeight(),
     ) {
         Text(
             text = "${viewModel.calcularPorcentaje(item)}%",
             textAlign = TextAlign.Center,
             fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         )
     }
 }
@@ -81,12 +81,13 @@ private fun TotalAmountColumn(item: PieChartInput) {
     Column(
         modifier = Modifier
             .width(100.dp)
-            .fillMaxHeight()
+            .fillMaxHeight(),
     ) {
-        Text("${item.totalAmount}",
+        Text(
+            "${item.totalAmount}",
             textAlign = TextAlign.Right,
             fontSize = 18.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         )
     }
 }
