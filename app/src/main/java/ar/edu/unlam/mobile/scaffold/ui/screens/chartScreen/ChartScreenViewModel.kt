@@ -41,22 +41,22 @@ class ChartScreenViewModel @Inject constructor(
         pieCharInputList.value = calculateTotalAmountPerCategory()
     }
 
-    suspend fun loadTransactionForYear(year: String){
+    suspend fun loadTransactionForYear(year: String) {
         transactionService.getTransactionForYear(year)
             .catch { exception ->
                 println("error al obtener transacciones por año: $exception")
             }
-            .collect{ listaDeTransacciones ->
+            .collect { listaDeTransacciones ->
                 transactionsValue.value = listaDeTransacciones.map { it.toDomain() }
                 loadDatePieChartList()
             }
     }
-    suspend fun loadTransactionForYearAndMonth(year: String, month: String){
+    suspend fun loadTransactionForYearAndMonth(year: String, month: String) {
         transactionService.getTransactionForMonthAndYear(month, year)
             .catch { exception ->
                 println("error al obtener transacciones por año: $exception")
             }
-            .collect{ listaDeTransacciones ->
+            .collect { listaDeTransacciones ->
                 transactionsValue.value = listaDeTransacciones.map { it.toDomain() }
                 loadDatePieChartList()
             }

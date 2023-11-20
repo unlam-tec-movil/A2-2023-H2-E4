@@ -42,6 +42,7 @@ fun Statistics(
             Text(text = "Total", fontSize = 23.sp, color = Color.Black, fontWeight = FontWeight.Bold)
         }
         ShowCategories(data = list, viewModel = viewModel)
+        ShowCategories(list, viewModel)
     }
 }
 
@@ -54,7 +55,7 @@ fun ShowCategories(
         modifier = Modifier
             .fillMaxWidth()
             .height(300.dp)
-            .padding(top = 3.dp)
+            .padding(top = 3.dp),
     ) {
         items(data) { item ->
             ListItemRow(item, viewModel)

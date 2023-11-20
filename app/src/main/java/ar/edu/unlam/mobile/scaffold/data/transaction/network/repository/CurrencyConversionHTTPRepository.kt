@@ -12,14 +12,18 @@ constructor(
     private val api: CurrencyConversionAPI,
 ) : CurrencyConversionNetworkRepository {
     override suspend fun getCurrencyConversion(
-        source: String,
-        target: String,
-        format: String,
+        source: String?,
         quantity: String,
-        apiKey: String,
     ): Flow<CurrencyConversionResponse> {
         return flow {
-            emit(CurrencyConversionResponse(dto = api.getCurrencyConversion(source, target, format, quantity, apiKey)))
+            emit(
+                CurrencyConversionResponse(
+                    dto = api.getCurrencyConversion(
+                        source = source ?: "ARS",
+                        quantity = quantity,
+                    ),
+                ),
+            )
         }
     }
 }

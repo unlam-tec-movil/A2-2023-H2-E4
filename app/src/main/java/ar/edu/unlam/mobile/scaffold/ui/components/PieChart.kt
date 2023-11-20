@@ -39,8 +39,7 @@ fun PieChart(
                 modifier = Modifier
                     .fillMaxSize()
                     .fillMaxWidth()
-                    .pointerInput(true) {
-                    },
+                    .pointerInput(true) {},
             ) {
                 val width = size.width
                 val height = size.height

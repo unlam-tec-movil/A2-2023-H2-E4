@@ -6,7 +6,6 @@ sealed class Screens(val route: String) {
         fun withId(id: Int) = "secondary/$id"
     }
     object ChartScreen : Screens("chartScreen")
-    object TransactionScreen : Screens("transactionScreen")
     object Category : Screens("CreateCategory")
     object AddTransactionScreen : Screens("addTransactionScreen")
 }

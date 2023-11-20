@@ -32,7 +32,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -58,12 +57,12 @@ fun ChartScreen(
             title = {
                 Text(
                     text = "Tus gastos",
-
                     fontWeight = FontWeight.Bold,
                 )
             },
         )
-        Body(viewModel = viewModel, controller = controller)
+
+        Body(viewModel, controller)
         Spacer(modifier = Modifier.height(20.dp))
     }
 }
@@ -80,9 +79,10 @@ fun Body(
     var selectedYear by remember { mutableStateOf(LocalDate.now().year.toString()) }
     var selectedMonth by remember { mutableStateOf("Mes") }
 
-    LaunchedEffect(viewModel, selectedYear,selectedMonth) {
-        if(selectedMonth == "Mes")
+    LaunchedEffect(viewModel, selectedYear, selectedMonth) {
+        if (selectedMonth == "Mes") {
             viewModel.loadTransactionForYear(selectedYear)
+        }
     }
     LaunchedEffect(viewModel, selectedYear, selectedMonth) {
         if (selectedMonth != "Mes") {
@@ -104,7 +104,7 @@ fun Body(
 
         Row(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(),
         ) {
             ExposedDropdownMenuBox(
                 expanded = expandedFilterYear,
@@ -118,7 +118,7 @@ fun Body(
                     readOnly = true,
                     modifier = Modifier
                         .menuAnchor()
-                        .width(100.dp)
+                        .width(100.dp),
                 )
 
                 ExposedDropdownMenu(
@@ -150,7 +150,7 @@ fun Body(
                     modifier = Modifier
                         .menuAnchor()
                         .width(150.dp),
-                    )
+                )
 
                 ExposedDropdownMenu(
                     expanded = expandedFilterMonth,
@@ -182,7 +182,6 @@ fun Body(
                 }
             }
         }
-
         Statistics(list = listPieChartInput, viewModel)
     }
 }

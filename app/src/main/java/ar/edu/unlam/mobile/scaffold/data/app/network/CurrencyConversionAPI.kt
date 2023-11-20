@@ -9,9 +9,9 @@ interface CurrencyConversionAPI {
     @GET("quotes/{source}/{target}/{format}")
     suspend fun getCurrencyConversion(
         @Path("source") source: String,
-        @Path("target") target: String,
-        @Path("format") format: String,
+        @Path("target") target: String = "ARS",
+        @Path("format") format: String = "json",
         @Query("quantity") quantity: String,
-        @Query("key") apiKey: String,
+        @Query("key") apiKey: String = "45717|jb3r*ko06befntG2Ed~oJdD3chm7CfRB",
     ): CurrencyConversionResponseDTO
 }

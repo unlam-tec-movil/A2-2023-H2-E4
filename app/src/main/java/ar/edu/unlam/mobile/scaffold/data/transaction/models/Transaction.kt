@@ -14,6 +14,7 @@ data class Transaction(
     fun toDomain(): Transaction {
         return this
     }
+
     fun toEntity(): TransactionEntity {
         return TransactionEntity(
             id = id,
