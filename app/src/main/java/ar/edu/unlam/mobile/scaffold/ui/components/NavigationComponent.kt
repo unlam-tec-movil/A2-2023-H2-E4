@@ -34,12 +34,8 @@ fun NavigationComponent(
         composable(Screens.ChartScreen.route) {
             ChartScreen(controller = navigationController)
         }
-        composable(Screens.AddTransactionScreen.route) { navBackStackEntry ->
-            val categoryId = navBackStackEntry.arguments?.getString("categoryId") ?: ""
-            AddTransactionScreen(
-                controller = navigationController,
-                OnselectedCategory = categoryId,
-            )
+        composable(Screens.AddTransactionScreen.route) {
+            AddTransactionScreen(controller = navigationController)
         }
     }
 }

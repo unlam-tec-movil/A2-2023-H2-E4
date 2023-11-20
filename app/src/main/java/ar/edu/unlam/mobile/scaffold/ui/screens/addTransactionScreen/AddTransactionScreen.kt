@@ -30,8 +30,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,14 +49,7 @@ import ar.edu.unlam.mobile.scaffold.ui.components.category.CategoryDisplay
 fun AddTransactionScreen(
     controller: NavHostController,
     viewModel: AddTransactionScreenViewModel = hiltViewModel(),
-    OnselectedCategory: String,
 ) {
-    var expanded by remember { mutableStateOf(false) }
-    var id_category by remember { mutableStateOf(0) }
-    if (OnselectedCategory != "categoryId") {
-        id_category = OnselectedCategory.toIntOrNull() ?: 0
-    }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -89,7 +80,6 @@ fun AddTransactionScreen(
                 )
             }
         }
-        Text(text = "$id_category")
         when (val screenState = viewModel.transactionScreenUIState.value) {
             is TransactionScreenUIState.Loading -> {
                 CircularProgressIndicator(
@@ -113,8 +103,7 @@ fun AddTransactionScreen(
                     TextField(
                         value = viewModel.amount.value,
                         onValueChange = {
-                            val filteredValue = it.filter { char -> char.isDigit() }
-                            viewModel.setAmount(filteredValue)
+                            viewModel.setAmount(it)
                         },
                         placeholder = { Text("Ingresa un monto") },
                         keyboardOptions = KeyboardOptions.Default.copy(
@@ -125,29 +114,31 @@ fun AddTransactionScreen(
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     ExposedDropdownMenuBox(
-                        expanded = expanded,
+                        expanded = viewModel.isExpanded.value,
                         onExpandedChange = {
-                            expanded = !expanded
+                            viewModel.setExpanded()
                         },
                     ) {
                         TextField(
-                            value = (viewModel.selectedCurrency.value?.code ?: ""),
-                            onValueChange = { },
-                            readOnly = true,
+                            value = viewModel.searchText.value,
+                            placeholder = { Text("ARS") },
+                            onValueChange = { viewModel.setSearchText(it) },
+                            readOnly = false,
                             modifier = Modifier
                                 .menuAnchor()
                                 .width(100.dp),
                         )
                         ExposedDropdownMenu(
-                            expanded = expanded,
-                            onDismissRequest = { expanded = false },
+                            expanded = viewModel.isExpanded.value,
+                            onDismissRequest = { viewModel.setExpanded() },
                         ) {
-                            currencies.forEach { currency ->
+                            viewModel.filteredCurrencies.value.forEach { currency ->
                                 DropdownMenuItem(
                                     text = { Text(text = currency.code) },
                                     onClick = {
                                         viewModel.setSelectedCurrency(currency)
-                                        expanded = false
+                                        viewModel.setExpanded()
+//                                            Toast.makeText(context, currency.code, Toast.LENGTH_SHORT).show()
                                     },
                                 )
                             }
@@ -174,10 +165,7 @@ fun AddTransactionScreen(
                 Text(text = "Comentario")
                 TextField(
                     value = viewModel.comment.value,
-                    onValueChange = {
-                        val filteredValue = it.filter { char -> char.isDigit() }
-                        viewModel.setComment(filteredValue)
-                    },
+                    onValueChange = { viewModel.setComment(it) },
                     placeholder = { Text("Ingresa un comentario") },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -193,7 +181,7 @@ fun AddTransactionScreen(
                 Text("Error: ${screenState.message}")
             }
         }
-        Spacer(modifier = Modifier.weight(1f)) // Esto asegura que el botón siempre esté en la parte inferior
+        Spacer(modifier = Modifier.weight(1f))
 
         Button(
             modifier = Modifier
@@ -230,8 +218,7 @@ fun AddTransactionScreen(
         }
     }
 
-    LaunchedEffect(Unit, id_category) {
+    LaunchedEffect(Unit) {
         viewModel.loadData()
-        viewModel.getCategoriesById(id_category)
     }
 }

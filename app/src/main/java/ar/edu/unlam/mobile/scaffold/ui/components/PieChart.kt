@@ -38,7 +38,8 @@ fun PieChart(
             Canvas(
                 modifier = Modifier
                     .fillMaxSize()
-                    .pointerInput(true) { },
+                    .fillMaxWidth()
+                    .pointerInput(true) {},
             ) {
                 val width = size.width
                 val height = size.height
@@ -83,14 +84,14 @@ fun PieChart(
                     radius = innerRadius.times(transparentwidth).div(2f),
                 )
             }
-            TextCenter(text = "$$totalSum", innerRadius = innerRadius)
+            TextCenterCircle(total = totalSum, innerRadius = innerRadius)
         }
     }
 }
 
 @Composable
-fun TextCenter(
-    text: String,
+fun TextCenterCircle(
+    total: Double,
     innerRadius: Float,
 ) {
     Column(
@@ -104,7 +105,7 @@ fun TextCenter(
             fontSize = 45.sp,
         )
         Text(
-            text = text,
+            text = "$$total",
             fontWeight = FontWeight.SemiBold,
             fontSize = 25.sp,
         )

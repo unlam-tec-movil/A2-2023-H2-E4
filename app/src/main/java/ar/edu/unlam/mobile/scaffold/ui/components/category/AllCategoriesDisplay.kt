@@ -23,7 +23,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
-import ar.edu.unlam.mobile.scaffold.data.transaction.models.Screens
 
 @Composable
 fun AllCategoriesDisplay(
@@ -63,7 +62,7 @@ fun AllCategoriesDisplay(
                         onCategoryClick = {
                             selectedCategory = uniqueCategory
                             onCategoryClick(uniqueCategory)
-                            controller.navigate(Screens.AddTransactionScreen.categoryRoute(uniqueCategory.id.toString()))
+                            controller.navigateUp()
                         },
                     )
 
