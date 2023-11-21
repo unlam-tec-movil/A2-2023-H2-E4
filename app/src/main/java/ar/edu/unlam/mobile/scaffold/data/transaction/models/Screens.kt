@@ -7,6 +7,9 @@ sealed class Screens(val route: String) {
     }
     object ChartScreen : Screens("chartScreen")
     object Category : Screens("CreateCategory")
+    object AllCategories : Screens("AllCategories/{type}") {
+        fun withType(type: String) = "AllCategories/$type"
+    }
     object AddTransactionScreen : Screens("addTransactionScreen")
     object TransactionDisplayerScreen : Screens("transactionDisplayerScreen")
     object TransactionDetailsScreen : Screens("transactionDetailsScreen/{id}") {

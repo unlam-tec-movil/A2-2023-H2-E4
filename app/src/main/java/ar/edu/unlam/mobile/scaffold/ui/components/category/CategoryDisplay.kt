@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,10 +25,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.Category
-import ar.edu.unlam.mobile.scaffold.data.transaction.models.TransactionType
 
 @Composable
 fun CategoryDisplay(
@@ -63,7 +63,8 @@ fun CategoryDisplay(
 
                 Column(
                     modifier = Modifier
-                        .align(Alignment.CenterHorizontally),
+                        .align(Alignment.CenterHorizontally)
+                        .padding(start = 14.dp),
                 ) {
                     CategoryColors(
                         category = uniqueCategory,
@@ -74,14 +75,16 @@ fun CategoryDisplay(
                         },
                     )
                     Text(
-                        text = "${uniqueCategory.name}",
+                        text = uniqueCategory.name,
                         fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                        color = Color.Black,
+                        color = if (isSelected) MaterialTheme.colorScheme.primary else Color.Unspecified,
+                        overflow = TextOverflow.Ellipsis, // Esto cortará el texto si se desborda
+                        maxLines = 1,
+                        modifier = Modifier.padding(horizontal = 0.dp, vertical = 2.dp),
                     )
                 }
             }
         }
-
         if (uniqueCategories.size > maxDisplayedCategories) {
             Button(
                 onClick = onMoreButtonClick,
@@ -101,6 +104,8 @@ fun CategoryColors(
     isSelected: Boolean,
     onCategoryClick: () -> Unit,
 ) {
+    val borderColor = if (isSelected) MaterialTheme.colorScheme.primary else Color.Transparent
+
     Box(
         modifier = Modifier
             .size(40.dp)
@@ -111,33 +116,8 @@ fun CategoryColors(
             }
             .border(
                 width = 2.dp,
-                color = if (isSelected) Color.Black else Color.Transparent,
+                color = borderColor,
                 shape = RoundedCornerShape(20.dp),
             ),
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CategoryDisplayPreview() {
-    val categories = listOf(
-        Category(1, TransactionType.Ingresos, "Category1", "#FF5733"),
-        Category(2, TransactionType.Gastos, "Category2", "#33FF57"),
-        Category(3, TransactionType.Ingresos, "Category3", "#5733FF"),
-        Category(4, TransactionType.Ingresos, "Category4", "#FF5733"),
-        Category(5, TransactionType.Gastos, "Category5", "#33FF57"),
-        Category(6, TransactionType.Ingresos, "Category6", "#5733FF"),
-        Category(7, TransactionType.Ingresos, "Category7", "#5733FF"),
-        Category(8, TransactionType.Ingresos, "Category8", "#5733FF"),
-        Category(9, TransactionType.Ingresos, "Category9", "#5733FF"),
-    )
-
-    CategoryDisplay(
-        categories = categories,
-        onSelectable = false, // Opcional, por defecto es true
-        maxDisplayedCategories = 8,
-        moreButtonText = "Mostrar todas",
-        onMoreButtonClick = { /* Lógica al hacer clic en "Ver más" */ },
-        onCategoryClick = { /* Lógica al hacer clic en una categoría */ },
     )
 }
