@@ -8,4 +8,8 @@ sealed class Screens(val route: String) {
     object ChartScreen : Screens("chartScreen")
     object Category : Screens("CreateCategory")
     object AddTransactionScreen : Screens("addTransactionScreen")
+    object TransactionDisplayerScreen : Screens("transactionDisplayerScreen")
+    object TransactionDetailsScreen : Screens("transactionDetailsScreen/{id}") {
+        fun withId(id: Int) = "transactionDetailsScreen/$id"
+    }
 }

@@ -20,4 +20,6 @@ interface TransactionServiceInterface {
     suspend fun getTransactionForMonth(month: String): Flow<List<Transaction>>
 
     suspend fun getTransactionForMonthAndYear(month: String, year: String): Flow<List<Transaction>>
+
+    suspend fun getTransactionById(id: Int): Flow<Transaction>
 }

@@ -44,6 +44,11 @@ class TransactionService(
     ): Flow<List<Transaction>> {
         return repository.getTransactionForMonthAndYear(month, year)
     }
+
+    override suspend fun getTransactionById(id: Int): Flow<Transaction> {
+        return repository.getTransactionById(id)
+    }
+
     private fun createTransaction(
         type: TransactionType,
         category: Category?,

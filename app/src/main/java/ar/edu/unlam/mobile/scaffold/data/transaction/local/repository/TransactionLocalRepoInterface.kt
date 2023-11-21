@@ -11,5 +11,8 @@ interface TransactionLocalRepoInterface {
 
     fun getTransactionForMonthAndYear(month: String, year: String): Flow<List<TransactionWithDetails>>
     suspend fun getAllTransactions(): Flow<List<TransactionWithDetails>>
+
     suspend fun addTransaction(transaction: TransactionEntity)
+
+    suspend fun getTransactionById(id: Int): Flow<TransactionWithDetails>
 }

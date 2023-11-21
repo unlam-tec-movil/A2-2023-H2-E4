@@ -201,16 +201,16 @@ class AddTransactionScreenViewModel @Inject constructor(
     private fun filterCurrencies(filter: String) {
         if (filter.isEmpty()) {
             _filteredCurrencies.value = _currencies.value
-            reOpenDropDownMenu()
+            refreshDropDownMenu()
             return
         }
         _filteredCurrencies.value = _currencies.value.filter { currency ->
             currency.code.startsWith(filter, ignoreCase = true)
         }
-        reOpenDropDownMenu()
+        refreshDropDownMenu()
     }
 
-    private fun reOpenDropDownMenu() {
+    private fun refreshDropDownMenu() {
         _isExpanded.value = false
         _isExpanded.value = true
     }
