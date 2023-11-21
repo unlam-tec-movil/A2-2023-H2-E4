@@ -1,10 +1,13 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,7 +22,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffold.data.transaction.models.PieChartInput
-import androidx.compose.material3.Text as Text
 @Composable
 fun PieChart(
     data: List<PieChartInput>,
@@ -28,6 +30,8 @@ fun PieChart(
     transparentwidth: Float = 70f,
 ) {
     val totalSum = data.sumOf { it.totalAmount }
+    val isSystemInDarkTheme = isSystemInDarkTheme()
+
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -66,10 +70,16 @@ fun PieChart(
                         currentStarAngle += angleToDraw
                     }
                 }
-                val paint = android.graphics.Paint().also {
-                    it.color = Color.White.copy(alpha = 0.6f).toArgb()
-                    it.setShadowLayer(10f, 0f, 0f, Color.Gray.toArgb())
+
+                val paint = android.graphics.Paint().apply {
+                    color = if (isSystemInDarkTheme) {
+                        Color.Unspecified.copy(alpha = 0.6f).toArgb()
+                    } else {
+                        Color.White.copy(alpha = 0.6f).toArgb()
+                    }
+                    setShadowLayer(10f, 0f, 0f, Color.Gray.toArgb())
                 }
+
                 drawContext.canvas.nativeCanvas.apply {
                     drawCircle(
                         circleCenter.x,
@@ -103,11 +113,13 @@ fun TextCenterCircle(
             text = "Total",
             fontWeight = FontWeight.SemiBold,
             fontSize = 45.sp,
+            color = MaterialTheme.colorScheme.primary,
         )
         Text(
             text = "$$total",
             fontWeight = FontWeight.SemiBold,
             fontSize = 25.sp,
+            color = MaterialTheme.colorScheme.primary,
         )
     }
 }

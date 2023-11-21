@@ -103,7 +103,7 @@ fun TransactionDisplayerScreen(
                                             colorText = Color.Green
                                         } else {
                                             typeText = String.format("-$ %.2f", transactions[it].amount)
-                                            colorText = Color.Black
+                                            colorText = MaterialTheme.colorScheme.primary
                                         }
                                         Text(
                                             text = typeText,

@@ -20,7 +20,7 @@ fun CategoryRadioButton(
     selectedOption: String,
     onOptionSelected: (String) -> Unit,
 ) {
-    val radioOptions = listOf("Ingresos", "Gastos")
+    val radioOptions = listOf("Gastos", "Ingresos")
 
     Row(
         Modifier.fillMaxWidth(),

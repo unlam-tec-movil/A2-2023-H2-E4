@@ -147,8 +147,10 @@ fun AddTransactionScreen(
                         }
                     }
                 }
-
-                Text(text = "Categorías")
+                Text(
+                    text = "Categorías",
+                    modifier = Modifier.padding(start = 20.dp),
+                )
                 CategoryDisplay(
                     categories = categories,
                     onSelectable = true,
@@ -158,7 +160,10 @@ fun AddTransactionScreen(
                     onCategoryClick = { viewModel.setSelectedCategory(it) },
                 )
 
-                Text(text = "Comentario")
+                Text(
+                    text = "Comentario",
+                    modifier = Modifier.padding(start = 20.dp),
+                )
                 TextField(
                     value = viewModel.comment.value,
                     onValueChange = { viewModel.setComment(it) },
@@ -172,13 +177,11 @@ fun AddTransactionScreen(
                         ),
                 )
             }
-
             is TransactionScreenUIState.Error -> {
                 Text("Error: ${(viewModel.transactionScreenUIState.value as TransactionScreenUIState.Error).message}")
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-
         Button(
             modifier = Modifier
                 .fillMaxWidth()
