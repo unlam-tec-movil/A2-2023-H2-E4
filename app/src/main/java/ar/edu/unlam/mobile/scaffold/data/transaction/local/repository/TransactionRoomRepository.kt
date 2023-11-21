@@ -20,6 +20,12 @@ class TransactionRoomRepository @Inject constructor(
         daoTransaction.insertTransaction(transaction)
     }
 
+    override suspend fun getTransactionById(id: Int): Flow<TransactionWithDetails> {
+        return flow {
+            emit(daoTransaction.getTransactionById(id))
+        }
+    }
+
     override fun getTransactionForYear(year: String): Flow<List<TransactionWithDetails>> {
         return daoTransaction.getTransactionForYear(year)
     }

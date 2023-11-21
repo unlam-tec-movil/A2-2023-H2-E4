@@ -1,7 +1,8 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -38,12 +39,26 @@ fun BottomBar(controller: NavHostController) {
             onClick = { controller.navigate(Screens.Category.route) },
             icon = {
                 Icon(
-                    imageVector = Icons.Default.AddCircle,
+                    imageVector = Icons.Default.ShoppingCart,
                     contentDescription = "CategoryScreen",
                     tint = MaterialTheme.colorScheme.primary,
                 )
             },
-            label = { Text(text = "categories") },
+            label = { Text(text = "Categorias") },
+        )
+
+        NavigationBarItem(
+
+            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screens.TransactionDisplayerScreen.route } == true,
+            onClick = { controller.navigate(Screens.TransactionDisplayerScreen.route) },
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.List,
+                    contentDescription = "Transacciones",
+                    tint = MaterialTheme.colorScheme.primary,
+                )
+            },
+            label = { Text(text = "Transacciones") },
         )
     }
 }

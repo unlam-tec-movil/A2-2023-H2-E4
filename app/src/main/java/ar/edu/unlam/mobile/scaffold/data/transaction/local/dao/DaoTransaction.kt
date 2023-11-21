@@ -18,8 +18,8 @@ interface DaoTransaction {
     @Insert
     suspend fun insertTransaction(transaction: TransactionEntity)
 
-    @Query("SELECT * FROM `Transaction` WHERE id = :id")
-    suspend fun getTransactionById(id: Int): TransactionEntity?
+//    @Query("SELECT * FROM `Transaction` WHERE id = :id")
+//    suspend fun getTransactionById(id: Int): TransactionEntity?
 
     @Query("DELETE FROM `Transaction` WHERE id = :id")
     suspend fun deleteTransactionById(id: Int)
@@ -29,7 +29,6 @@ interface DaoTransaction {
 
     @Transaction
     @Query(
-        /* value = */
         "SELECT t.id as id, t.transaction_type, c.id as category_id, cu.id as currency_id, t.amount as amount, t.date as date, t.description as description FROM `Transaction` t INNER JOIN `Category` c ON t.category_id = c.id INNER JOIN `Currency` cu ON t.currency_id = cu.id",
     )
     suspend fun getTransaction(): List<TransactionWithDetails>
@@ -60,4 +59,10 @@ interface DaoTransaction {
         "SELECT t.transaction_type, t.id as id, c.id as category_id, cu.id as currency_id, t.amount as amount, t.date as date, t.description as description FROM `Transaction` t INNER JOIN `Category` c ON t.category_id = c.id INNER JOIN `Currency` cu ON t.currency_id = cu.id WHERE strftime('%m', t.date) = :month AND strftime('%Y', t.date) = :year",
     )
     fun getTransactionForMonthAndYear(month: String, year: String): Flow<List<TransactionWithDetails>>
+
+    @Transaction
+    @Query(
+        "SELECT t.id as id, t.transaction_type, c.id as category_id, cu.id as currency_id, t.amount as amount, t.date as date, t.description as description FROM `Transaction` t INNER JOIN `Category` c ON t.category_id = c.id INNER JOIN `Currency` cu ON t.currency_id = cu.id WHERE t.id = :transactionId",
+    )
+    suspend fun getTransactionById(transactionId: Int): TransactionWithDetails
 }

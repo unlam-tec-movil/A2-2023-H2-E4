@@ -49,4 +49,10 @@ class TransactionDefaultRepository @Inject constructor(
             }
         }
     }
+
+    override suspend fun getTransactionById(id: Int): Flow<Transaction> {
+        return transactionLocalRepo.getTransactionById(id).map {
+            it.toDomain()
+        }
+    }
 }
