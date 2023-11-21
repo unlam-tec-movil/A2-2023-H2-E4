@@ -22,4 +22,37 @@ class TransactionDefaultRepository @Inject constructor(
             }
         }
     }
+
+    override suspend fun getTransactionForYear(year: String): Flow<List<Transaction>> {
+        return transactionLocalRepo.getTransactionForYear(year).map { list ->
+            list.map {
+                it.toDomain()
+            }
+        }
+    }
+
+    override suspend fun getTransactionForMonth(month: String): Flow<List<Transaction>> {
+        return transactionLocalRepo.getTransactionForMonth(month).map { list ->
+            list.map {
+                it.toDomain()
+            }
+        }
+    }
+
+    override suspend fun getTransactionForMonthAndYear(
+        month: String,
+        year: String,
+    ): Flow<List<Transaction>> {
+        return transactionLocalRepo.getTransactionForMonthAndYear(month, year).map { list ->
+            list.map {
+                it.toDomain()
+            }
+        }
+    }
+
+    override suspend fun getTransactionById(id: Int): Flow<Transaction> {
+        return transactionLocalRepo.getTransactionById(id).map {
+            it.toDomain()
+        }
+    }
 }
